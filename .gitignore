@@ -1,3 +1,4 @@
 node_modules
 semantic
 semantic.json
+.DS_Store
