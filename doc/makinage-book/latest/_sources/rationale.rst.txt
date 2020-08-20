@@ -5,9 +5,31 @@ Maki Nage is a framework designed to work on streaming data. A Maki Nage
 application takes a stream of events as input, applies some transformations on
 these events, and returns another stream of events:  
 
-.. image:: images/transformations.png
-   :align: center
-   :scale: 60%
+.. tabs::
+
+   .. tab:: Reactivity diagram
+
+      .. image:: images/transformations.png
+         :align: center
+         :scale: 60%
+
+   .. code-tab:: py
+
+      import rx
+      import rxsci as rs
+
+      source = [1, 2, 3, 4, 5, 6, 7]
+
+      rx.from_(source).pipe(
+         rs.ops.multiplex(rx.pipe(
+            rs.data.roll(window=3, stride=3, pipeline=rx.pipe(
+                  rs.math.mean(reduce=True),
+            )),
+         )),
+      ).subscribe(
+         on_next=print
+      )
+
 
 Maki Nage leverages two other projects as a foundation:
 
