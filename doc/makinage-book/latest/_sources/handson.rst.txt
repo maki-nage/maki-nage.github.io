@@ -5,6 +5,6 @@ Handson
    :maxdepth: 2
    :name: handson
 
-   handson_iris
+   handson_home
    handson_lanl
    handson_lanl_online
