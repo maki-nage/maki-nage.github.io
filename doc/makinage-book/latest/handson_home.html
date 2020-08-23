@@ -171,11 +171,20 @@
             
   <div class="section" id="home-energy-consumption">
 <h1>Home Energy Consumption<a class="headerlink" href="#home-energy-consumption" title="Permalink to this headline">¶</a></h1>
+<p>In this first tutorial, we see how to use maki-nage for basic feature
+engineering, and how to deploy a model operating in streaming mode. The task of
+this tutorial is a regression: We will predict the power consumption of a house
+, based on weather information.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Maki Nage is designed to work efficiently with <a class="reference external" href="https://www.pypy.org/">pypy</a>. Please ensure that you use is as your interpreter
+for better performances.</p>
+</div>
 <div class="section" id="the-dataset">
 <h2>The dataset<a class="headerlink" href="#the-dataset" title="Permalink to this headline">¶</a></h2>
 <p>On this example we will work on the <em>Smart Home Dataset</em>. It can be downloaded from
 kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart-home-dataset-with-weather-information">here</a>.</p>
-<p>The dataset is a csv file, its content looks like this:</p>
+<p>The dataset is a csv file of 130MB, its content looks like this:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> head HomeC.csv
 <span class="go">time,use [kW],gen [kW],House overall [kW],Dishwasher [kW],Furnace 1 [kW],Furnace 2 [kW],Home office [kW],Fridge [kW],Wine cellar [kW],Garage door [kW],Kitchen 12 [kW],Kitchen 14 [kW],Kitchen 38 [kW],Barn [kW],Well [kW],Microwave [kW],Living room [kW],Solar [kW],temperature,icon,humidity,visibility,summary,apparentTemperature,pressure,windSpeed,cloudCover,windBearing,precipIntensity,dewPoint,precipProbability</span>
 <span class="go">1451624400,0.932833333,0.003483333,0.932833333,3.33E-05,0.0207,0.061916667,0.442633333,0.12415,0.006983333,0.013083333,0.000416667,0.00015,0,0.03135,0.001016667,0.004066667,0.001516667,0.003483333,36.14,clear-night,0.62,10,Clear,29.26,1016.91,9.18,cloudCover,282,0,24.4,0</span>
@@ -183,6 +192,14 @@ kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart
 <span class="go">1451624402,0.931816667,0.003466667,0.931816667,1.67E-05,0.0207,0.062316667,0.446066667,0.123533333,0.006983333,0.013083333,0.000433333,0.000166667,1.67E-05,0.031516667,0.001,0.004066667,0.00165,0.003466667,36.14,clear-night,0.62,10,Clear,29.26,1016.91,9.18,cloudCover,282,0,24.4,0</span>
 </pre></div>
 </div>
+<p>For simplicity, We will only few columns:</p>
+<ul class="simple">
+<li><p>House overall: This is the label we want to predict, the total energy consumption of the house.</p></li>
+<li><p>temperature: The weather temperature in °F.</p></li>
+<li><p>pressure: The atmospheric pressure in hPA.</p></li>
+<li><p>windSpeed: The wind speed.</p></li>
+</ul>
+<p>We will use the following imports:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">import</span> <span class="nn">rx</span>
 <span class="kn">import</span> <span class="nn">rx.operators</span> <span class="k">as</span> <span class="nn">ops</span>
@@ -191,6 +208,15 @@ kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart
 <span class="kn">import</span> <span class="nn">distogram</span>
 </pre></div>
 </div>
+<p>The recommended data type when working with Maki Nage is namedtuple, hence the
+first import. Then there are two RxPy imports. Since Maki Nage is based on
+ReactiveX, we will use some ReactiveX operators. Then is the main RxSci import,
+and another one to work with csv files. RxSci is the Maki Nage library that
+implements all transformation functions. It is the library that you will mostly
+use in a Maki Nage application. The final import is used for the data
+exploration phase, when computing statisctis on the data distributions.</p>
+<p>With these import, we can start a template code that will read the csv file. The
+first step consists in defining the schema of the csv file:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;/opt/dataset/HomeC.csv&#39;</span>
 <span class="n">parser</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">create_line_parser</span><span class="p">(</span>
     <span class="n">dtype</span><span class="o">=</span><span class="p">[</span>
@@ -230,26 +256,66 @@ kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>Then, loading and processing its content is done the following way:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>Many things happen on this single line: The <em>load_from_file</em> function is a
+factory operator that creates an Observable from the content of the csv file. An
+Observable is the term used for a stream of events. The Observable will emit one
+item - one event - for each line of the csv file. The <em>load_from_file</em> operator
+takes two arguments: the path of the csv file, and its schema.</p>
+<p>The pipe operator one of the two operators that you will use most frequently: It
+allows to create chaines of operators, so that data transformations can be done
+in a sequential way. For now, no sequence is provided, so no transformation is
+done.</p>
+<p>Finally the run operator subscribes to the Observable. Calling it triggers that
+actual execution of the whole computation graph.</p>
+<p>No that we have our csv dataset available as an Observable, let’s work on it!</p>
 </div>
 <div class="section" id="data-exploration">
 <h2>Data Exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overall-consumption">
+<h3>Overall Consumption<a class="headerlink" href="#overall-consumption" title="Permalink to this headline">¶</a></h3>
+<p>As a first step, let’s compute some statistics on the <em>house overall</em> column,
+and plot its histogram. For these two steps, we need to compute a compressed
+representation of the data distribution. This is done by creating a graph that
+consists in two operators:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
     <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="section" id="overall-consumption">
-<h3>Overall Consumption<a class="headerlink" href="#overall-consumption" title="Permalink to this headline">¶</a></h3>
+<p>The map operator applies a transformation function for each item emitted by the
+source Observable. Note that all operators take observables as input and return
+Observables as output. This allows to chain operators very easily.</p>
+<p>The second operator is <em>math.dist.update</em>. It computes a compressed
+representation of the data distribution that can be used to compute statistics
+on it, such as mean, variance, and quantiles. The reduce parameter indicates
+that we want the operator to emit an item only when the source Observable
+completes, i.e. when all items have been processed. The default behavior is to
+emit a distribution object for each item received as input.</p>
+<p>As said previously, the run operator subscribes to the resulting Observable.
+Moreover, it return that last item emitted. On our graph, this is the
+distribution object.</p>
+<p>From this object, we can do several statistic analysis. Computing classical
+statistical information is done with the <em>describe</em> operator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;house overall consumption statistics:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">just</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">describe</span><span class="p">(),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
 </pre></div>
 </div>
+<p>Note that we still have the same structure here, always working with
+Observables: First an observable is created from the dist object, with the
+<em>just</em> operator. This observable will emit a single item. This may seem
+unnecessarily complex at first, but when working in a streaming way, this is
+just a particular case of stream. The important point is that all the operators
+that we use work on Observables, weather they emit no item, some items, or an
+inifinite number of items.</p>
+<p>The <em>math.dist.describe</em> operator emits a namedtuple with the following
+statistics for each item it receives:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 32%" />
@@ -279,13 +345,21 @@ kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart
 </tr>
 </tbody>
 </table>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span> <span class="o">=</span> <span class="n">distogram</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
-<span class="n">df_hist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hist</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">])</span>
+<p>Another kind of information that can be computed from the dist object is the
+histogram of the distribution. For this, we use once again the same pattern:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_hist</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">just</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">histogram</span><span class="p">(),</span>
+    <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">])),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
 <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df_hist</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;house consumption&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>The <em>math.dist.histogram</em> operator computes the histogram of the distribution.
+Then this histogram object is mapped to a pandas dataframe so that it can be
+used by plotly. The resulting plot is:</p>
 <a class="reference internal image-reference" href="_images/home_house_consumption.png"><img alt="_images/home_house_consumption.png" class="align-center" src="_images/home_house_consumption.png" style="width: 560.0px; height: 360.0px;" /></a>
 </div>
 <div class="section" id="multiple-variable-exploration">
