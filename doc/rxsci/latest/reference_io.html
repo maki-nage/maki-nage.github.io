@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IO &mdash; rxsci 0.6.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="reference_utilities.html" />
+    <link rel="prev" title="Data" href="reference_data.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> rxsci
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="reference_math_formal.html">Formal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_math_dist.html">Distributed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_container.html">Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_data.html">Data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_utilities.html">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_framing.html">Framing</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rxsci</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="reference.html">Reference</a> &raquo;</li>
+        
+      <li>IO</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/reference_io.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-rxsci.io">
+<span id="io"></span><h1>IO<a class="headerlink" href="#module-rxsci.io" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="rxsci.io.read">
+<code class="sig-prename descclassname">rxsci.io.</code><code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'r'</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">transport_params</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.io.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the content of a file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – the path of the file to read</p></li>
+<li><p><strong>mode</strong> – how the file must be opened. either ‘r’ to read text or ‘rb’ to
+read binary</p></li>
+<li><p><strong>size</strong> – [Optional] If set file if read by chunks of this size</p></li>
+<li><p><strong>encoding</strong> – [Optional] text encoding to use when reading in text mode</p></li>
+<li><p><strong>transport_params</strong> – [Optional] When smart-open is used, then this
+parameter is used to provide additional configuration information</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable where each item is a chunk of data, or the whole
+file if no size has been set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.io.walk">
+<code class="sig-prename descclassname">rxsci.io.</code><code class="sig-name descname">walk</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">top</span></em>, <em class="sig-param"><span class="n">recursive</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.io.walk" title="Permalink to this definition">¶</a></dt>
+<dd><p>lists the content of a directory</p>
+<p>Returns an observable emitting the files present in top directory and
+sub-directories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>top</strong> – The directory to walk</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Observable emitting string path items</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.io.write">
+<code class="sig-prename descclassname">rxsci.io.</code><code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'wb'</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">transport_params</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.io.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the content of a file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – the path of the file to read</p></li>
+<li><p><strong>mode</strong> – how the file must be opened. either ‘r’ to read text or ‘rb’ to
+read binary</p></li>
+<li><p><strong>size</strong> – [Optional] If set file if read by chunks of this size</p></li>
+<li><p><strong>encoding</strong> – [Optional] text encoding to use when reading in text mode</p></li>
+<li><p><strong>transport_params</strong> – [Optional] When smart-open is used, then this
+parameter is used to provide additional configuration information</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable where eeach item is a chunk of data, or the while
+file if no size has been set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reference_utilities.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="reference_data.html" class="btn btn-neutral float-left" title="Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, R. Picard
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

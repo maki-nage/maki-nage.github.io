@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Formal Math &mdash; rxsci 0.6.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Distributed Math" href="reference_math_dist.html" />
+    <link rel="prev" title="Math" href="reference_math.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> rxsci
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Formal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_math_dist.html">Distributed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_container.html">Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_io.html">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_utilities.html">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_framing.html">Framing</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rxsci</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="reference_math.html">Math</a> &raquo;</li>
+        
+      <li>Formal Math</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/reference_math_formal.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="formal-math">
+<h1>Formal Math<a class="headerlink" href="#formal-math" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the exact - formal - implementation of the estimation
+algorithms present in the rxsci.math module. Use them with caution because their
+precision usually come with either a significant impact on performances, either
+with usage restrictions.</p>
+<span class="target" id="module-rxsci.math.formal"></span><dl class="py function">
+<dt id="rxsci.math.formal.stddev">
+<code class="sig-prename descclassname">rxsci.math.formal.</code><code class="sig-name descname">stddev</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.formal.stddev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes standard deviation</p>
+<p>The implementation is based on the formal definition of the standard
+deviation. This implies that all items are cached in memory to do the
+computation. Use the rxsci.math.stddev operator to compute standard
+deviation on a large observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the standard deviation.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting standard deviation of source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.formal.variance">
+<code class="sig-prename descclassname">rxsci.math.formal.</code><code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.formal.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the variance of the items emitted in the source observable.</p>
+<p>The implementation is based on the formal definition of the variance.
+This implies that all items are cached in memory to do the computation.
+Use the rxsci.math.variance operator to compute varianc on a large
+observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the variance.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting variance of source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reference_math_dist.html" class="btn btn-neutral float-right" title="Distributed Math" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="reference_math.html" class="btn btn-neutral float-left" title="Math" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, R. Picard
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

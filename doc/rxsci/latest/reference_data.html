@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data &mdash; rxsci 0.6.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="IO" href="reference_io.html" />
+    <link rel="prev" title="Container" href="reference_container.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> rxsci
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="reference_math_formal.html">Formal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_math_dist.html">Distributed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_container.html">Container</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_io.html">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_utilities.html">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference_framing.html">Framing</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rxsci</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="reference.html">Reference</a> &raquo;</li>
+        
+      <li>Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/reference_data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-rxsci.data">
+<span id="data"></span><h1>Data<a class="headerlink" href="#module-rxsci.data" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="rxsci.data.clip">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">clip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">higher_bound</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.clip" title="Permalink to this definition">¶</a></dt>
+<dd><p>clip values between lower_bound (included) and higher_bound (included)</p>
+<p class="marble">
+<img src="_images/marble-5a94b6ed266664bdcfe83fd8b6d88ab514e9e288.png" alt="clip"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError if no bound is provided</strong><strong> or </strong><strong>lower_bound is bigger than</strong> – higher_bound</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.data.fill_none">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">fill_none</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.fill_none" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces None values with value</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.data.lag">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">lag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffers a lag of size on source items</p>
+<blockquote>
+<div><p class="marble">
+<img src="_images/marble-429f57540612a13287793198aca249a06f0ae2e7.png" alt="lag"/>
+</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> – [Optional] size of the lag.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable where each item is a tuple of (lag, current) items. On
+the first iterations, the item (first, current) is emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.data.lag1">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">lag1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffers a lag of 1 on source items</p>
+<blockquote>
+<div><p class="marble">
+<img src="_images/marble-4c6917b85e9bdf60382fef8d92bb0d322454a440.png" alt="lag"/>
+</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable where each item is a tuple of (lag, current) items. On
+the first iteration, the item (current, current) is emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.data.roll">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">roll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">stride</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.roll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Projects each element of an observable sequence into zero or more
+windows which are produced based on element window information.</p>
+<p class="marble">
+<img src="_images/marble-fff40cb351c4baecb6c68870b57c886072b1cfbf.png" alt="roll"/>
+</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window</strong> – Length of each window.</p></li>
+<li><p><strong>stride</strong> – Number of elements to step between creation of
+consecutive windows.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable sequence of windows.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError if window</strong><strong> or </strong><strong>step is negative</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.data.sort">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">sort</code><span class="sig-paren">(</span><em class="sig-param">key=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>sort items according to key</p>
+<p>Items are sorted in ascending order.</p>
+<p>Impementation note: This operator caches all the items of the source
+observable before sorting them. It can be used ONLY on BATCH source, and
+consumes a lot of memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> – [Optional] function used to extract the sorting key on each item.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the sorted items of the source observable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.data.split">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicate</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split an observable based on a predicate criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>predicate</strong> – A function called for each item, that returns the split
+criteria.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A higher order observable returning on observable for each split criteria.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.data.to_deque">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">to_deque</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">extend</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.to_deque" title="Permalink to this definition">¶</a></dt>
+<dd><p>flattens list items to a deque fifo and publish them when the source
+observable completes.</p>
+<p>This buffers and emits the items of the source observable as is. Items on
+the deque are pop as they are emitted. This is useful when working on
+batch data since it allows to dereference items as they are processed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>extend</strong> – [Optional] When set to true, the deque is extended for each
+item received. The default behavior is to append items to the deque.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reference_io.html" class="btn btn-neutral float-right" title="IO" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="reference_container.html" class="btn btn-neutral float-left" title="Container" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, R. Picard
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
