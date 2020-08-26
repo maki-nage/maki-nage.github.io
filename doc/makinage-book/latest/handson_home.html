@@ -13,6 +13,10 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
 
   
   
@@ -30,6 +34,8 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+        <script src="_static/sphinx_tabs/tabs.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -91,9 +97,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#the-dataset">The dataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#data-exploration">Data Exploration</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#overall-consumption">Overall Consumption</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#multiple-variable-exploration">Multiple Variable Exploration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multiple-variables-exploration">Multiple Variables Exploration</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#feature-engineering">Feature Engineering</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="handson_lanl.html">Lanl</a></li>
@@ -362,8 +369,313 @@ Then this histogram object is mapped to a pandas dataframe so that it can be
 used by plotly. The resulting plot is:</p>
 <a class="reference internal image-reference" href="_images/home_house_consumption.png"><img alt="_images/home_house_consumption.png" class="align-center" src="_images/home_house_consumption.png" style="width: 560.0px; height: 360.0px;" /></a>
 </div>
-<div class="section" id="multiple-variable-exploration">
-<h3>Multiple Variable Exploration<a class="headerlink" href="#multiple-variable-exploration" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="multiple-variables-exploration">
+<h3>Multiple Variables Exploration<a class="headerlink" href="#multiple-variables-exploration" title="Permalink to this headline">¶</a></h3>
+<p>In the previous section, we studied one feature. The first step consisted in
+computing a compressed representation of the data distribution by using two
+operators:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
+<span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+</pre></div>
+</div>
+<p>Now we want to do the same for other columns. One naive way is to do the same
+steps for each feature. However this means that we need to process the dataset
+as many times as the features we have. Fortunately all these steps can be done
+in parallel, thanks to a dedicated operator: <em>tee_map</em>. The <em>tee_map</em> operator
+applies several transformation graphs to the same source of data in parallel. So
+if we want to compute four discributions on a single reading pass, we can do the
+following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+        <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>  <span class="c1"># graph 1</span>
+            <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>  <span class="c1"># graph 2</span>
+            <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>  <span class="c1"># graph 3</span>
+            <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">pressure</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>  <span class="c1"># graph 4</span>
+            <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">wind_speed</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here we have four computation graphs - one for each feature - that are processed
+in parallel. The final dist variable is a tuple of four field, one for each
+computation graph:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+<span class="p">(</span><span class="o">&lt;</span><span class="n">distogram</span><span class="o">.</span><span class="n">Distogram</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x000000000af063d8</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="n">distogram</span><span class="o">.</span><span class="n">Distogram</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x0000000008ca7b78</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="n">distogram</span><span class="o">.</span><span class="n">Distogram</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x0000000008ca7478</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="n">distogram</span><span class="o">.</span><span class="n">Distogram</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x0000000008ca6f00</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From these dist objects, we can now print the statistics and histogram of the columns are previously:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;house_overall&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;pressure&#39;</span><span class="p">,</span> <span class="s1">&#39;wind_speed&#39;</span><span class="p">]</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> statistics:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">just</span><span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">describe</span><span class="p">(),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+
+    <span class="n">df_hist</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">just</span><span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">histogram</span><span class="p">(),</span>
+        <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">])),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df_hist</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>min</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>max</p></td>
+<td><p>14.71456667</p></td>
+</tr>
+<tr class="row-odd"><td><p>mean</p></td>
+<td><p>0.8589623950050789</p></td>
+</tr>
+<tr class="row-even"><td><p>stddev</p></td>
+<td><p>1.0574552803110226</p></td>
+</tr>
+<tr class="row-odd"><td><p>p25</p></td>
+<td><p>0.36709267099355347</p></td>
+</tr>
+<tr class="row-even"><td><p>p50</p></td>
+<td><p>0.568152839202991</p></td>
+</tr>
+<tr class="row-odd"><td><p>p75</p></td>
+<td><p>0.9730122941873172</p></td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="_images/home_house_consumption.png"><img alt="_images/home_house_consumption.png" class="align-center" src="_images/home_house_consumption.png" style="width: 560.0px; height: 360.0px;" /></a>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>min</p></td>
+<td><p>-11.45</p></td>
+</tr>
+<tr class="row-even"><td><p>max</p></td>
+<td><p>93.72</p></td>
+</tr>
+<tr class="row-odd"><td><p>mean</p></td>
+<td><p>50.74525179099427</p></td>
+</tr>
+<tr class="row-even"><td><p>stddev</p></td>
+<td><p>19.10129528623627</p></td>
+</tr>
+<tr class="row-odd"><td><p>p25</p></td>
+<td><p>35.774367229171965</p></td>
+</tr>
+<tr class="row-even"><td><p>p50</p></td>
+<td><p>50.37779947700175</p></td>
+</tr>
+<tr class="row-odd"><td><p>p75</p></td>
+<td><p>66.26310350773754</p></td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="_images/home_temperature.png"><img alt="_images/home_temperature.png" class="align-center" src="_images/home_temperature.png" style="width: 560.0px; height: 240.0px;" /></a>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>min</p></td>
+<td><p>986.4</p></td>
+</tr>
+<tr class="row-even"><td><p>max</p></td>
+<td><p>1042.46</p></td>
+</tr>
+<tr class="row-odd"><td><p>mean</p></td>
+<td><p>1016.3016253696112</p></td>
+</tr>
+<tr class="row-even"><td><p>stddev</p></td>
+<td><p>7.893601267311901</p></td>
+</tr>
+<tr class="row-odd"><td><p>p25</p></td>
+<td><p>1011.2888478205701</p></td>
+</tr>
+<tr class="row-even"><td><p>p50</p></td>
+<td><p>1016.5285369580786</p></td>
+</tr>
+<tr class="row-odd"><td><p>p75</p></td>
+<td><p>1021.4751151837601</p></td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="_images/home_pressure.png"><img alt="_images/home_pressure.png" class="align-center" src="_images/home_pressure.png" style="width: 560.0px; height: 240.0px;" /></a>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>min</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>max</p></td>
+<td><p>22.91</p></td>
+</tr>
+<tr class="row-odd"><td><p>mean</p></td>
+<td><p>6.649935544045547</p></td>
+</tr>
+<tr class="row-even"><td><p>stddev</p></td>
+<td><p>3.9822204733738173</p></td>
+</tr>
+<tr class="row-odd"><td><p>p25</p></td>
+<td><p>3.665238739924194</p></td>
+</tr>
+<tr class="row-even"><td><p>p50</p></td>
+<td><p>5.923371960965267</p></td>
+</tr>
+<tr class="row-odd"><td><p>p75</p></td>
+<td><p>8.936888719278361</p></td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="_images/home_wind_speed.png"><img alt="_images/home_wind_speed.png" class="align-center" src="_images/home_wind_speed.png" style="width: 560.0px; height: 240.0px;" /></a>
+</div>
+</div>
+<div class="section" id="feature-engineering">
+<h2>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s work on the features. We will use three feature for the model:</p>
+<ul class="simple">
+<li><p>The ratio between pressure and wind speed.</p></li>
+<li><p>The temperature value</p></li>
+<li><p>The standard deviation of the temperature on the previous 6 hours.</p></li>
+</ul>
+<p>Moreover, we will compute one feature for each hour. Since the dataset has been
+sampled every minutes, we will reduce its size of a ratio of 60. Let’s work on
+this step by step. The first thing is to declare a datatype for these features:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Features</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>As a first step, we can compute the pressure/speed ratio, and save the current temperature:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-5</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">Features</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">,</span>
+        <span class="n">pspeed_ratio</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">pressure</span> <span class="o">/</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">wind_speed</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">),</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+        <span class="n">temperature_stddev</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">)),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The input of the map operator is items for each line of the dataset, the output
+is Feature items, one for each entry in the dataset. Note that the temperature
+standard deviation is set to 0 for now.</p>
+<p>The second step is to compute a rolling window of 6 hours, with a stride of one
+hour. This is a type of transformation is hard - or impossible - to implement in
+many dataframe oriented frameworks. RxSci has a dedicated operator for this
+common operation on timeseries: <em>roll</em>. It takes three arguments as an input:
+size of window, size of stride, and computation graph. Here is how we can use it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">a_pipeline</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We need a pipeline that returns the last value of pspeed_ratio and temperature
+on one side, and the standard deviation of the temperature on the other side. So
+we also need the <em>tee_map</em> operator to compute them in parallel:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+    <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+    <span class="p">),</span>
+    <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This computation graph returns the last item emitted by the source observable,
+and the standard deviation of the temperature field. We can now use it in the
+rolling window:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
+    <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+    <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+        <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+        <span class="p">),</span>
+        <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">),</span>
+</pre></div>
+</div>
+<p>The roll opreator creates a new Observable for each window, so the <em>tee_map</em>
+computation is done for each of these generated window.</p>
+<p>The complete code is:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-0-0 docutils container">
+<div class="docutils container">
+<p>Reactivity diagram</p>
+</div>
+</div>
+<div class="item sphinx-data-tab-UHl0aG9u docutils container">
+<div class="docutils container">
+<p>Python</p>
+</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0-0 active docutils container">
+<p>todo: reactivity diagram</p>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-UHl0aG9u docutils container">
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">Features</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">])</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-5</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">Features</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">,</span>
+        <span class="n">pspeed_ratio</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">pressure</span> <span class="o">/</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">wind_speed</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">),</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+        <span class="n">temperature_stddev</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">)),</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
+            <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+            <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+                <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+                    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+                <span class="p">),</span>
+                <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+                    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
+                    <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">)),</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">Features</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pspeed_ratio</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
+    <span class="n">ops</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
