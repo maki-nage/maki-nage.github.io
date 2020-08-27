@@ -87,7 +87,15 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="handson.html">Hands-on</a></li>
 <li class="toctree-l1"><a class="reference internal" href="howto.html">Howto</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#application-object">application (object)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kafka-object">kafka (object)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#topics-list">topics (list)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operators-object">operators (object)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-object">config (object)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#redirect-object">redirect (object)</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -155,6 +163,75 @@
             
   <div class="section" id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>The configuration of a maki nage application is done via a <a class="reference external" href="https://yaml.org/">yaml</a> configuration file. This configuration is organized into
+dedicated sections for each element of the application.</p>
+<p>This configuration file is the only parameter used by the Maki Nage CLIs
+(makinage and makinage-serve), as the <em>config</em> parameter.</p>
+<p>In the following documentation, each field is documented with a type. The
+meaning of each type is:</p>
+<ul class="simple">
+<li><p>object: A yaml mapping</p></li>
+<li><p>list: A yaml collection</p></li>
+<li><p>string: A string</p></li>
+<li><p>module: A string describing a python module. The syntax follows the python “import” notation, i.e. modules separated by dots.</p></li>
+<li><p>function: A string describing a python function. The syntax is a module name followed by a function name. Both are separated by “:”.</p></li>
+</ul>
+<div class="section" id="application-object">
+<h2>application (object)<a class="headerlink" href="#application-object" title="Permalink to this headline">¶</a></h2>
+<p>This section contains information on the application.</p>
+<ul class="simple">
+<li><p>name: The name of the application. This name is used as the kafka consumer group.</p></li>
+</ul>
+</div>
+<div class="section" id="kafka-object">
+<h2>kafka (object)<a class="headerlink" href="#kafka-object" title="Permalink to this headline">¶</a></h2>
+<p>This section contains the kafka configuration. It contains the following fields:</p>
+<ul class="simple">
+<li><p>endpoint: [string] The kafka server endpoint. e.g. “localhost”</p></li>
+</ul>
+</div>
+<div class="section" id="topics-list">
+<h2>topics (list)<a class="headerlink" href="#topics-list" title="Permalink to this headline">¶</a></h2>
+<p>This sections describes the different topics that can be used by the operators.
+Each entry contains the following fields:</p>
+<ul class="simple">
+<li><p>name: [string] values</p></li>
+<li><p>encoder: [module, optional] The encoder used for kafka records. default: “makinage.encoding.string”</p></li>
+<li><p>partition_selector: [function, optional]. default: int(random.random() * 1000)</p></li>
+<li><p>start_from: [string, optional]. Defines how records are consumed on service reload. possible values are [end|beginning|last]. default: “end”</p></li>
+</ul>
+</div>
+<div class="section" id="operators-object">
+<h2>operators (object)<a class="headerlink" href="#operators-object" title="Permalink to this headline">¶</a></h2>
+<p>This section contains the list of operators in the application. Each operator
+field is a named object of this section. Each operator object contains the
+following fields:</p>
+<ul class="simple">
+<li><p>factory: [function] The name of the operator factory.</p></li>
+<li><p>sources: [list, optional] The list of source observables for this operator.</p></li>
+<li><p>sinks: [list, optional] The list of sink observables for this operator.</p></li>
+</ul>
+</div>
+<div class="section" id="config-object">
+<h2>config (object)<a class="headerlink" href="#config-object" title="Permalink to this headline">¶</a></h2>
+<p>This section is a placeholder for application specific configuration. This is
+typically where one can put the feature engineering parameters, or anything that
+can be configured without code change.</p>
+</div>
+<div class="section" id="redirect-object">
+<h2>redirect (object)<a class="headerlink" href="#redirect-object" title="Permalink to this headline">¶</a></h2>
+<p>If the configuration file contains a <em>redirect</em> section the the actual content
+of the configuration is retrived from the location described in this section.</p>
+<p>It contains the following fields:</p>
+<ul class="simple">
+<li><p>connector: [string] The type of redirection to do. Only <a class="reference external" href="https://www.consul.io">consul</a> is supported for now.</p></li>
+<li><p>endpoint: [string] The consul endpoint url. e.g. “<a class="reference external" href="http://localhost:8500">http://localhost:8500</a>”</p></li>
+<li><p>key: [string] The name of the KV Store key to read. e.g. “myservice”</p></li>
+</ul>
+<p>When consul is used for the configuration, then changes are monitored and
+exposed in real-time on the config argument of the operators. This allows to
+dynamically change the configuration of a running service.</p>
+</div>
 </div>
 
 
