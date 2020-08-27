@@ -1,5 +1,8 @@
-Handson
+Hands-on
 ========
+
+This section contains step by step examples on how to use Maki Nage, from data
+exploration up to model deployment.
 
 .. toctree::
    :maxdepth: 2

@@ -8,7 +8,7 @@ this tutorial is a regression: We will predict the power consumption of a house
 
 .. important::
     Maki Nage is designed to work efficiently with `pypy
-    <https://www.pypy.org/>`_. Please ensure that you use is as your interpreter
+    <https://www.pypy.org/>`_. Please ensure that you use it as your interpreter
     for better performances.
 
 
@@ -28,7 +28,7 @@ The dataset is a csv file of 130MB, its content looks like this:
     1451624401,0.934333333,0.003466667,0.934333333,0,0.020716667,0.063816667,0.444066667,0.124,0.006983333,0.013116667,0.000416667,0.00015,0,0.0315,0.001016667,0.004066667,0.00165,0.003466667,36.14,clear-night,0.62,10,Clear,29.26,1016.91,9.18,cloudCover,282,0,24.4,0
     1451624402,0.931816667,0.003466667,0.931816667,1.67E-05,0.0207,0.062316667,0.446066667,0.123533333,0.006983333,0.013083333,0.000433333,0.000166667,1.67E-05,0.031516667,0.001,0.004066667,0.00165,0.003466667,36.14,clear-night,0.62,10,Clear,29.26,1016.91,9.18,cloudCover,282,0,24.4,0
 
-For simplicity, We will only use few columns:
+For simplicity, We will use only few columns:
 
 * House overall: This is the label we want to predict, the total energy consumption of the house.
 * temperature: The weather temperature in °F.
@@ -395,8 +395,23 @@ standard deviation is set to 0 for now.
 The second step is to compute a rolling window of 6 hours, with a stride of one
 hour. This is a type of transformation is hard - or impossible - to implement in
 many dataframe oriented frameworks. RxSci has a dedicated operator for this
-common operation on timeseries: *roll*. It takes three arguments as an input:
-size of window, size of stride, and computation graph. Here is how we can use it:
+common operation on timeseries: `roll
+<https://www.makinage.org/doc/rxsci/latest/reference_data.html#rxsci.data.roll>`_.
+It takes three arguments as an input: size of window, size of stride, and
+computation graph. 
+
+.. marble::
+    :alt: roll
+
+    -1-2-3-4-5-6-7-8-9-|
+    [    roll(3, 2)    ]
+    +---+---+---+------|
+                +7-8-9|
+            +5-6-7|
+        +3-4-5|
+    +1-2-3|
+
+Here is how we can use it:
 
 .. code:: python
 
@@ -438,16 +453,12 @@ rolling window:
         )
     ),
 
-The roll opreator creates a new Observable for each window, so the *tee_map*
+The roll operator creates a new Observable for each window, so the *tee_map*
 computation is done for each of these generated window.
 
 The complete code is:
 
 .. tabs::
-
-   .. tab:: Reactivity diagram
-
-        todo: reactivity diagram
 
    .. code-tab:: py
 
@@ -477,3 +488,68 @@ The complete code is:
             rs.ops.map(lambda i: Features(i[0].label, i[0].pspeed_ratio, i[0].temperature, i[1])),
             ops.to_list()
         ).run()
+
+   .. tab:: Reactivity diagram
+
+        todo: reactivity diagram
+
+
+There are several other additions in this code. First, the roll operator can be
+used only within the context of the *multiplex* operator. The reason is that
+roll is one of the operators that work only on MuxObservables, a specialized
+implementation of Observables when working on aggregates.
+
+Then the final map transformation may require some clarifications. Its source
+Observable contains tuples emitted by the roll operator. These are tuple of two
+fields. The first one is the last *Features* item received on each window. The
+second one is the temperature stddev. So the map operator creates a new Features
+items from the label, pspeed_ratio, and temperature from the first element; and
+the stddev from the second element.
+
+Finally, the to_list operator transforms the final Observable to a python list.
+This list is a way to get out of RxSci, and continue the processing with other
+tools. So after running this graph, the *features* variable contains a list of
+*Feature* elements.
+
+
+Training
+---------
+
+This step does not involve Maki Nage. We will use a linear regression from
+scikit-learn for this example. From the last step, we now have our dataset
+available as a list of namedtuples. We can convert it to a pandas dataframe
+easily:
+
+.. code:: python
+
+    df = pd.DataFrame(features)
+
+And then we can train it the usual way:
+
+.. code:: python
+
+    model = Ridge(alpha=0.5)
+
+    x = df[['pspeed_ratio', 'temperature', 'temperature_stddev']]
+    y = df['label']
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+
+    model.fit(x_train, y_train)
+
+And print the RMSE of the generated model:
+
+.. code:: python
+
+    pred = model.predict(x_test)
+    print(np.sqrt(mean_squared_error(y_test,pred)))
+    0.9800074715106518
+
+
+Deployment
+-----------
+
+Feature Engineering
+....................
+
+Model Serving
+..............

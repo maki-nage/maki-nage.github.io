@@ -43,7 +43,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Lanl" href="handson_lanl.html" />
-    <link rel="prev" title="Handson" href="handson.html" /> 
+    <link rel="prev" title="Hands-on" href="handson.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,7 +92,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="rationale.html">Rationale</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="handson.html">Handson</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="handson.html">Hands-on</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Home Energy Consumption</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#the-dataset">The dataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#data-exploration">Data Exploration</a><ul>
@@ -101,6 +101,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#feature-engineering">Feature Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#training">Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment">Deployment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Feature Engineering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model-serving">Model Serving</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="handson_lanl.html">Lanl</a></li>
@@ -155,7 +161,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="handson.html">Handson</a> &raquo;</li>
+          <li><a href="handson.html">Hands-on</a> &raquo;</li>
         
       <li>Home Energy Consumption</li>
     
@@ -184,7 +190,7 @@ this tutorial is a regression: We will predict the power consumption of a house
 , based on weather information.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Maki Nage is designed to work efficiently with <a class="reference external" href="https://www.pypy.org/">pypy</a>. Please ensure that you use is as your interpreter
+<p>Maki Nage is designed to work efficiently with <a class="reference external" href="https://www.pypy.org/">pypy</a>. Please ensure that you use it as your interpreter
 for better performances.</p>
 </div>
 <div class="section" id="the-dataset">
@@ -199,7 +205,7 @@ kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart
 <span class="go">1451624402,0.931816667,0.003466667,0.931816667,1.67E-05,0.0207,0.062316667,0.446066667,0.123533333,0.006983333,0.013083333,0.000433333,0.000166667,1.67E-05,0.031516667,0.001,0.004066667,0.00165,0.003466667,36.14,clear-night,0.62,10,Clear,29.26,1016.91,9.18,cloudCover,282,0,24.4,0</span>
 </pre></div>
 </div>
-<p>For simplicity, We will only use few columns:</p>
+<p>For simplicity, We will use only few columns:</p>
 <ul class="simple">
 <li><p>House overall: This is the label we want to predict, the total energy consumption of the house.</p></li>
 <li><p>temperature: The weather temperature in °F.</p></li>
@@ -591,8 +597,13 @@ standard deviation is set to 0 for now.</p>
 <p>The second step is to compute a rolling window of 6 hours, with a stride of one
 hour. This is a type of transformation is hard - or impossible - to implement in
 many dataframe oriented frameworks. RxSci has a dedicated operator for this
-common operation on timeseries: <em>roll</em>. It takes three arguments as an input:
-size of window, size of stride, and computation graph. Here is how we can use it:</p>
+common operation on timeseries: <a class="reference external" href="https://www.makinage.org/doc/rxsci/latest/reference_data.html#rxsci.data.roll">roll</a>.
+It takes three arguments as an input: size of window, size of stride, and
+computation graph.</p>
+<p class="marble">
+<img src="_images/marble-17b5b19c72db5148d17797c2c5d3cd42acb049be.png" alt="roll"/>
+</p>
+<p>Here is how we can use it:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">a_pipeline</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -627,26 +638,23 @@ rolling window:</p>
 <span class="p">),</span>
 </pre></div>
 </div>
-<p>The roll opreator creates a new Observable for each window, so the <em>tee_map</em>
+<p>The roll operator creates a new Observable for each window, so the <em>tee_map</em>
 computation is done for each of these generated window.</p>
 <p>The complete code is:</p>
 <div class="sphinx-tabs docutils container">
 <div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-0-0 docutils container">
-<div class="docutils container">
-<p>Reactivity diagram</p>
-</div>
-</div>
-<div class="item sphinx-data-tab-UHl0aG9u docutils container">
+<div class="active item sphinx-data-tab-UHl0aG9u docutils container">
 <div class="docutils container">
 <p>Python</p>
 </div>
 </div>
+<div class="item sphinx-data-tab-0-0 docutils container">
+<div class="docutils container">
+<p>Reactivity diagram</p>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0-0 active docutils container">
-<p>todo: reactivity diagram</p>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-UHl0aG9u docutils container">
+</div>
+<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-UHl0aG9u active docutils container">
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">Features</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">])</span>
 <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-5</span>
 <span class="n">features</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
@@ -676,6 +684,58 @@ computation is done for each of these generated window.</p>
 </pre></div>
 </div>
 </div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0-0 docutils container">
+<p>todo: reactivity diagram</p>
+</div>
+</div>
+<p>There are several other additions in this code. First, the roll operator can be
+used only within the context of the <em>multiplex</em> operator. The reason is that
+roll is one of the operators that work only on MuxObservables, a specialized
+implementation of Observables when working on aggregates.</p>
+<p>Then the final map transformation may require some clarifications. Its source
+Observable contains tuples emitted by the roll operator. These are tuple of two
+fields. The first one is the last <em>Features</em> item received on each window. The
+second one is the temperature stddev. So the map operator creates a new Features
+items from the label, pspeed_ratio, and temperature from the first element; and
+the stddev from the second element.</p>
+<p>Finally, the to_list operator transforms the final Observable to a python list.
+This list is a way to get out of RxSci, and continue the processing with other
+tools. So after running this graph, the <em>features</em> variable contains a list of
+<em>Feature</em> elements.</p>
+</div>
+<div class="section" id="training">
+<h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<p>This step does not involve Maki Nage. We will use a linear regression from
+scikit-learn for this example. From the last step, we now have our dataset
+available as a list of namedtuples. We can convert it to a pandas dataframe
+easily:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And then we can train it the usual way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And print the RMSE of the generated model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">pred</span><span class="p">)))</span>
+<span class="mf">0.9800074715106518</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Feature Engineering<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="model-serving">
+<h3>Model Serving<a class="headerlink" href="#model-serving" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
@@ -691,7 +751,7 @@ computation is done for each of these generated window.</p>
         <a href="handson_lanl.html" class="btn btn-neutral float-right" title="Lanl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="handson.html" class="btn btn-neutral float-left" title="Handson" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="handson.html" class="btn btn-neutral float-left" title="Hands-on" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
