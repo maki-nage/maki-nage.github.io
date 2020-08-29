@@ -729,8 +729,119 @@ easily:</p>
 </div>
 <div class="section" id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
+<p>Maki Nage comes with tools to ease deployment of data transformation and models.
+This part is based on <a class="reference external" href="https://kafka.apache.org/">Kafka</a>, a distributed
+streaming platform. Kafka requires a broker to be installed, usually on a
+cluster. For tests, or work on a single machine, you can use the docker
+environment provided by Maki Nage. Let’s start a local Kafka cluster:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/maki-nage/docker.git</span>
+<span class="go">cd docker/compose/mn-dev</span>
+<span class="go">docker-compose up -d kafka</span>
+</pre></div>
+</div>
+<p>Deployment requires that the code is available as a python package. You can
+retrieve and install a package containing the code of all examples this way:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/maki-nage/makinage-examples.git</span>
+<span class="go">cd makinage-examples</span>
+<span class="go">python setup.py develop</span>
+</pre></div>
+</div>
 <div class="section" id="id1">
 <h3>Feature Engineering<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The feature engineering code for the deployment is the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_house_features</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-5</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">csv</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">parser</span><span class="p">),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">Features</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">,</span>
+            <span class="n">pspeed_ratio</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">pressure</span> <span class="o">/</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">wind_speed</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">),</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+            <span class="n">temperature_stddev</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">)),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
+                <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+                    <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+                        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+                    <span class="p">),</span>
+                    <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+                        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
+                        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">Features</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pspeed_ratio</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">features</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>This is the same code that we wrote during the feature engineering part, with
+only 4 minor changes.</p>
+<p>First, the code is embedded in a function taking two arguments: The first one is
+an Observable of the configuration of the application (its usage is explained
+later). The second one is an Observable of the data. Each row is received from
+this observable instead of being read from a file.</p>
+<p>As a consequence, the second change is that the csv is not read from the file,
+but each row is parsed from the data Observable. The <em>csv.load</em> operator is used
+instead of <em>csv.load_from_file</em>.</p>
+<p>The third change is the removal of the <em>to_list</em> operator: There is no need to
+aggregate all items in a single list. The application work in streaming mode:
+The is a stream of events as input (the rows of the csv dataset), and it returns
+a stream of events (the computed features). The source and the sink are Kafka
+topics. If you are not familiar with Kafka, you can consider for now that a
+Kafka topic is equivalent to an Observable.</p>
+<p>The last change is the fact that we return a tuple, containing the output
+Observables of the application. In this case there is a single Observable.</p>
+<p>In order to execute this application, a configuration file is needed. This yaml
+file contains information on how to execute the application:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
+<span class="nt">kafka</span><span class="p">:</span>
+    <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
+<span class="nt">topics</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+        <span class="l l-Scalar l-Scalar-Plain">encoder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.string</span>
+        <span class="l l-Scalar l-Scalar-Plain">start_from</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">beginning</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
+        <span class="l l-Scalar l-Scalar-Plain">encoder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span>
+<span class="nt">operators</span><span class="p">:</span>
+    <span class="nt">compute_house_features</span><span class="p">:</span>
+        <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.features:compute_house_features</span>
+        <span class="nt">sources</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+        <span class="nt">sinks</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
+</pre></div>
+</div>
+<p>The <em>application</em> section defines the name of the application. The <em>kafka</em>
+section contains the kafka cluster configutation. The <em>topics</em> section contains
+the list of the kafka topics being used, as well how they are used. Here we
+encode the house_values items as string, and the house_features items as json.</p>
+<p>The <em>operators</em> section contains the list of operators to run. A Maki Nage
+operator, is simply a function that processes some streams. There can be many
+operators running on the same application. Each operator is describe with three
+information:</p>
+<ul class="simple">
+<li><p>The function to execute (<em>factory</em>). This function must be available from a python package.</p></li>
+<li><p>The source streams used by the operator (sources).</p></li>
+<li><p>The sink streams produced by the operator (sinks).</p></li>
+</ul>
+<p>Now we can start the application:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">makinage --config config.house.yml</span>
+</pre></div>
+</div>
+<p>This will initialize all kafka configuration, call the <em>compute_house_features</em>
+function with the correct parameters, and run forever.</p>
+<p>In order to make our application do something, we must inject some data on the
+Kafka source topic (house_values). This can be done with another application
+available in the example repository:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">makinage --config config.house.push.yml</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="model-serving">
 <h3>Model Serving<a class="headerlink" href="#model-serving" title="Permalink to this headline">¶</a></h3>

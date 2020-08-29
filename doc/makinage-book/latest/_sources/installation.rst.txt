@@ -32,7 +32,7 @@ single machine. A docker compose configuration is available to use it easily:
 .. code:: console
 
     git clone https://github.com/maki-nage/docker.git
-    cd compose/mn-dev/
+    cd docker/compose/mn-dev/
     docker-compose up -d kafka
 
 The Kafka service is binded on **all** network interfaces of the machine, allowing for direct usage.

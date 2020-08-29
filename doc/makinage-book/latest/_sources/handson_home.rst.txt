@@ -547,8 +547,143 @@ And print the RMSE of the generated model:
 Deployment
 -----------
 
+Maki Nage comes with tools to ease deployment of data transformation and models.
+This part is based on `Kafka <https://kafka.apache.org/>`_, a distributed
+streaming platform. Kafka requires a broker to be installed, usually on a
+cluster. For tests, or work on a single machine, you can use the docker
+environment provided by Maki Nage. Let's start a local Kafka cluster:
+
+.. code:: console
+
+    git clone https://github.com/maki-nage/docker.git
+    cd docker/compose/mn-dev
+    docker-compose up -d kafka
+
+
+Deployment requires that the code is available as a python package. You can
+retrieve and install a package containing the code of all examples this way:
+
+.. code:: console
+
+    git clone https://github.com/maki-nage/makinage-examples.git
+    cd makinage-examples
+    python setup.py develop
+
+
 Feature Engineering
 ....................
+
+The feature engineering code for the deployment is the following:
+
+.. code:: python
+
+    def compute_house_features(config, data):    
+        epsilon = 1e-5
+        features = data.pipe(        
+            csv.load(parser),
+            rs.ops.map(lambda i: Features(
+                label=i.house_overall,
+                pspeed_ratio=i.pressure / (i.wind_speed + epsilon),
+                temperature=i.temperature,
+                temperature_stddev=0.0,
+            )),
+            rs.ops.multiplex(rx.pipe(
+                rs.data.roll(
+                    window=60*6, stride=60,
+                    pipeline=rs.tee_map(
+                        rx.pipe(
+                            rs.ops.last(),
+                        ),
+                        rx.pipe(
+                            rs.ops.map(lambda i: i.temperature),
+                            rs.math.stddev(reduce=True),
+                        ),
+                    )
+                ),        
+            )),        
+            rs.ops.map(lambda i: Features(i[0].label, i[0].pspeed_ratio, i[0].temperature, i[1])),
+        )
+
+        return features,
+
+This is the same code that we wrote during the feature engineering part, with
+only 4 minor changes.
+
+First, the code is embedded in a function taking two arguments: The first one is
+an Observable of the configuration of the application (its usage is explained
+later). The second one is an Observable of the data. Each row is received from
+this observable instead of being read from a file.
+
+As a consequence, the second change is that the csv is not read from the file,
+but each row is parsed from the data Observable. The *csv.load* operator is used
+instead of *csv.load_from_file*.
+
+The third change is the removal of the *to_list* operator: There is no need to
+aggregate all items in a single list. The application work in streaming mode:
+The is a stream of events as input (the rows of the csv dataset), and it returns
+a stream of events (the computed features). The source and the sink are Kafka
+topics. If you are not familiar with Kafka, you can consider for now that a
+Kafka topic is equivalent to an Observable.
+
+The last change is the fact that we return a tuple, containing the output
+Observables of the application. In this case there is a single Observable.
+
+In order to execute this application, a configuration file is needed. This yaml
+file contains information on how to execute the application:
+
+.. code:: yaml
+
+    application:
+        name: house_features
+    kafka:
+        endpoint: "localhost"
+    topics:
+        - name: house_values
+            encoder: makinage.encoding.string
+            start_from: beginning
+        - name: house_features
+            encoder: makinage.encoding.json
+    operators:
+        compute_house_features:
+            factory: makinage_examples.house.features:compute_house_features
+            sources:
+                - house_values
+            sinks:
+                - house_features
+
+
+The *application* section defines the name of the application. The *kafka*
+section contains the kafka cluster configutation. The *topics* section contains
+the list of the kafka topics being used, as well how they are used. Here we
+encode the house_values items as string, and the house_features items as json. 
+
+The *operators* section contains the list of operators to run. A Maki Nage
+operator, is simply a function that processes some streams. There can be many
+operators running on the same application. Each operator is describe with three
+information:
+
+* The function to execute (*factory*). This function must be available from a python package.
+* The source streams used by the operator (sources).
+* The sink streams produced by the operator (sinks).
+
+Now we can start the application:
+
+.. code:: console
+
+    makinage --config config.house.yml
+
+
+This will initialize all kafka configuration, call the *compute_house_features*
+function with the correct parameters, and run forever. 
+
+In order to make our application do something, we must inject some data on the
+Kafka source topic (house_values). This can be done with another application
+available in the example repository:
+
+.. code:: console
+
+    makinage --config config.house.push.yml
+
 
 Model Serving
 ..............
