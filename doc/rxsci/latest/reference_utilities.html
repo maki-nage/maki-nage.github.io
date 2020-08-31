@@ -281,63 +281,6 @@ completion.</p>
 <dd><p>An enumeration.</p>
 </dd></dl>
 
-<dl class="py function">
-<dt id="rxsci.assert_1">
-<code class="sig-prename descclassname">rxsci.</code><code class="sig-name descname">assert_1</code><span class="sig-paren">(</span><em class="sig-param">predicate</em>, <em class="sig-param">name=''</em>, <em class="sig-param">error=&lt;class 'ValueError'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.assert_1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensure that predicate evaluates to True for all pairs of item / previous item</p>
-<p>If any of the lag1 pair on the source observable evaluates to False, then
-error is emitted on the on_error handler.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>predicate</strong> – A function to evaluate each item.</p></li>
-<li><p><strong>name</strong> – [Optional] A firendly name to display with the error.</p></li>
-<li><p><strong>error</strong> – [Optional] The error to emit when predicate evaluates to False.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An observable returning the source items, and completing on error if
-any source pair evaluates to False.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="rxsci.progress">
-<code class="sig-prename descclassname">rxsci.</code><code class="sig-name descname">progress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">threshold</span></em>, <em class="sig-param"><span class="n">measure_throughput</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.progress" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prints the progress on item processing</p>
-<p>Prints the number of items that have been processed every threshold items.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – Name associated to this progress.</p></li>
-<li><p><strong>threshold</strong> – Period of display for the progress.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The source observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="rxsci.tee_map">
-<code class="sig-prename descclassname">rxsci.</code><code class="sig-name descname">tee_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.tee_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Processes several operators chains simultaneously on the same source
-observable. This operator allows to do multiple processing on the same
-source, and combine the results as a single tuple object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>args</strong> – list of operators that will process the source observable
-concurrently</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An observable containing tuples of the items emitted by each branch of
-the tee.</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 
 
