@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Container &mdash; rxsci 0.6.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data" href="operators_data.html" />
+    <link rel="prev" title="Math" href="operators_math.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> rxsci
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="operators.html">Operators</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="operators_math.html">Math</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Container</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-rxsci.container.csv">csv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_io.html">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_framing.html">Framing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_other.html">Other</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rxsci</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="operators.html">Operators</a> &raquo;</li>
+        
+      <li>Container</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/operators_container.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="container">
+<h1>Container<a class="headerlink" href="#container" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-rxsci.container.csv">
+<span id="csv"></span><h2>csv<a class="headerlink" href="#module-rxsci.container.csv" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="rxsci.container.csv.create_line_parser">
+<code class="sig-prename descclassname">rxsci.container.csv.</code><code class="sig-name descname">create_line_parser</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dtype</span></em>, <em class="sig-param"><span class="n">none_values</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">separator</span><span class="o">=</span><span class="default_value">','</span></em>, <em class="sig-param"><span class="n">ignore_error</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">schema_name</span><span class="o">=</span><span class="default_value">'x'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.create_line_parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a parser for csv lines</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> – A list of (name, type) tuples.</p></li>
+<li><p><strong>none_values</strong> – [Optional] Values to consider as None values</p></li>
+<li><p><strong>separator</strong> – [Optional] Token used to separate each columns</p></li>
+<li><p><strong>ignore_error</strong> – [Optional] when set to True, any line that does not
+match the provided number of columns raise an error an stop
+the parsing. When set to False, error lines are skipped.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.container.csv.dump">
+<code class="sig-prename descclassname">rxsci.container.csv.</code><code class="sig-name descname">dump</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">header</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">separator</span><span class="o">=</span><span class="default_value">','</span></em>, <em class="sig-param"><span class="n">newline</span><span class="o">=</span><span class="default_value">'\n'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>dumps an observable to csv.</p>
+<p>The source observable must emit one csv row per item</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> – [Optional] indicates whether a header line must be added.</p></li>
+<li><p><strong>separator</strong> – [Optional] Token used to separate each columns.</p></li>
+<li><p><strong>newline</strong> – [Optional] Character(s) used for end of line.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable of namedtuple items, where each key is a csv column.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.container.csv.dump_to_file">
+<code class="sig-prename descclassname">rxsci.container.csv.</code><code class="sig-name descname">dump_to_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">header</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">separator</span><span class="o">=</span><span class="default_value">','</span></em>, <em class="sig-param"><span class="n">newline</span><span class="o">=</span><span class="default_value">'\n'</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">transport_params</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>dumps each item to a csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – Path of the file to read</p></li>
+<li><p><strong>header</strong> – [Optional] indicates whether a header line must be added.</p></li>
+<li><p><strong>separator</strong> – [Optional] Token used to separate each columns.</p></li>
+<li><p><strong>newline</strong> – [Optional] Character(s) used for end of line.</p></li>
+<li><p><strong>[</strong><strong>Optional</strong><strong>] </strong><strong>Encoding used to parse the text content</strong> (<em>encoding</em>) – </p></li>
+<li><p><strong>transport_params</strong> – [Optional] When smart-open is used, then this
+parameter is used to provide additional configuration information</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An empty observable that completes on success when the source
+observable completes or completes on error if there is an error
+while writing the csv file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.container.csv.load">
+<code class="sig-prename descclassname">rxsci.container.csv.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parse_line</span></em>, <em class="sig-param"><span class="n">skip</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a csv observable.</p>
+<p>The source observable must emit one csv row per item</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parse_line</strong> – A line parser, e.g. created with create_line_parser</p></li>
+<li><p><strong>skip</strong> – number of items to skip before parsing</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable of namedtuple items, where each key is a csv column</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.container.csv.load_from_file">
+<code class="sig-prename descclassname">rxsci.container.csv.</code><code class="sig-name descname">load_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">parse_line</span></em>, <em class="sig-param"><span class="n">skip</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">transport_params</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a csv file.</p>
+<p>This factory loads the provided file and returns its content as an
+observable emitting one item per line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – Path of the file to read</p></li>
+<li><p><strong>parse_line</strong> – A line parser, e.g. created with create_line_parser</p></li>
+<li><p><strong>skip</strong> – [Optional] Number of lines to skip before parsing</p></li>
+<li><p><strong>[</strong><strong>Optional</strong><strong>] </strong><strong>Encoding used to parse the text content</strong> (<em>encoding</em>) – </p></li>
+<li><p><strong>transport_params</strong> – [Optional] When smart-open is used, then this
+parameter is used to provide additional configuration information</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable of namedtuple items, where each key is a csv column</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="operators_data.html" class="btn btn-neutral float-right" title="Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="operators_math.html" class="btn btn-neutral float-left" title="Math" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, R. Picard
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

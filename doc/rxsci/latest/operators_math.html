@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Math &mdash; rxsci 0.6.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Container" href="operators_container.html" />
+    <link rel="prev" title="Operators" href="operators.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> rxsci
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="operators.html">Operators</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Math</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#distributed">Distributed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#formal">Formal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="operators_container.html">Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_io.html">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_framing.html">Framing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_other.html">Other</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">rxsci</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="operators.html">Operators</a> &raquo;</li>
+        
+      <li>Math</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/operators_math.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-rxsci.math">
+<span id="math"></span><h1>Math<a class="headerlink" href="#module-rxsci.math" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="rxsci.math.max">
+<code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">max</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum value emitted in the source observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the max.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the max of source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.mean">
+<code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Averages the items emitted in the source observable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the average.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting items whose value is the sum of source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.min">
+<code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the minimum value emitted in the source observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the min.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the min of source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.stddev">
+<code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">stddev</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.stddev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the standard deviation.</p>
+<p>This is an approximation of the real standard deviation. See
+rxsci.math.variance for more information.</p>
+<p>Use this operator instead of rxsci.formal.stddev when there are more than
+1000 items in the source observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the variance.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the variance of the source items. If the number
+of items emitted in the source observable is less than 2, and reduce
+is set, then emits None on completion.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.sum">
+<code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">sum</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.sum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sums the items emitted in the source observable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the sum.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting items whose value is the sum of source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.variance">
+<code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the variance of the items emitted in the source observable.</p>
+<p>This is an approximation of the real variance. The implementation is based
+on the following article: <a class="reference external" href="https://www.johndcook.com/blog/standard_deviation/">standard_deviation</a></p>
+<p>Use this operator instead of exact_variance when there are more than 1000
+items in the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the variance.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the variance of the source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="distributed">
+<h2>Distributed<a class="headerlink" href="#distributed" title="Permalink to this headline">¶</a></h2>
+<p>This module contains distributed implementations of the math algorithms. They
+are useful when distributing computations on several nodes, and reducing then
+after.</p>
+<span class="target" id="module-rxsci.math.dist"></span><dl class="py function">
+<dt id="rxsci.math.dist.describe">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">describe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">quantiles</span><span class="o">=</span><span class="default_value">[0.25, 0.5, 0.75]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.describe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes statistical metrics of the distribution.</p>
+<p>For each Distogram ditribution received on the source observable, computes
+the following metrics:</p>
+<ul class="simple">
+<li><p>min</p></li>
+<li><p>max</p></li>
+<li><p>mean</p></li>
+<li><p>standard deviation</p></li>
+<li><p>The quantiles provided as argument</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>quantiles</strong> – [Optional] A list of quantiles to compute.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the minimum value of each source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.histogram">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">histogram</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bin_count</span><span class="o">=</span><span class="default_value">100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.histogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the histogram of the distribution.</p>
+<p>The histogram in in the form of a list of tuples, where each tuple is in
+the form (bin value, element count).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bin_count</strong> – [Optional] Number of bins to use in the histogram.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the histogram of each source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.max">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum value of the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable emitting the maximum value of each source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.mean">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the average value of the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable emitting the mean value of each source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.merge">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">merge</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges distogram distributions.</p>
+<p>The source observable must contain items that are a collection of
+Distogram object. These are typically the result of a zip operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An Observable of Distogram objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.min">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the minimum value of the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable emitting the minimum value of each source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.quantile">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">quantile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.quantile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a quantile value of the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – The quantile value to compute, between 0 and 1.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the quantile value of each source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.stddev">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">stddev</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.stddev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the standard deviation of the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable emitting the standard deviation of each source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.update">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bin_count</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">weighted_diff</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reduce</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the distribution by adding source items to it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bin_count</strong> – [Optional] number of bins to use.</p></li>
+<li><p><strong>weighted_diff</strong> – [Optional] Applies log weight to bin computation. This
+may be needed if the distribution contains outliers.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Observable of Distrogram objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.dist.variance">
+<code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the variance value of the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable emitting the variance of each source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="formal">
+<h2>Formal<a class="headerlink" href="#formal" title="Permalink to this headline">¶</a></h2>
+<p>This module contains the exact - formal - implementation of the estimation
+algorithms present in the rxsci.math module. Use them with caution because their
+precision usually come with either a significant impact on performances, either
+with usage restrictions.</p>
+<span class="target" id="module-rxsci.math.formal"></span><dl class="py function">
+<dt id="rxsci.math.formal.stddev">
+<code class="sig-prename descclassname">rxsci.math.formal.</code><code class="sig-name descname">stddev</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.formal.stddev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes standard deviation</p>
+<p>The implementation is based on the formal definition of the standard
+deviation. This implies that all items are cached in memory to do the
+computation. Use the rxsci.math.stddev operator to compute standard
+deviation on a large observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the standard deviation.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting standard deviation of source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.math.formal.variance">
+<code class="sig-prename descclassname">rxsci.math.formal.</code><code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.formal.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the variance of the items emitted in the source observable.</p>
+<p>The implementation is based on the formal definition of the variance.
+This implies that all items are cached in memory to do the computation.
+Use the rxsci.math.variance operator to compute varianc on a large
+observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_mapper</strong> – [Optional] a function called on each item before computing
+the variance.</p></li>
+<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting variance of source items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="operators_container.html" class="btn btn-neutral float-right" title="Container" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="operators.html" class="btn btn-neutral float-left" title="Operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, R. Picard
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

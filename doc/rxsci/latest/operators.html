@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Framing &mdash; rxsci 0.6.0 documentation</title>
+  <title>Operators &mdash; rxsci 0.6.0 documentation</title>
   
 
   
@@ -36,7 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Reference" href="reference_utilities.html" /> 
+    <link rel="next" title="Math" href="operators_math.html" />
+    <link rel="prev" title="Get Started" href="get_started.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,16 +84,15 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="reference_math_formal.html">Formal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_math_dist.html">Distributed</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_math.html">Math</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_container.html">Container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_data.html">Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_io.html">IO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_utilities.html">Utilities</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Framing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operators_math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_container.html">Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_io.html">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_framing.html">Framing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_other.html">Other</a></li>
 </ul>
 </li>
 </ul>
@@ -141,15 +141,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="reference.html">Reference</a> &raquo;</li>
-        
-      <li>Framing</li>
+      <li>Operators</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/reference_framing.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/operators.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,14 +160,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-rxsci.framing.line">
-<span id="framing"></span><h1>Framing<a class="headerlink" href="#module-rxsci.framing.line" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="rxsci.framing.line.unframe">
-<code class="sig-prename descclassname">rxsci.framing.line.</code><code class="sig-name descname">unframe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.line.unframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unframes a Observable of text to lines</p>
-</dd></dl>
-
+  <div class="section" id="operators">
+<h1>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound" id="id1">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="operators_math.html">Math</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operators_math.html#distributed">Distributed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_math.html#formal">Formal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operators_container.html">Container</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operators_container.html#module-rxsci.container.csv">csv</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operators_data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operators_io.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operators_framing.html">Framing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operators_framing.html#module-rxsci.framing.line">line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_framing.html#module-rxsci.framing.length_prefix">length prefix</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operators_other.html">Other</a></li>
+</ul>
+</div>
 </div>
 
 
@@ -180,8 +193,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="operators_math.html" class="btn btn-neutral float-right" title="Math" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="reference_utilities.html" class="btn btn-neutral float-left" title="Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="get_started.html" class="btn btn-neutral float-left" title="Get Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
