@@ -165,13 +165,42 @@
   <div class="section" id="module-rxsci.data">
 <span id="data"></span><h1>Data<a class="headerlink" href="#module-rxsci.data" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
+<dt id="rxsci.data.cache">
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">cache</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>cache items</p>
+<p>Each received items is cached, and the cached item is returned. This
+operator can save memory on graphs that buffer some items, with many
+identical values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> – [Optional] cache the provided field is set. Otherwise the
+whole item is cached. When field is set, this field value
+must be accessible via the getattr function.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Observable returning the same items than the source observable, but
+with cached values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.data.clip">
 <code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">clip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">higher_bound</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.clip" title="Permalink to this definition">¶</a></dt>
 <dd><p>clip values between lower_bound (included) and higher_bound (included)</p>
 <p class="marble">
-<img src="_images/marble-5a94b6ed266664bdcfe83fd8b6d88ab514e9e288.png" alt="clip"/>
+<img src="_images/marble-4bfb410a9f0b3a4717f8fc60eaa3a45e092e36ee.png" alt="clip"/>
 </p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lower_bound</strong> – [Optional] The minimal value to emit.</p></li>
+<li><p><strong>higher_bound</strong> – [Optional] The maximal value to emit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>AN observable emiting the source items, clipped to the provided bounds.</p>
+</dd>
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><p><strong>ValueError if no bound is provided</strong><strong> or </strong><strong>lower_bound is bigger than</strong> – higher_bound</p>
 </dd>
@@ -182,6 +211,17 @@
 <dt id="rxsci.data.fill_none">
 <code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">fill_none</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.fill_none" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces None values with value</p>
+<p class="marble">
+<img src="_images/marble-8b63d113d2ea23e6d9e1da05680168a787620315.png" alt="fill_none"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – The value used to replace None values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable where None items are replaced with value.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -190,7 +230,7 @@
 <dd><p>Buffers a lag of size on source items</p>
 <blockquote>
 <div><p class="marble">
-<img src="_images/marble-429f57540612a13287793198aca249a06f0ae2e7.png" alt="lag"/>
+<img src="_images/marble-ed5174ef814e9ca887a07468475fa5f03a9ff3ac.png" alt="lag"/>
 </p>
 </div></blockquote>
 <dl class="field-list simple">
@@ -200,23 +240,6 @@
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>An observable where each item is a tuple of (lag, current) items. On
 the first iterations, the item (first, current) is emitted.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="rxsci.data.lag1">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">lag1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Buffers a lag of 1 on source items</p>
-<blockquote>
-<div><p class="marble">
-<img src="_images/marble-4c6917b85e9bdf60382fef8d92bb0d322454a440.png" alt="lag"/>
-</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>An observable where each item is a tuple of (lag, current) items. On
-the first iteration, the item (current, current) is emitted.</p>
 </dd>
 </dl>
 </dd></dl>
