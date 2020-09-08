@@ -275,17 +275,39 @@ False, otherwise emits a single item on completion.</p></li>
 
 <dl class="py function">
 <dt id="rxsci.ops.tee_map">
-<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">tee_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.tee_map" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">tee_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">zip</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.tee_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Processes several operators chains simultaneously on the same source
 observable. This operator allows to do multiple processing on the same
 source, and combine the results as a single tuple object.</p>
+<p class="marble">
+<img src="_images/marble-5ff5ea037af2c3c2787f3e6986cb030915825805.png" alt="tee_map"/>
+</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+<span class="go">&gt;&gt;&gt;))</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>args</strong> – list of operators that will process the source observable
-concurrently</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – list of operators that will process the source observable
+concurrently</p></li>
+<li><p><strong>zip</strong> – [Optional] If set to True, then all processing are zipped
+together. Otherwise items are emitted by tee map as they are
+emitted by each arg pipeline.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An observable containing tuples of the items emitted by each branch of
+</dl>
+<dl class="simple">
+<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable containing tuples of the items emitted by each branch of
 the tee.</p>
 </dd>
 </dl>
