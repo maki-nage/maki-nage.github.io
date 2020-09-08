@@ -263,13 +263,20 @@ windows which are produced based on element window information.</p>
 <li><p><strong>window</strong> – Length of each window.</p></li>
 <li><p><strong>stride</strong> – Number of elements to step between creation of
 consecutive windows.</p></li>
+<li><p><strong>pipeline</strong> – The Rx pipe to execute on each window.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An observable sequence of windows.</p>
+</dl>
+<dl class="simple">
+<dt>Source:</dt><dd><p>A MuxObservable.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><strong>ValueError if window</strong><strong> or </strong><strong>step is negative</strong> – </p>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable sequence of windows.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError if window</strong><strong> or </strong><strong>step is negative</strong> – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -296,13 +303,25 @@ consumes a lot of memory.</p>
 <dt id="rxsci.data.split">
 <code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicate</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split an observable based on a predicate criteria.</p>
+<p class="marble">
+<img src="_images/marble-110a2a9faadd457f4d0b6d3c9e13c9102fcbb568.png" alt="split"/>
+</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>predicate</strong> – A function called for each item, that returns the split
-criteria.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predicate</strong> – A function called for each item, that returns the split
+criteria.</p></li>
+<li><p><strong>pipeline</strong> – The Rx pipe to execute on each split.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A higher order observable returning on observable for each split criteria.</p>
+</dl>
+<dl class="simple">
+<dt>Source:</dt><dd><p>A MuxObservable</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A higher order observable returning on observable for each split criteria.</p>
 </dd>
 </dl>
 </dd></dl>
