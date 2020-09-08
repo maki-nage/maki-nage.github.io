@@ -164,9 +164,30 @@
   <div class="section" id="module-rxsci.ops">
 <span id="other-operators"></span><span id="operators-other"></span><h1>Other Operators<a class="headerlink" href="#module-rxsci.ops" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
+<dt id="rxsci.ops.assert_">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">assert_</code><span class="sig-paren">(</span><em class="sig-param">predicate</em>, <em class="sig-param">name=''</em>, <em class="sig-param">error=&lt;class 'ValueError'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.assert_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that predicate evaluates to True for all items</p>
+<p>If any of item on the source observable evaluates to False, then
+error is emitted on the on_error handler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predicate</strong> – A function to evaluate each item.</p></li>
+<li><p><strong>name</strong> – [Optional] A firendly name to display with the error.</p></li>
+<li><p><strong>error</strong> – [Optional] The error to emit when predicate evaluates to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable returning the source items, and completing on error if
+any source pair evaluates to False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.ops.assert_1">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">assert_1</code><span class="sig-paren">(</span><em class="sig-param">predicate</em>, <em class="sig-param">name=''</em>, <em class="sig-param">error=&lt;class 'ValueError'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.assert_1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensure that predicate evaluates to True for all pairs of item / previous item</p>
+<dd><p>Ensures that predicate evaluates to True for all pairs of item / previous item</p>
 <p>If any of the lag1 pair on the source observable evaluates to False, then
 error is emitted on the on_error handler.</p>
 <dl class="field-list simple">
@@ -192,7 +213,7 @@ predicate.</p>
 <p class="marble">
 <img src="_images/marble-2ac5743543b7ddb0ba7b7dc3cedacda9de1a73eb.png" alt="filter"/>
 </p>
-<p class="rubric">Example</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">operators</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -201,9 +222,43 @@ predicate.</p>
 <dd class="field-odd"><p><strong>predicate</strong> – A function to test each source item for a
 condition.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An observable that emits items from the
-source observable that satisfy the condition.</p>
+</dl>
+<dl class="simple">
+<dt>Source:</dt><dd><p>An Observable or a MuxObservable.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable that emits items from the
+source observable that satisfy the condition. The type of the returned
+observable is the same than the source observable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="rxsci.ops.group_by">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">group_by</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key_mapper</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.group_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>Groups items of according to a key mapper</p>
+<p class="marble">
+<img src="_images/marble-e0cc64db1260f70482180126b622340bc48163ba.png" alt="group_by"/>
+</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">category</span><span class="p">,</span> <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key_mapper</strong> – A function to extract the key from each item</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Source:</dt><dd><p>A MuxObservable.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A MuxObservable with one observable per group.</p>
 </dd>
 </dl>
 </dd></dl>
