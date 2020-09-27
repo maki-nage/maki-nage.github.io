@@ -1,0 +1,26 @@
+.. RxSci Multiflow documentation master file
+
+RxSci Multiflow Reference Documentation
+========================================
+
+SciKit Multiflow operators for RxSci.
+
+This documentation contains the reference of all RxSci Multiflow operators. For an
+introduction to RxSci Multiflow, see the `Maki Nage documentation
+<https://www.makinage.org/doc/makinage-book/latest/index.html>`_.
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
+
+   installation
+   get_started
+   operators
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`

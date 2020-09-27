@@ -1,0 +1,11 @@
+.. operators:
+
+Operators
+==========
+
+.. automodule:: rxsci_multiflow
+    :members: Utterance, Prediction, DriftStatus, detect_drift, from_stream
+
+
+.. automodule:: rxsci_multiflow.evaluate
+    :members: prequential
