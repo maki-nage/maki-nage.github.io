@@ -1,3 +1,18 @@
 Get Started
 ============
 
+Evaluate and train a Hoeffding Tree Classifier from a stream of events:
+
+.. code:: Python
+
+    import rxsci_multiflow as rsm
+    from skmultiflow.data import SEAGenerator
+    from skmultiflow.trees import HoeffdingTreeClassifier
+
+    rsm.from_stream(SEAGenerator(random_state=1), count=200).pipe(
+        rsm.evaluate.prequential(
+            model=HoeffdingTreeClassifier(),
+            pretrain_size=0),
+    ).subscribe(
+        on_next=print,
+    )

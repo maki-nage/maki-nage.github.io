@@ -154,6 +154,20 @@
             
   <div class="section" id="get-started">
 <h1>Get Started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h1>
+<p>Evaluate and train a Hoeffding Tree Classifier from a stream of events:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rxsci_multiflow</span> <span class="k">as</span> <span class="nn">rsm</span>
+<span class="kn">from</span> <span class="nn">skmultiflow.data</span> <span class="kn">import</span> <span class="n">SEAGenerator</span>
+<span class="kn">from</span> <span class="nn">skmultiflow.trees</span> <span class="kn">import</span> <span class="n">HoeffdingTreeClassifier</span>
+
+<span class="n">rsm</span><span class="o">.</span><span class="n">from_stream</span><span class="p">(</span><span class="n">SEAGenerator</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">count</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">rsm</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">prequential</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">HoeffdingTreeClassifier</span><span class="p">(),</span>
+        <span class="n">pretrain_size</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span>
+    <span class="n">on_next</span><span class="o">=</span><span class="nb">print</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </div>
 
 
