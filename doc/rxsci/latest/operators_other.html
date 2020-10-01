@@ -206,6 +206,41 @@ any source pair evaluates to False.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="rxsci.ops.distinct">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">distinct</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key_mapper</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.distinct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an observable sequence that contains only distinct
+elements according to the key_mapper. Usage of
+this operator should be considered carefully due to the maintenance
+of an internal lookup structure which can grow large.</p>
+<p class="marble">
+<img src="_images/marble-1a8e43d967e0923c86f18e853fa7e87e43a808f9.png" alt="distinct"/>
+</p>
+<p>This operator is similar to the RxPY distinct operator but with much
+better performance thanks to the usage of sets. Meanwhile this
+implementation does not allow to specify a comparer: The key must be
+hashable.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ops</span><span class="o">.</span><span class="n">distinct</span><span class="p">(),</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key_mapper</strong> – [Optional]  A function to compute the comparison
+key for each element.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An operator function that takes an observable source and
+returns an observable sequence only containing the distinct
+elements, based on a computed key value, from the source
+sequence.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.ops.filter">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filters the items of an observable sequence based on a
@@ -339,7 +374,7 @@ False, otherwise emits a single item on completion.</p></li>
 
 <dl class="py function">
 <dt id="rxsci.ops.tee_map">
-<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">tee_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">zip</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.tee_map" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">tee_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">join</span><span class="o">=</span><span class="default_value">'zip'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.tee_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Processes several operators chains simultaneously on the same source
 observable. This operator allows to do multiple processing on the same
 source, and combine the results as a single tuple object.</p>
@@ -359,9 +394,10 @@ source, and combine the results as a single tuple object.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>args</strong> – list of operators that will process the source observable
 concurrently</p></li>
-<li><p><strong>zip</strong> – [Optional] If set to True, then all processing are zipped
-together. Otherwise items are emitted by tee map as they are
-emitted by each arg pipeline.</p></li>
+<li><p><strong>join</strong> – [Optional] If set to ‘zip’, then all processings are zipped
+together. If set to ‘merge’ items are emitted by tee map as they are
+emitted by each arg pipeline. If set to ‘combine_latest’, then
+the last value of each processing are combined.</p></li>
 </ul>
 </dd>
 </dl>
