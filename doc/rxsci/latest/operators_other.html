@@ -245,6 +245,28 @@ sequence.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="rxsci.ops.do_action">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">do_action</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">on_next</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_error</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_completed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_create</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.do_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes an function on reception of selected events</p>
+<dl class="simple">
+<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>on_next</strong> – [Optional] function to execute on item reception</p></li>
+<li><p><strong>on_completed</strong> – [Optional] function to execute on completion</p></li>
+<li><p><strong>on_error</strong> – [Optional] function to execute on error</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable identical to the source observable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.ops.filter">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filters the items of an observable sequence based on a
