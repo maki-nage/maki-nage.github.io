@@ -226,16 +226,22 @@ with cached values.</p>
 
 <dl class="py function">
 <dt id="rxsci.data.lag">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">lag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">lag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'obj'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Buffers a lag of size on source items</p>
 <blockquote>
 <div><p class="marble">
-<img src="_images/marble-7fc88a9775bf5adcac4efb109098591d1f088fa6.png" alt="lag"/>
+<img src="_images/marble-f2b53e151b1772a2a4df0b3155c5a71654972286.png" alt="lag1"/>
+</p>
+<p class="marble">
+<img src="_images/marble-a82d337e19e4d83ed8ec12cb7c53f18fd91b62a5.png" alt="lag"/>
 </p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>size</strong> – [Optional] size of the lag.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> – [Optional] size of the lag.</p></li>
+<li><p><strong>data_type</strong> – [Optional] the type of the lag data.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>An observable where each item is a tuple of (lag, current) items. On
