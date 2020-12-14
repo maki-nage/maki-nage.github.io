@@ -13,6 +13,10 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
 
   
   
@@ -86,13 +90,17 @@
 <li class="toctree-l1"><a class="reference internal" href="rationale.html">Rationale</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="handson.html">Hands-on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serving.html">Model serving</a></li>
 <li class="toctree-l1"><a class="reference internal" href="howto.html">Howto</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#application-object">application (object)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kafka-object">kafka (object)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#topics-list">topics (list)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#operators-object">operators (object)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#config-object">config (object)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-object">config (object)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#serve-object">serve (object)</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#redirect-object">redirect (object)</a></li>
 </ul>
 </li>
@@ -215,6 +223,18 @@ following fields:</p>
 <p>This section is a placeholder for application specific configuration. This is
 typically where one can put the feature engineering parameters, or anything that
 can be configured without code change.</p>
+<p>It contains some reserved sub-section keywords:</p>
+<div class="section" id="serve-object">
+<h3>serve (object)<a class="headerlink" href="#serve-object" title="Permalink to this headline">¶</a></h3>
+<p>This sub-section contains the configuration for model serving. The following
+fields can be used to configure the inference behavior:</p>
+<ul class="simple">
+<li><p>pre_transform: [function] A factory function called with the configuration as a parameter. It must return a function that takes utterances as parameter and returns data in a format suitable for inference.</p></li>
+<li><p>post_transform: [function] A factory function called with the configuration as a parameter. It must return a function that takes utterances and predicions as parameters and returns data in a format suitable for emission on the sink topic.</p></li>
+<li><p>predict: [function] A factory function called with the model and configuration as a parameters. It must return a function that takes pre-transformed utterances as parameter and return the model prediction.</p></li>
+</ul>
+<p>See the <span class="xref std std-ref">Serving</span> chapter for more information on these fields.</p>
+</div>
 </div>
 <div class="section" id="redirect-object">
 <h2>redirect (object)<a class="headerlink" href="#redirect-object" title="Permalink to this headline">¶</a></h2>

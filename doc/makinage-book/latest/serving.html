@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Model serving &mdash; The Maki Nage Book  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+        <script src="_static/sphinx_tabs/tabs.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Howto" href="howto.html" />
+    <link rel="prev" title="Lanl Online" href="handson_lanl_online.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> The Maki Nage Book
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="rationale.html">Rationale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handson.html">Hands-on</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model serving</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-logic">Custom Logic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pre-transform">pre-transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#predict">predict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#post-transform">post-transform</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">Howto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">The Maki Nage Book</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Model serving</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model-serving">
+<h1>Model serving<a class="headerlink" href="#model-serving" title="Permalink to this headline">¶</a></h1>
+<p>Maki Nage provides an operator dedicated to model serving. This <em>serve</em> operator
+makes deployment of a machine learning model very easy. The key features of Maki
+Nage model serving are:</p>
+<ul class="simple">
+<li><p>Real-time inference from a Kafka source topic.</p></li>
+<li><p>Inference result is sent on a Kafka sink topic.</p></li>
+<li><p>Automated model update.</p></li>
+<li><p>Support of any machine learning model, packaged with <a class="reference external" href="https://mlflow.org/">MlFlow</a>.</p></li>
+<li><p>Customization of the whole inference pipeline: data pre/post-processing, and inference.</p></li>
+</ul>
+<div class="section" id="data-flow">
+<h2>Data Flow<a class="headerlink" href="#data-flow" title="Permalink to this headline">¶</a></h2>
+<p>The following figure shows the dataflow of Maki Nage model serving:</p>
+<a class="reference internal image-reference" href="_images/serve.png"><img alt="_images/serve.png" class="align-center" src="_images/serve.png" style="width: 481.6px; height: 261.6px;" /></a>
+<p>The data source is a Kafka topic. Each event then goes to three stages:</p>
+<ul class="simple">
+<li><p>pre-transform: Each Kafka event is transformed in a format suitable for inference by the model.</p></li>
+<li><p>predict: Model prediction is done for each pre-transformed event.</p></li>
+<li><p>post-transform: Each prediction is transformed in a format sent back on Kafka.</p></li>
+</ul>
+<p>Each step has a default behavior. So in some cases, no dedicated code is needed
+to deploy a model. Here is the default behavior of each step:</p>
+<ul class="simple">
+<li><p>pre-transform: Create a NumPy array from the source event.</p></li>
+<li><p>predict: Call the model predict method.</p></li>
+<li><p>post-transform: Return a tuple (utterance, prediction).</p></li>
+</ul>
+<p>Here is an example configuration file that can be used to serve a model where
+input and output data are encoded as JSON:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_model_serving</span>
+<span class="nt">Kafka</span><span class="p">:</span>
+  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
+<span class="nt">topics</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
+    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model</span>
+    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.none</span>
+    <span class="nt">start_from</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">last</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">predict</span>
+    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span>
+<span class="nt">operators</span><span class="p">:</span>
+  <span class="nt">serve</span><span class="p">:</span>
+    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.serve:serve</span>
+    <span class="nt">sources</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">model</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
+    <span class="nt">sinks</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">predict</span>
+<span class="nt">config</span><span class="p">:</span>
+  <span class="nt">serve</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+</pre></div>
+</div>
+<p>The service is started the same way as any Maki Nage application:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-QmFzaA== docutils container">
+<div class="docutils container">
+<p>Bash</p>
+</div>
+</div>
+<div class="item sphinx-data-tab-RG9ja2Vy docutils container">
+<div class="docutils container">
+<p>Docker</p>
+</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-QmFzaA== active docutils container">
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>makinage --config config.serve.yaml
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-RG9ja2Vy docutils container">
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>docker run makinage/makinage -v config.publish.yaml:/opt/makinage/config.yaml:ro
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once started the service waits for a model to be pushed on the <em>model</em> Kafka
+topic. This model can be pushed with <em>makinage-model-publisher</em>. This CLI tool
+also needs a configuration file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_model_publisher</span>
+<span class="nt">Kafka</span><span class="p">:</span>
+  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
+<span class="nt">models</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">topic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.../model/model.zip</span>
+</pre></div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-QmFzaA== docutils container">
+<div class="docutils container">
+<p>Bash</p>
+</div>
+</div>
+<div class="item sphinx-data-tab-RG9ja2Vy docutils container">
+<div class="docutils container">
+<p>Docker</p>
+</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-QmFzaA== active docutils container">
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>makinage-model-publisher --config config.publish.yaml
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-RG9ja2Vy docutils container">
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>docker run makinage/model-publisher -v config.publish.yaml:/opt/makinage/config.yaml:ro
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="custom-logic">
+<h2>Custom Logic<a class="headerlink" href="#custom-logic" title="Permalink to this headline">¶</a></h2>
+<p>Each of the three data flow steps can be customized for specific behavior. One
+has to write factory functions for each step that must be overloaded. Then these
+functions must be available as python packages.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These factories are called each time the configuration or the model change.
+Any update is taken into account without needing to restart the service.</p>
+</div>
+<div class="section" id="pre-transform">
+<h3>pre-transform<a class="headerlink" href="#pre-transform" title="Permalink to this headline">¶</a></h3>
+<p>Here is an example of a pre-transform overload:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pre_transform</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+   <span class="n">field</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">][</span><span class="s1">&#39;serve&#39;</span><span class="p">][</span><span class="s1">&#39;input_field&#39;</span><span class="p">]</span>
+
+   <span class="k">def</span> <span class="nf">_transform</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">field</span><span class="p">])</span>
+
+   <span class="k">return</span> <span class="n">_transform</span>
+</pre></div>
+</div>
+<p>The <em>pre-transform</em> function is a factory function. It takes the configuration
+object as a parameter and returns the actual pre-transform function. The
+returned transform function is called for each event received on the input
+stream. In this example, only one field of the input event is used and
+converted to a NumPy array.</p>
+</div>
+<div class="section" id="predict">
+<h3>predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h3>
+<p>Here is an example of a predict overload:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+   <span class="n">threshold</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">][</span><span class="s1">&#39;serve&#39;</span><span class="p">][</span><span class="s1">&#39;threshold&#39;</span><span class="p">]</span>
+
+   <span class="k">def</span> <span class="nf">_predict</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+      <span class="n">proba</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">proba</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">:</span>
+         <span class="k">return</span> <span class="kc">True</span>
+      <span class="k">return</span> <span class="kc">False</span>
+
+   <span class="k">return</span> <span class="n">_predict</span>
+</pre></div>
+</div>
+<p>The <em>predict</em> function is a factory function. It takes the model and
+configuration objects as parameters and returns the actual predict function. The
+returned predict function is called for each event received on the input stream.
+In this example, the default behavior of predict is changed with a call of
+predic_proba. After that, a threshold is used to decide if the binary
+classification is true or false.</p>
+</div>
+<div class="section" id="post-transform">
+<h3>post-transform<a class="headerlink" href="#post-transform" title="Permalink to this headline">¶</a></h3>
+<p>Here is an example of a post-transform overload:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">post_transform</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+
+   <span class="k">def</span> <span class="nf">_transform</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">pred</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+         <span class="k">return</span> <span class="kc">None</span>
+      <span class="k">return</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+
+   <span class="k">return</span> <span class="n">_transform</span>
+</pre></div>
+</div>
+<p>The <em>post-transform</em> function is a factory function. It takes the configuration
+object as a parameter and returns the actual post-transform function. The
+returned transform function is called for each prediction from the model. In
+this example, the resulting prediction is dropped if the prediction is False. As
+a consequence, only True predictions are sent on the sink Kafka topic of the
+service.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="howto.html" class="btn btn-neutral float-right" title="Howto" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="handson_lanl_online.html" class="btn btn-neutral float-left" title="Lanl Online" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, R. Picard
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

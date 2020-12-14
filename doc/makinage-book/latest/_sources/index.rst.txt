@@ -18,6 +18,7 @@ The complete references of RxSci operators is available `here <https://www.makin
    rationale
    installation
    handson
+   serving
    howto
    configuration
 

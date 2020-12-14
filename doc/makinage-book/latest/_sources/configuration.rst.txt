@@ -63,6 +63,21 @@ This section is a placeholder for application specific configuration. This is
 typically where one can put the feature engineering parameters, or anything that
 can be configured without code change.
 
+It contains some reserved sub-section keywords:
+
+serve (object)
+..............
+
+This sub-section contains the configuration for model serving. The following
+fields can be used to configure the inference behavior:
+
+* pre_transform: [function] A factory function called with the configuration as a parameter. It must return a function that takes utterances as parameter and returns data in a format suitable for inference. 
+* post_transform: [function] A factory function called with the configuration as a parameter. It must return a function that takes utterances and predicions as parameters and returns data in a format suitable for emission on the sink topic. 
+* predict: [function] A factory function called with the model and configuration as a parameters. It must return a function that takes pre-transformed utterances as parameter and return the model prediction.
+
+See the :ref:`Serving <serving>` chapter for more information on these fields.
+
+
 redirect (object)
 ------------------
 
