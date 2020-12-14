@@ -183,20 +183,20 @@
             
   <div class="section" id="home-energy-consumption">
 <h1>Home Energy Consumption<a class="headerlink" href="#home-energy-consumption" title="Permalink to this headline">¶</a></h1>
-<p>In this first tutorial, we see how to use maki-nage for basic feature
-engineering, and how to deploy a model operating in streaming mode. The task of
-this tutorial is a regression: We will predict the power consumption of a house
-, based on weather information.</p>
+<p>This first tutorial explains how to use Maki Nage for basic feature engineering
+on time-series data, and how to deploy a model operating in streaming mode. The
+task of this tutorial is a regression: We will predict the power consumption of
+a house, based on weather information.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Maki Nage is designed to work efficiently with <a class="reference external" href="https://www.pypy.org/">pypy</a>. Please ensure that you use it as your interpreter
-for better performances.</p>
+for better performance.</p>
 </div>
 <div class="section" id="the-dataset">
 <h2>The dataset<a class="headerlink" href="#the-dataset" title="Permalink to this headline">¶</a></h2>
-<p>On this example we will work on the <em>Smart Home Dataset</em>. It can be downloaded from
+<p>In this example, we will work on the <em>Smart Home Dataset</em>. It can be downloaded from
 kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart-home-dataset-with-weather-information">here</a>.</p>
-<p>The dataset is a csv file of 130MB, its content looks like this:</p>
+<p>The dataset is a CSV file of 130MB, its content looks like this:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> head HomeC.csv
 <span class="go">time,use [kW],gen [kW],House overall [kW],Dishwasher [kW],Furnace 1 [kW],Furnace 2 [kW],Home office [kW],Fridge [kW],Wine cellar [kW],Garage door [kW],Kitchen 12 [kW],Kitchen 14 [kW],Kitchen 38 [kW],Barn [kW],Well [kW],Microwave [kW],Living room [kW],Solar [kW],temperature,icon,humidity,visibility,summary,apparentTemperature,pressure,windSpeed,cloudCover,windBearing,precipIntensity,dewPoint,precipProbability</span>
 <span class="go">1451624400,0.932833333,0.003483333,0.932833333,3.33E-05,0.0207,0.061916667,0.442633333,0.12415,0.006983333,0.013083333,0.000416667,0.00015,0,0.03135,0.001016667,0.004066667,0.001516667,0.003483333,36.14,clear-night,0.62,10,Clear,29.26,1016.91,9.18,cloudCover,282,0,24.4,0</span>
@@ -204,11 +204,11 @@ kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart
 <span class="go">1451624402,0.931816667,0.003466667,0.931816667,1.67E-05,0.0207,0.062316667,0.446066667,0.123533333,0.006983333,0.013083333,0.000433333,0.000166667,1.67E-05,0.031516667,0.001,0.004066667,0.00165,0.003466667,36.14,clear-night,0.62,10,Clear,29.26,1016.91,9.18,cloudCover,282,0,24.4,0</span>
 </pre></div>
 </div>
-<p>For simplicity, We will use only few columns:</p>
+<p>For simplicity, We will use only a few columns:</p>
 <ul class="simple">
 <li><p>House overall: This is the label we want to predict, the total energy consumption of the house.</p></li>
 <li><p>temperature: The weather temperature in °F.</p></li>
-<li><p>pressure: The atmospheric pressure in hPA.</p></li>
+<li><p>pressure: The atmospheric pressure in hPa (hectopascal).</p></li>
 <li><p>windSpeed: The wind speed.</p></li>
 </ul>
 <p>We will use the following imports:</p>
@@ -223,12 +223,12 @@ kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart
 <p>The recommended data type when working with Maki Nage is namedtuple, hence the
 first import. Then there are two RxPy imports. Since Maki Nage is based on
 ReactiveX, we will use some ReactiveX operators. Then is the main RxSci import,
-and another one to work with csv files. RxSci is the Maki Nage library that
+and another one to work with CSV files. RxSci is the Maki Nage library that
 implements all transformation functions. It is the library that you will mostly
 use in a Maki Nage application. The final import is used for the data
-exploration phase, when computing statisctis on the data distributions.</p>
-<p>With these import, we can start a template code that will read the csv file. The
-first step consists in defining the schema of the csv file:</p>
+exploration phase when computing statistics on the data distributions.</p>
+<p>With these imports, we can start a template code that will read the CSV file. The
+first step consists of defining the schema of this CSV file:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;/opt/dataset/HomeC.csv&#39;</span>
 <span class="n">parser</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">create_line_parser</span><span class="p">(</span>
     <span class="n">dtype</span><span class="o">=</span><span class="p">[</span>
@@ -273,17 +273,17 @@ first step consists in defining the schema of the csv file:</p>
 </pre></div>
 </div>
 <p>Many things happen on this single line: The <em>load_from_file</em> function is a
-factory operator that creates an Observable from the content of the csv file. An
+factory operator that creates an Observable from the content of the CSV file. An
 Observable is the term used for a stream of events. The Observable will emit one
-item - one event - for each line of the csv file. The <em>load_from_file</em> operator
-takes two arguments: the path of the csv file, and its schema.</p>
+item - one event - for each line of the CSV file. The <em>load_from_file</em> operator
+takes two arguments: the path of the CSV file and its schema.</p>
 <p>The pipe operator one of the two operators that you will use most frequently: It
-allows to create chaines of operators, so that data transformations can be done
-in a sequential way. For now, no sequence is provided, so no transformation is
+allows you to create chains of operators, so that data transformations can be
+done sequentially. For now, no sequence is provided, so no transformation is
 done.</p>
-<p>Finally the run operator subscribes to the Observable. Calling it triggers that
+<p>Finally, the run operator subscribes to the Observable. Calling it triggers the
 actual execution of the whole computation graph.</p>
-<p>No that we have our csv dataset available as an Observable, let’s work on it!</p>
+<p>Now that we have our CSV dataset available as an Observable, let’s work on it!</p>
 </div>
 <div class="section" id="data-exploration">
 <h2>Data Exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">¶</a></h2>
@@ -292,7 +292,7 @@ actual execution of the whole computation graph.</p>
 <p>As a first step, let’s compute some statistics on the <em>house overall</em> column,
 and plot its histogram. For these two steps, we need to compute a compressed
 representation of the data distribution. This is done by creating a graph that
-consists in two operators:</p>
+consists of two operators:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
     <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
@@ -309,9 +309,9 @@ that we want the operator to emit an item only when the source Observable
 completes, i.e. when all items have been processed. The default behavior is to
 emit a distribution object for each item received as input.</p>
 <p>As said previously, the run operator subscribes to the resulting Observable.
-Moreover, it return that last item emitted. On our graph, this is the
+Moreover, it returns that last item emitted. On our graph, this is the
 distribution object.</p>
-<p>From this object, we can do several statistic analysis. Computing classical
+<p>From this object, we can do several statistical analyses. Computing classical
 statistical information is done with the <em>describe</em> operator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;house overall consumption statistics:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">just</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
@@ -323,9 +323,9 @@ statistical information is done with the <em>describe</em> operator:</p>
 Observables: First an observable is created from the dist object, with the
 <em>just</em> operator. This observable will emit a single item. This may seem
 unnecessarily complex at first, but when working in a streaming way, this is
-just a particular case of stream. The important point is that all the operators
-that we use work on Observables, weather they emit no item, some items, or an
-inifinite number of items.</p>
+just a particular case of a stream. The important point is that all the operators
+that we use work on Observables, whether they emit no item, some items, or an
+infinite number of items.</p>
 <p>The <em>math.dist.describe</em> operator emits a namedtuple with the following
 statistics for each item it receives:</p>
 <table class="docutils align-default">
@@ -376,7 +376,7 @@ used by plotly. The resulting plot is:</p>
 </div>
 <div class="section" id="multiple-variables-exploration">
 <h3>Multiple Variables Exploration<a class="headerlink" href="#multiple-variables-exploration" title="Permalink to this headline">¶</a></h3>
-<p>In the previous section, we studied one feature. The first step consisted in
+<p>In the previous section, we studied one feature. The first step consisted of
 computing a compressed representation of the data distribution by using two
 operators:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
@@ -384,11 +384,11 @@ operators:</p>
 </pre></div>
 </div>
 <p>Now we want to do the same for other columns. One naive way is to do the same
-steps for each feature. However this means that we need to process the dataset
-as many times as the features we have. Fortunately all these steps can be done
+steps for each feature. However, this means that we need to process the dataset
+as many times as the features we have. Fortunately, all these steps can be done
 in parallel, thanks to a dedicated operator: <em>tee_map</em>. The <em>tee_map</em> operator
 applies several transformation graphs to the same source of data in parallel. So
-if we want to compute four discributions on a single reading pass, we can do the
+if we want to compute four distributions on a single reading pass, we can do the
 following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
@@ -413,7 +413,7 @@ following:</p>
 </pre></div>
 </div>
 <p>Here we have four computation graphs - one for each feature - that are processed
-in parallel. The final dist variable is a tuple of four field, one for each
+in parallel. The final dist variable is a tuple of four fields, one for each
 computation graph:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
 <span class="p">(</span><span class="o">&lt;</span><span class="n">distogram</span><span class="o">.</span><span class="n">Distogram</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x000000000af063d8</span><span class="o">&gt;</span><span class="p">,</span>
@@ -573,8 +573,8 @@ computation graph:</p>
 <li><p>The standard deviation of the temperature on the previous 6 hours.</p></li>
 </ul>
 <p>Moreover, we will compute one feature for each hour. Since the dataset has been
-sampled every minutes, we will reduce its size of a ratio of 60. Let’s work on
-this step by step. The first thing is to declare a datatype for these features:</p>
+sampled every minute, we will reduce the size of a ratio of 60. Let’s work on
+this step by step. The first thing is to declare a data type for these features:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Features</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -594,11 +594,11 @@ this step by step. The first thing is to declare a datatype for these features:<
 is Feature items, one for each entry in the dataset. Note that the temperature
 standard deviation is set to 0 for now.</p>
 <p>The second step is to compute a rolling window of 6 hours, with a stride of one
-hour. This is a type of transformation is hard - or impossible - to implement in
-many dataframe oriented frameworks. RxSci has a dedicated operator for this
-common operation on timeseries: <a class="reference external" href="https://www.makinage.org/doc/rxsci/latest/reference_data.html#rxsci.data.roll">roll</a>.
-It takes three arguments as an input: size of window, size of stride, and
-computation graph.</p>
+hour. This is a type of transformation that is hard - or impossible - to
+implement in most dataframe oriented frameworks. RxSci has a dedicated operator
+for this common operation on time series: <a class="reference external" href="https://www.makinage.org/doc/rxsci/latest/reference_data.html#rxsci.data.roll">roll</a>.
+It takes three arguments as input: The size of the window, the size of stride,
+and the computation graph.</p>
 <p class="marble">
 <img src="_images/marble-860797c0d5f33819decee4c3099f5b2e8359ff11.png" alt="roll"/>
 </p>
@@ -620,7 +620,7 @@ we also need the <em>tee_map</em> operator to compute them in parallel:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>This computation graph returns the last item emitted by the source observable,
+<p>This computation graph returns the last item emitted by the source observable
 and the standard deviation of the temperature field. We can now use it in the
 rolling window:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
@@ -638,7 +638,7 @@ rolling window:</p>
 </pre></div>
 </div>
 <p>The roll operator creates a new Observable for each window, so the <em>tee_map</em>
-computation is done for each of these generated window.</p>
+computation is done for each of these generated windows.</p>
 <p>The complete code is:</p>
 <div class="sphinx-tabs docutils container">
 <div class="ui top attached tabular menu sphinx-menu docutils container">
@@ -663,7 +663,7 @@ computation is done for each of these generated window.</p>
         <span class="n">temperature</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
         <span class="n">temperature_stddev</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="p">)),</span>
-    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">with_memory_store</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
         <span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
             <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
             <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
@@ -687,20 +687,20 @@ computation is done for each of these generated window.</p>
 <p>todo: reactivity diagram</p>
 </div>
 </div>
-<p>There are several other additions in this code. First, the roll operator can be
-used only within the context of the <em>multiplex</em> operator. The reason is that
+<p>There are several other additions to this code. First, the roll operator can be
+used only within the context of a <em>state store</em>. The reason is that
 roll is one of the operators that work only on MuxObservables, a specialized
 implementation of Observables when working on aggregates.</p>
 <p>Then the final map transformation may require some clarifications. Its source
-Observable contains tuples emitted by the roll operator. These are tuple of two
+Observable contains tuples emitted by the roll operator. These are tuples of two
 fields. The first one is the last <em>Features</em> item received on each window. The
-second one is the temperature stddev. So the map operator creates a new Features
-items from the label, pspeed_ratio, and temperature from the first element; and
-the stddev from the second element.</p>
-<p>Finally, the to_list operator transforms the final Observable to a python list.
-This list is a way to get out of RxSci, and continue the processing with other
-tools. So after running this graph, the <em>features</em> variable contains a list of
-<em>Feature</em> elements.</p>
+second one is the temperature standard deviation. So the map operator creates
+new feature items from the label, pspeed_ratio, and temperature from the first
+element; and the standard deviation from the second element.</p>
+<p>Finally, the <em>to_list</em> operator transforms the final Observable into a python
+list. This list is a way to get out of RxSci and continue the processing with
+other tools. So after running this graph, the <em>features</em> variable contains a
+list of <em>Feature</em> elements.</p>
 </div>
 <div class="section" id="training">
 <h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
@@ -730,10 +730,10 @@ easily:</p>
 </div>
 <div class="section" id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
-<p>Maki Nage comes with tools to ease deployment of data transformation and models.
-This part is based on <a class="reference external" href="https://kafka.apache.org/">Kafka</a>, a distributed
-streaming platform. Kafka requires a broker to be installed, usually on a
-cluster. For tests, or work on a single machine, you can use the docker
+<p>Maki Nage comes with tools to ease the deployment of data transformation and
+models. This part is based on <a class="reference external" href="https://kafka.apache.org/">Kafka</a>, a
+distributed streaming platform. Kafka requires a broker to be installed, usually
+on a cluster. For tests or work on a single machine, you can use the docker
 environment provided by Maki Nage. Let’s start a local Kafka cluster:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/maki-nage/docker.git</span>
 <span class="go">cd docker/compose/mn-dev</span>
@@ -760,7 +760,7 @@ retrieve and install a package containing the code of all examples this way:</p>
             <span class="n">temperature</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
             <span class="n">temperature_stddev</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
         <span class="p">)),</span>
-        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">with_memory_store</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
                 <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
                 <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
@@ -786,18 +786,18 @@ only 4 minor changes.</p>
 an Observable of the configuration of the application (its usage is explained
 later). The second one is an Observable of the data. Each row is received from
 this observable instead of being read from a file.</p>
-<p>As a consequence, the second change is that the csv is not read from the file,
+<p>As a consequence, the second change is that the CSV is not read from the file,
 but each row is parsed from the data Observable. The <em>csv.load</em> operator is used
 instead of <em>csv.load_from_file</em>.</p>
 <p>The third change is the removal of the <em>to_list</em> operator: There is no need to
 aggregate all items in a single list. The application work in streaming mode:
-The is a stream of events as input (the rows of the csv dataset), and it returns
+The is a stream of events as input (the rows of the CSV dataset), and it returns
 a stream of events (the computed features). The source and the sink are Kafka
 topics. If you are not familiar with Kafka, you can consider for now that a
 Kafka topic is equivalent to an Observable.</p>
 <p>The last change is the fact that we return a tuple, containing the output
-Observables of the application. In this case there is a single Observable.</p>
-<p>In order to execute this application, a configuration file is needed. This yaml
+Observables of the application. In this case, there is a single Observable.</p>
+<p>To execute this application, a configuration file is needed. This YAML
 file contains information on how to execute the application:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
     <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
@@ -819,12 +819,12 @@ file contains information on how to execute the application:</p>
 </pre></div>
 </div>
 <p>The <em>application</em> section defines the name of the application. The <em>kafka</em>
-section contains the kafka cluster configutation. The <em>topics</em> section contains
-the list of the kafka topics being used, as well how they are used. Here we
-encode the house_values items as string, and the house_features items as json.</p>
+section contains the Kafka cluster configuration. The <em>topics</em> section contains
+the list of the Kafka topics being used, as well as how they are used. Here we
+encode the house_values items as strings and the house_features items as JSON.</p>
 <p>The <em>operators</em> section contains the list of operators to run. A Maki Nage
-operator, is simply a function that processes some streams. There can be many
-operators running on the same application. Each operator is describe with three
+operator is simply a function that processes some streams. There can be many
+operators running on the same application. Each operator is described with three
 information:</p>
 <ul class="simple">
 <li><p>The function to execute (<em>factory</em>). This function must be available from a python package.</p></li>
@@ -837,7 +837,7 @@ information:</p>
 </div>
 <p>This will initialize all kafka configuration, call the <em>compute_house_features</em>
 function with the correct parameters, and run forever.</p>
-<p>In order to make our application do something, we must inject some data on the
+<p>To make our application do something, we must inject some data on the
 Kafka source topic (house_values). This can be done with another application
 available in the example repository:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">makinage --config config.house.push.yml</span>

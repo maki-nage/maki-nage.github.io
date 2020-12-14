@@ -40,5 +40,5 @@ The Kafka service is binded on **all** network interfaces of the machine, allowi
 .. warning::
 
     Do not use this image on a non trusted network since anybody can access this
-    kafka cluster. If you need to work on localhost only, you cna change the
+    kafka cluster. If you need to work on localhost only, you can change the
     docker-compose configuration file.

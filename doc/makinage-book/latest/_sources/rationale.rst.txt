@@ -21,7 +21,7 @@ these events, and returns another stream of events:
       source = [1, 2, 3, 4, 5, 6, 7]
 
       rx.from_(source).pipe(
-         rs.ops.multiplex(rx.pipe(
+         rs.state.with_memory_store(rx.pipe(
             rs.data.roll(window=3, stride=3, pipeline=rx.pipe(
                   rs.math.mean(reduce=True),
             )),
