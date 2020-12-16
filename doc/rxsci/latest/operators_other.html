@@ -439,6 +439,32 @@ the tee.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="rxsci.ops.with_latest_from">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">with_latest_from</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">sources</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.with_latest_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges the specified observables into one observable sequence by
+creating a tuple only when the source observable sequence produces an
+element. The source observable is subscribed once at least one item has
+been received on each additional source.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">with_latest_from</span><span class="p">(</span><span class="n">obs1</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Source:</dt><dd><p>An Observable.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sources</strong> – Sequence of observables.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable sequence containing the result of combining
+elements of the sources into a tuple.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
