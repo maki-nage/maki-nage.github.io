@@ -108,8 +108,37 @@ Custom Logic
 -------------
 
 Each of the three data flow steps can be customized for specific behavior. One
-has to write factory functions for each step that must be overloaded. Then these
-functions must be available as python packages.
+has to write factory functions for each step that must be overloaded. these
+functions must be available as python packages and declared in the
+configuration:
+
+.. code:: yaml
+
+    application:
+      name: my_model_serving
+    Kafka:
+      endpoint: "localhost"
+    topics:
+      - name: data
+        encoder: makinage.encoding.json
+      - name: model
+        encoder: makinage.encoding.none
+        start_from: last
+      - name: predict
+        encoder: makinage.encoding.json
+    operators:
+      serve:
+        factory: makinage.serve:serve
+        sources:
+          - model
+          - data      
+        sinks:
+          - predict
+    config:
+      serve:
+         pre_transform: my_model.serve:pre_transform
+         predict: my_model.serve:predict
+         post_transform: my_model.serve:post_transform
 
 .. note::
    
@@ -136,8 +165,9 @@ Here is an example of a pre-transform overload:
 The *pre-transform* function is a factory function. It takes the configuration
 object as a parameter and returns the actual pre-transform function. The
 returned transform function is called for each event received on the input
-stream. In this example, only one field of the input event is used and
-converted to a NumPy array.
+stream. If the transform function returns None, then the prediction is skipped.
+In this example, only one field of the input event is used and converted to a
+NumPy array.
 
 
 predict
@@ -162,9 +192,10 @@ Here is an example of a predict overload:
 The *predict* function is a factory function. It takes the model and
 configuration objects as parameters and returns the actual predict function. The
 returned predict function is called for each event received on the input stream.
-In this example, the default behavior of predict is changed with a call of
-predic_proba. After that, a threshold is used to decide if the binary
-classification is true or false.
+If the predict function returns None, then the prediction is skipped. In this
+example, the default behavior of predict is changed with a call of predic_proba.
+After that, a threshold is used to decide if the binary classification is true
+or false.
 
 
 post-transform
@@ -185,7 +216,8 @@ Here is an example of a post-transform overload:
 
 The *post-transform* function is a factory function. It takes the configuration
 object as a parameter and returns the actual post-transform function. The
-returned transform function is called for each prediction from the model. In
-this example, the resulting prediction is dropped if the prediction is False. As
-a consequence, only True predictions are sent on the sink Kafka topic of the
+returned transform function is called for each prediction from the model. If the
+predict transform returns None, then the prediction is skipped. In this example,
+the resulting prediction is skipped if the prediction is False. As a
+consequence, only True predictions are sent on the sink Kafka topic of the
 service.

@@ -288,8 +288,36 @@ also needs a configuration file:</p>
 <div class="section" id="custom-logic">
 <h2>Custom Logic<a class="headerlink" href="#custom-logic" title="Permalink to this headline">¶</a></h2>
 <p>Each of the three data flow steps can be customized for specific behavior. One
-has to write factory functions for each step that must be overloaded. Then these
-functions must be available as python packages.</p>
+has to write factory functions for each step that must be overloaded. these
+functions must be available as python packages and declared in the
+configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_model_serving</span>
+<span class="nt">Kafka</span><span class="p">:</span>
+  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
+<span class="nt">topics</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
+    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model</span>
+    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.none</span>
+    <span class="nt">start_from</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">last</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">predict</span>
+    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span>
+<span class="nt">operators</span><span class="p">:</span>
+  <span class="nt">serve</span><span class="p">:</span>
+    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.serve:serve</span>
+    <span class="nt">sources</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">model</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data</span>
+    <span class="nt">sinks</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">predict</span>
+<span class="nt">config</span><span class="p">:</span>
+  <span class="nt">serve</span><span class="p">:</span>
+     <span class="nt">pre_transform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_model.serve:pre_transform</span>
+     <span class="nt">predict</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_model.serve:predict</span>
+     <span class="nt">post_transform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_model.serve:post_transform</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>These factories are called each time the configuration or the model change.
@@ -310,8 +338,9 @@ Any update is taken into account without needing to restart the service.</p>
 <p>The <em>pre-transform</em> function is a factory function. It takes the configuration
 object as a parameter and returns the actual pre-transform function. The
 returned transform function is called for each event received on the input
-stream. In this example, only one field of the input event is used and
-converted to a NumPy array.</p>
+stream. If the transform function returns None, then the prediction is skipped.
+In this example, only one field of the input event is used and converted to a
+NumPy array.</p>
 </div>
 <div class="section" id="predict">
 <h3>predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h3>
@@ -331,9 +360,10 @@ converted to a NumPy array.</p>
 <p>The <em>predict</em> function is a factory function. It takes the model and
 configuration objects as parameters and returns the actual predict function. The
 returned predict function is called for each event received on the input stream.
-In this example, the default behavior of predict is changed with a call of
-predic_proba. After that, a threshold is used to decide if the binary
-classification is true or false.</p>
+If the predict function returns None, then the prediction is skipped. In this
+example, the default behavior of predict is changed with a call of predic_proba.
+After that, a threshold is used to decide if the binary classification is true
+or false.</p>
 </div>
 <div class="section" id="post-transform">
 <h3>post-transform<a class="headerlink" href="#post-transform" title="Permalink to this headline">¶</a></h3>
@@ -350,9 +380,10 @@ classification is true or false.</p>
 </div>
 <p>The <em>post-transform</em> function is a factory function. It takes the configuration
 object as a parameter and returns the actual post-transform function. The
-returned transform function is called for each prediction from the model. In
-this example, the resulting prediction is dropped if the prediction is False. As
-a consequence, only True predictions are sent on the sink Kafka topic of the
+returned transform function is called for each prediction from the model. If the
+predict transform returns None, then the prediction is skipped. In this example,
+the resulting prediction is skipped if the prediction is False. As a
+consequence, only True predictions are sent on the sink Kafka topic of the
 service.</p>
 </div>
 </div>
