@@ -33,7 +33,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
         <script src="_static/sphinx_tabs/tabs.js"></script>
     
@@ -294,7 +293,7 @@ and plot its histogram. For these two steps, we need to compute a compressed
 representation of the data distribution. This is done by creating a graph that
 consists of two operators:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-    <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -361,7 +360,7 @@ statistics for each item it receives:</p>
 histogram of the distribution. For this, we use once again the same pattern:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_hist</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">just</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">histogram</span><span class="p">(),</span>
-    <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">])),</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">])),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df_hist</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;house consumption&quot;</span><span class="p">)</span>
@@ -379,7 +378,7 @@ used by plotly. The resulting plot is:</p>
 <p>In the previous section, we studied one feature. The first step consisted of
 computing a compressed representation of the data distribution by using two
 operators:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
 <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 </pre></div>
 </div>
@@ -391,21 +390,21 @@ applies several transformation graphs to the same source of data in parallel. So
 if we want to compute four distributions on a single reading pass, we can do the
 following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-    <span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>  <span class="c1"># graph 1</span>
-            <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">),</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="p">),</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>  <span class="c1"># graph 2</span>
-            <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="p">),</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>  <span class="c1"># graph 3</span>
-            <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">pressure</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">pressure</span><span class="p">),</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="p">),</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>  <span class="c1"># graph 4</span>
-            <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">wind_speed</span><span class="p">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">wind_speed</span><span class="p">),</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="p">),</span>
     <span class="p">)</span>
@@ -434,7 +433,7 @@ computation graph:</p>
 
     <span class="n">df_hist</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">just</span><span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
         <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">histogram</span><span class="p">(),</span>
-        <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">])),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">])),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
     <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df_hist</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
@@ -609,7 +608,7 @@ and the computation graph.</p>
 <p>We need a pipeline that returns the last value of pspeed_ratio and temperature
 on one side, and the standard deviation of the temperature on the other side. So
 we also need the <em>tee_map</em> operator to compute them in parallel:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
     <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
         <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
     <span class="p">),</span>
@@ -625,7 +624,7 @@ and the standard deviation of the temperature field. We can now use it in the
 rolling window:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
     <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-    <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+    <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
         <span class="p">),</span>
@@ -666,7 +665,7 @@ computation is done for each of these generated windows.</p>
     <span class="n">rs</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">with_memory_store</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
         <span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
             <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-            <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+            <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
                 <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
                     <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
                 <span class="p">),</span>
@@ -687,10 +686,15 @@ computation is done for each of these generated windows.</p>
 <p>todo: reactivity diagram</p>
 </div>
 </div>
-<p>There are several other additions to this code. First, the roll operator can be
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream
+There are several other additions to this code. First, the roll operator can be
 used only within the context of a <em>state store</em>. The reason is that
+=======
+There are several other additions in this code. First, the roll operator can be
+used only within the context of a <em>state store</em> operator. The reason is that
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Stashed changes
 roll is one of the operators that work only on MuxObservables, a specialized
-implementation of Observables when working on aggregates.</p>
+implementation of Observables optimized for aggregate and stateful transforms.</p>
 <p>Then the final map transformation may require some clarifications. Its source
 Observable contains tuples emitted by the roll operator. These are tuples of two
 fields. The first one is the last <em>Features</em> item received on each window. The
@@ -763,7 +767,7 @@ retrieve and install a package containing the code of all examples this way:</p>
         <span class="n">rs</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">with_memory_store</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
                 <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-                <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
+                <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
                     <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
                         <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
                     <span class="p">),</span>

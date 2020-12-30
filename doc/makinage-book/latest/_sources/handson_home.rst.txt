@@ -139,7 +139,7 @@ consists of two operators:
 .. code:: python
 
     dist = csv.load_from_file(dataset_path, parser).pipe(
-        ops.map(lambda i: i.house_overall),
+        rs.ops.map(lambda i: i.house_overall),
         rs.math.dist.update(reduce=True),
     ).run()
 
@@ -198,7 +198,7 @@ histogram of the distribution. For this, we use once again the same pattern:
 
     df_hist = rx.just(dist).pipe(
         rs.math.dist.histogram(),
-        ops.map(lambda i: pd.DataFrame(np.array(i), columns=["bin", "count"])),
+        rs.ops.map(lambda i: pd.DataFrame(np.array(i), columns=["bin", "count"])),
     ).run()
 
     fig = px.bar(df_hist, x="bin", y="count", title="house consumption")
@@ -224,7 +224,7 @@ operators:
 
 .. code:: python
 
-    ops.map(lambda i: i.house_overall),
+    rs.ops.map(lambda i: i.house_overall),
     rs.math.dist.update(reduce=True),
 
 
@@ -239,21 +239,21 @@ following:
 .. code:: python
 
     dist = csv.load_from_file(dataset_path, parser).pipe(
-        rs.tee_map(
+        rs.ops.tee_map(
             rx.pipe(  # graph 1
-                ops.map(lambda i: i.house_overall),
+                rs.ops.map(lambda i: i.house_overall),
                 rs.math.dist.update(reduce=True),
             ),
             rx.pipe(  # graph 2
-                ops.map(lambda i: i.temperature),
+                rs.ops.map(lambda i: i.temperature),
                 rs.math.dist.update(reduce=True),
             ),
             rx.pipe(  # graph 3
-                ops.map(lambda i: i.pressure),
+                rs.ops.map(lambda i: i.pressure),
                 rs.math.dist.update(reduce=True),
             ),
             rx.pipe(  # graph 4
-                ops.map(lambda i: i.wind_speed),
+                rs.ops.map(lambda i: i.wind_speed),
                 rs.math.dist.update(reduce=True),
             ),
         )
@@ -286,7 +286,7 @@ From these dist objects, we can now print the statistics and histogram of the co
         
         df_hist = rx.just(dist[i]).pipe(
             rs.math.dist.histogram(),
-            ops.map(lambda i: pd.DataFrame(np.array(i), columns=["bin", "count"])),
+            rs.ops.map(lambda i: pd.DataFrame(np.array(i), columns=["bin", "count"])),
         ).run()
 
         fig = px.bar(df_hist, x="bin", y="count", title=cols[i])
@@ -423,7 +423,7 @@ we also need the *tee_map* operator to compute them in parallel:
 
 .. code:: python
 
-    rs.tee_map(
+    rs.ops.tee_map(
         rx.pipe(
             rs.ops.last(),
         ),
@@ -441,7 +441,7 @@ rolling window:
 
     rs.data.roll(
         window=60*6, stride=60,
-        pipeline=rs.tee_map(
+        pipeline=rs.ops.tee_map(
             rx.pipe(
                 rs.ops.last(),
             ),
@@ -473,7 +473,7 @@ The complete code is:
             rs.state.with_memory_store(rx.pipe(
                 rs.data.roll(
                     window=60*6, stride=60,
-                    pipeline=rs.tee_map(
+                    pipeline=rs.ops.tee_map(
                         rx.pipe(
                             rs.ops.last(),
                         ),
@@ -493,10 +493,15 @@ The complete code is:
         todo: reactivity diagram
 
 
+<<<<<<< Updated upstream
 There are several other additions to this code. First, the roll operator can be
 used only within the context of a *state store*. The reason is that
+=======
+There are several other additions in this code. First, the roll operator can be
+used only within the context of a *state store* operator. The reason is that
+>>>>>>> Stashed changes
 roll is one of the operators that work only on MuxObservables, a specialized
-implementation of Observables when working on aggregates.
+implementation of Observables optimized for aggregate and stateful transforms.
 
 Then the final map transformation may require some clarifications. Its source
 Observable contains tuples emitted by the roll operator. These are tuples of two
@@ -590,7 +595,7 @@ The feature engineering code for the deployment is the following:
             rs.state.with_memory_store(rx.pipe(
                 rs.data.roll(
                     window=60*6, stride=60,
-                    pipeline=rs.tee_map(
+                    pipeline=rs.ops.tee_map(
                         rx.pipe(
                             rs.ops.last(),
                         ),
