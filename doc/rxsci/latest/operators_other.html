@@ -210,6 +210,28 @@ any source pair evaluates to False.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="rxsci.ops.count">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reduce</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of items emitted in the source Observable.</p>
+<p class="marble">
+<img src="_images/marble-6af44c4bc3e051bc6048b273826cbfa5f8e97f6b.png" alt="count"/>
+</p>
+<p class="marble">
+<img src="_images/marble-029b8391802aee79bceee0e553b13a9e15c894c3.png" alt="count"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
+False, otherwise emits a single item on completion.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable emitting the number of source items that have been
+emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.ops.distinct">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">distinct</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key_mapper</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.distinct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an observable sequence that contains only distinct
