@@ -305,6 +305,9 @@ observable is the same than the source observable.</p>
 <dt id="rxsci.ops.first">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">first</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.first" title="Permalink to this definition">¶</a></dt>
 <dd><p>Emits the first element of an observable</p>
+<p class="marble">
+<img src="_images/marble-5c3ad6405326359ae4cc289b5b8be292335db80d.png" alt="first"/>
+</p>
 <dl class="simple">
 <dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
 </dd>
@@ -351,6 +354,9 @@ observable.</p>
 <dt id="rxsci.ops.last">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">last</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.last" title="Permalink to this definition">¶</a></dt>
 <dd><p>Emits the last element of an observable</p>
+<p class="marble">
+<img src="_images/marble-e7a9707084cce804437cabf238acd3f0f7f9d148.png" alt="last"/>
+</p>
 <dl class="simple">
 <dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
 </dd>
@@ -367,6 +373,9 @@ observable.</p>
 <dt id="rxsci.ops.map">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapper</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects each element of an observable into a new form.</p>
+<p class="marble">
+<img src="_images/marble-52e113b590f7fb5e7471c6d56c1829f94703f688.png" alt="map"/>
+</p>
 <dl class="simple">
 <dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
 </dd>
@@ -458,6 +467,9 @@ False, otherwise emits a single item on completion.</p></li>
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">take</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.take" title="Permalink to this definition">¶</a></dt>
 <dd><p>Emits a specified number of items from the start of an
 observable.</p>
+<p class="marble">
+<img src="_images/marble-6e19e75a07bd399aae57e54367ef89cdf3f4abcb.png" alt="take"/>
+</p>
 <dl class="simple">
 <dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
 </dd>
@@ -521,8 +533,11 @@ the tee.</p>
 creating a tuple only when the source observable sequence produces an
 element. The source observable is subscribed once at least one item has
 been received on each additional source.</p>
+<p class="marble">
+<img src="_images/marble-5ababd8afc8e9f425aec1cad56053f0c12715cba.png" alt="with_latest_from"/>
+</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">with_latest_from</span><span class="p">(</span><span class="n">obs1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">with_latest_from</span><span class="p">(</span><span class="n">obs1</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="simple">
