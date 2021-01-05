@@ -245,13 +245,6 @@ of an internal lookup structure which can grow large.</p>
 better performance thanks to the usage of sets. Meanwhile this
 implementation does not allow to specify a comparer: The key must be
 hashable.</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ops</span><span class="o">.</span><span class="n">distinct</span><span class="p">(),</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
-</pre></div>
-</div>
 <dl class="simple">
 <dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
 </dd>
@@ -477,7 +470,7 @@ returns each intermediate result.</p>
 <img src="_images/marble-4b44ebe2947ab33ef3eaddfd9a044b09245db493.png" alt="scan"/>
 </p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">operators</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="k">lambda</span> <span class="n">acc</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">acc</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="k">lambda</span> <span class="n">acc</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">acc</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -498,9 +491,57 @@ False, otherwise emits a single item on completion.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt id="rxsci.ops.starmap">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">starmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapper</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.starmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks arguments grouped as tuple items of an observable
+and return an observable of values by invoking
+the mapper function with star applied unpacked items as
+positional arguments.</p>
+<p class="marble">
+<img src="_images/marble-1d791e0ab4245961cd740c268a2a92fb24396ecf.png" alt="starmap"/>
+</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mapper</strong> – A transform function to invoke with unpacked elements
+as arguments.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable containing the results of
+invoking the mapper function with unpacked items of the
+source observable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.ops.start_with">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">start_with</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">padding</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.start_with" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepends some items to an Observable</p>
+<p class="marble">
+<img src="_images/marble-6c600fe0223854f3db3cb003a95af6c4039b117d.png" alt="start_with"/>
+</p>
+<dl class="simple">
+<dt>Source:</dt><dd><p>A MuxObservable</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mapper</strong> – A transform function to invoke with unpacked elements
+as arguments.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Observable emitting the items of the source Observable, preceded by
+the values of padding.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
