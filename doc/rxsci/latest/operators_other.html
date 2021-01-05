@@ -343,6 +343,25 @@ observable.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="rxsci.ops.flat_map">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">flat_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.flat_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Projects each element of iterable source items as a new item.</p>
+<p class="marble">
+<img src="_images/marble-0a78345f784f6902cda17e20cbf0f130cee9568b.png" alt="flat_map"/>
+</p>
+<dl class="simple">
+<dt>Sources:</dt><dd><p>An Observable or a MuxObservable</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable whose items are the result of
+iterating on each items of the source observable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.ops.group_by">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">group_by</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key_mapper</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.group_by" title="Permalink to this definition">¶</a></dt>
 <dd><p>Groups items of according to a key mapper</p>
