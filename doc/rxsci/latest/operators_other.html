@@ -568,6 +568,21 @@ the tee.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="rxsci.ops.to_pandas">
+<code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">to_pandas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">columns</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.to_pandas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts an observable to a pandas dataframe</p>
+<dl class="simple">
+<dt>Source:</dt><dd><p>An Observable of namedtuples</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An observable the emits a single item. This item is a pandas dataframe.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.ops.with_latest_from">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">with_latest_from</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">sources</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.with_latest_from" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merges the specified observables into one observable sequence by
