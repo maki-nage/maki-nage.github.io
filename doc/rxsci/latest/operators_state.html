@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Python Module Index &mdash; rxsci 0.10.0 documentation</title>
+  <title>State &mdash; rxsci 0.10.0 documentation</title>
   
 
   
@@ -37,10 +37,7 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
- 
-
-
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -138,10 +135,14 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Python Module Index</li>
+      <li>State</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/operators_state.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -153,74 +154,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <div class="section" id="module-rxsci.state">
+<span id="state"></span><h1>State<a class="headerlink" href="#module-rxsci.state" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="rxsci.state.MemoryStore">
+<em class="property">class </em><code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">MemoryStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'obj'</span></em>, <em class="sig-param"><span class="n">default_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.MemoryStore" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Memory state store</p>
+<p>Statefull MuxObervable operators need to maintain one state per key. Keys
+have to be indexables, i.e. index into a table/array. This allows fast
+lookup (compared to hash tables). As statefull operators are chained in a
+graph, each one builds its own key scheme. In order to unroll these key
+schemes, the key of a MuxObservable item is a nested tuple of keys:</p>
+<p>(k4, (k3, (k2, (k1, (k0)))))</p>
+<p>This class helps in managing muxed items, and store a state for each topmost
+level of the key (i.e. key[0]).</p>
+</dd></dl>
 
-   <h1>Python Module Index</h1>
+<dl class="py function">
+<dt id="rxsci.state.with_memory_store">
+<code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">with_memory_store</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.with_memory_store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a memory state store to manage stateful operations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pipeline</strong> – A computation graph where the state is stored in memory.</p>
+</dd>
+</dl>
+</dd></dl>
 
-   <div class="modindex-jumpbox">
-   <a href="#cap-r"><strong>r</strong></a>
-   </div>
+<dl class="py function">
+<dt id="rxsci.state.with_store">
+<code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">with_store</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">store</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.with_store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a state store to manage stateful operations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>store</strong> – A Store object.</p></li>
+<li><p><strong>pipeline</strong> – A computation graph where state is stored on store.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-r"><td></td><td>
-       <strong>r</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <code class="xref">rxsci</code></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_container.html#module-rxsci.container.csv"><code class="xref">rxsci.container.csv</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_data.html#module-rxsci.data"><code class="xref">rxsci.data</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_framing.html#module-rxsci.framing.length_prefix"><code class="xref">rxsci.framing.length_prefix</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_framing.html#module-rxsci.framing.line"><code class="xref">rxsci.framing.line</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_io.html#module-rxsci.io"><code class="xref">rxsci.io</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_math.html#module-rxsci.math"><code class="xref">rxsci.math</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_math.html#module-rxsci.math.dist"><code class="xref">rxsci.math.dist</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_math.html#module-rxsci.math.formal"><code class="xref">rxsci.math.formal</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_other.html#module-rxsci.ops"><code class="xref">rxsci.ops</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="operators_state.html#module-rxsci.state"><code class="xref">rxsci.state</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+</div>
 
 
            </div>
