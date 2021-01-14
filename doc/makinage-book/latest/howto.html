@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Howto &mdash; The Maki Nage Book  documentation</title>
+  <title>How To &mdash; The Maki Nage Book  documentation</title>
   
 
   
@@ -20,7 +20,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -54,7 +57,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> The Maki Nage Book
+            <a href="index.html" class="icon icon-home"> The Maki Nage Book
           
 
           
@@ -91,10 +94,16 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="handson.html">Hands-on</a></li>
 <li class="toctree-l1"><a class="reference internal" href="serving.html">Model serving</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Howto</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#read-a-csv-file">Read a csv file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#write-a-csv-file">Write a csv file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#implement-an-operator">Implement an operator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How To</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#import-and-export-data">Import and Export Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-a-csv-file">Read a csv file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-a-csv-file">Write a csv file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#extend-maki-nage">Extend Maki Nage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-an-operator-by-composition">Create an operator by composition</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#run-a-local-kafka-server">Run a local Kafka server</a></li>
 </ul>
 </li>
@@ -139,18 +148,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Howto</li>
+      <li>How To</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -162,16 +173,72 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="howto">
-<h1>Howto<a class="headerlink" href="#howto" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="how-to">
+<h1>How To<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h1>
+<p>This section contains examples of common operations in RxSci and Maki Nage. You
+can find the associated code for most of them <a class="reference external" href="https://github.com/maki-nage/makinage-examples/tree/master/notebook">here</a>.</p>
+<div class="section" id="import-and-export-data">
+<h2>Import and Export Data<a class="headerlink" href="#import-and-export-data" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="read-a-csv-file">
-<h2>Read a csv file<a class="headerlink" href="#read-a-csv-file" title="Permalink to this headline">¶</a></h2>
+<h3>Read a csv file<a class="headerlink" href="#read-a-csv-file" title="Permalink to this headline">¶</a></h3>
+<p>You can work directly on CSV files (vs using Kafka as a source and sink), via
+the <em>load_from_csv</em> factory operator.</p>
+<p>First import the <em>csv</em> module that contains all csv operators:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rxsci.container.csv</span> <span class="k">as</span> <span class="nn">csv</span>
+</pre></div>
+</div>
+<p>Then you must declare the schema of the CSV file. Below is the schema of the
+iris dataset that you can retrieve from <a class="reference external" href="https://www.kaggle.com/uciml/iris">kaggle</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iris_parser</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">create_line_parser</span><span class="p">(</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;sepal_length_cm&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;sepal_width_cm&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;petal_length_cm&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;petal_width_cm&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;str&#39;</span><span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The <em>create_line_parser</em> operator supports options to customize the parser, such
+as the text encoding, column separator, and default values. See the
+<a class="reference external" href="https://www.makinage.org/doc/rxsci/latest/operators_container.html#rxsci.container.csv.create_line_parser">documentation</a>
+for more information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iris_data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;./Iris.csv&#39;</span><span class="p">,</span> <span class="n">iris_parser</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="write-a-csv-file">
-<h2>Write a csv file<a class="headerlink" href="#write-a-csv-file" title="Permalink to this headline">¶</a></h2>
+<h3>Write a csv file<a class="headerlink" href="#write-a-csv-file" title="Permalink to this headline">¶</a></h3>
+<p>The <em>dump_to_file</em> operator writes each input item to a row of a CSV file. The
+input items must be namedtuples. So first ensure that your data is structured as
+a namedtuple:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">IrisFeature</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;IrisFeature&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_ratio&#39;</span><span class="p">])</span>
+
+<span class="n">iris_features</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">IrisFeature</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">species</span><span class="p">,</span>
+        <span class="n">sepal_ratio</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">sepal_length_cm</span> <span class="o">/</span> <span class="n">i</span><span class="o">.</span><span class="n">sepal_width_cm</span><span class="p">,</span>
+        <span class="n">petal_ratio</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">petal_length_cm</span> <span class="o">/</span> <span class="n">i</span><span class="o">.</span><span class="n">petal_width_cm</span>
+    <span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="implement-an-operator">
-<h2>Implement an operator<a class="headerlink" href="#implement-an-operator" title="Permalink to this headline">¶</a></h2>
+<p>The dump_to_file operator uses the fields of the namedtuple to infer the columns
+names of the CSV file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iris_features</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">csv</span><span class="o">.</span><span class="n">dump_to_file</span><span class="p">(</span><span class="s1">&#39;iris_features.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="extend-maki-nage">
+<h2>Extend Maki Nage<a class="headerlink" href="#extend-maki-nage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-an-operator-by-composition">
+<h3>Create an operator by composition<a class="headerlink" href="#create-an-operator-by-composition" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="run-a-local-kafka-server">
 <h2>Run a local Kafka server<a class="headerlink" href="#run-a-local-kafka-server" title="Permalink to this headline">¶</a></h2>
@@ -183,37 +250,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="serving.html" class="btn btn-neutral float-left" title="Model serving" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="serving.html" class="btn btn-neutral float-left" title="Model serving" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, R. Picard
+        &#169; Copyright 2020, R. Picard.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
