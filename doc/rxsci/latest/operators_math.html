@@ -177,6 +177,7 @@
 <dt id="rxsci.math.max">
 <code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">max</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum value emitted in the source observable.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-41eb9166774e19d723852286ea2cee5b3818b83f.png" alt="max"/>
 </p>
@@ -199,6 +200,7 @@ False, otherwise emits a single item on completion.</p></li>
 <dt id="rxsci.math.mean">
 <code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.mean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Averages the items emitted in the source observable</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-fe0382783cb3e7d56c5782a6e0796ffd683fe1ed.png" alt="mean"/>
 </p>
@@ -221,6 +223,7 @@ False, otherwise emits a single item on completion.</p></li>
 <dt id="rxsci.math.min">
 <code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the minimum value emitted in the source observable.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-891ac302c3cef19cb4824b00e042b65a7e646036.png" alt="min"/>
 </p>
@@ -247,6 +250,7 @@ False, otherwise emits a single item on completion.</p></li>
 rxsci.math.variance for more information.</p>
 <p>Use this operator instead of rxsci.formal.stddev when there are more than
 1000 items in the source observable.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -268,6 +272,7 @@ is set, then emits None on completion.</p>
 <dt id="rxsci.math.sum">
 <code class="sig-prename descclassname">rxsci.math.</code><code class="sig-name descname">sum</code><span class="sig-paren">(</span><em class="sig-param">key_mapper=&lt;function &lt;lambda&gt;&gt;</em>, <em class="sig-param">reduce=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.sum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sums the items emitted in the source observable</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -291,6 +296,7 @@ False, otherwise emits a single item on completion.</p></li>
 on the following article: <a class="reference external" href="https://www.johndcook.com/blog/standard_deviation/">standard_deviation</a></p>
 <p>Use this operator instead of exact_variance when there are more than 1000
 items in the distribution.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -324,6 +330,7 @@ the following metrics:</p>
 <li><p>standard deviation</p></li>
 <li><p>The quantiles provided as argument</p></li>
 </ul>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>quantiles</strong> – [Optional] A list of quantiles to compute.</p>
@@ -340,6 +347,7 @@ the following metrics:</p>
 <dd><p>Returns the histogram of the distribution.</p>
 <p>The histogram in in the form of a list of tuples, where each tuple is in
 the form (bin value, element count).</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>bin_count</strong> – [Optional] Number of bins to use in the histogram.</p>
@@ -354,6 +362,7 @@ the form (bin value, element count).</p>
 <dt id="rxsci.math.dist.max">
 <code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum value of the distribution.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An observable emitting the maximum value of each source items.</p>
@@ -365,6 +374,7 @@ the form (bin value, element count).</p>
 <dt id="rxsci.math.dist.mean">
 <code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.mean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the average value of the distribution.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An observable emitting the mean value of each source items.</p>
@@ -378,6 +388,7 @@ the form (bin value, element count).</p>
 <dd><p>Merges distogram distributions.</p>
 <p>The source observable must contain items that are a collection of
 Distogram object. These are typically the result of a zip operation.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An Observable of Distogram objects.</p>
@@ -389,6 +400,7 @@ Distogram object. These are typically the result of a zip operation.</p>
 <dt id="rxsci.math.dist.min">
 <code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the minimum value of the distribution.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An observable emitting the minimum value of each source items.</p>
@@ -400,6 +412,7 @@ Distogram object. These are typically the result of a zip operation.</p>
 <dt id="rxsci.math.dist.quantile">
 <code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">quantile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.quantile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a quantile value of the distribution.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>value</strong> – The quantile value to compute, between 0 and 1.</p>
@@ -414,6 +427,7 @@ Distogram object. These are typically the result of a zip operation.</p>
 <dt id="rxsci.math.dist.stddev">
 <code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">stddev</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.stddev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the standard deviation of the distribution.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An observable emitting the standard deviation of each source items.</p>
@@ -425,6 +439,7 @@ Distogram object. These are typically the result of a zip operation.</p>
 <dt id="rxsci.math.dist.update">
 <code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bin_count</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">weighted_diff</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reduce</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the distribution by adding source items to it</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -445,6 +460,7 @@ False, otherwise emits a single item on completion.</p></li>
 <dt id="rxsci.math.dist.variance">
 <code class="sig-prename descclassname">rxsci.math.dist.</code><code class="sig-name descname">variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.variance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the variance value of the distribution.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An observable emitting the variance of each source items.</p>
@@ -467,6 +483,7 @@ with usage restrictions.</p>
 deviation. This implies that all items are cached in memory to do the
 computation. Use the rxsci.math.stddev operator to compute standard
 deviation on a large observable.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -490,6 +507,7 @@ False, otherwise emits a single item on completion.</p></li>
 This implies that all items are cached in memory to do the computation.
 Use the rxsci.math.variance operator to compute varianc on a large
 observable.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

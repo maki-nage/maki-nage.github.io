@@ -176,6 +176,7 @@
 <p>Each received items is cached, and the cached item is returned. This
 operator can save memory on graphs that buffer some items, with many
 identical values.</p>
+<p>The source must be an Observable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>field</strong> – [Optional] cache the provided field is set. Otherwise the
@@ -193,6 +194,7 @@ with cached values.</p>
 <dt id="rxsci.data.clip">
 <code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">clip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">higher_bound</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.clip" title="Permalink to this definition">¶</a></dt>
 <dd><p>clip values between lower_bound (included) and higher_bound (included)</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-4bfb410a9f0b3a4717f8fc60eaa3a45e092e36ee.png" alt="clip"/>
 </p>
@@ -216,6 +218,7 @@ with cached values.</p>
 <dt id="rxsci.data.fill_none">
 <code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">fill_none</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.fill_none" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces None values with value</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-8b63d113d2ea23e6d9e1da05680168a787620315.png" alt="fill_none"/>
 </p>
@@ -233,6 +236,7 @@ with cached values.</p>
 <dt id="rxsci.data.lag">
 <code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">lag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'obj'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Buffers a lag of size on source items</p>
+<p>The source must be a MuxObservable.</p>
 <blockquote>
 <div><p class="marble">
 <img src="_images/marble-f2b53e151b1772a2a4df0b3155c5a71654972286.png" alt="lag1"/>
@@ -260,6 +264,7 @@ the first iterations, the item (first, current) is emitted.</p>
 <code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">roll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">stride</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.roll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects each element of an observable sequence into zero or more
 windows which are produced based on element window information.</p>
+<p>The source must be a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-0edae4fb38946e7093ee732c1283b34ca9568b28.png" alt="roll"/>
 </p>
@@ -277,17 +282,11 @@ consecutive windows.</p></li>
 <li><p><strong>pipeline</strong> – The Rx pipe to execute on each window.</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Source:</dt><dd><p>A MuxObservable.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable sequence of windows.</p>
 </dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>An observable sequence of windows.</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ValueError if window</strong><strong> or </strong><strong>stride is negative</strong> – </p>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError if window</strong><strong> or </strong><strong>stride is negative</strong> – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -300,6 +299,7 @@ consecutive windows.</p></li>
 <p>Impementation note: This operator caches all the items of the source
 observable before sorting them. It can be used ONLY on BATCH source, and
 consumes a lot of memory.</p>
+<p>The source must be an Observable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>key</strong> – [Optional] function used to extract the sorting key on each item.</p>
@@ -314,6 +314,7 @@ consumes a lot of memory.</p>
 <dt id="rxsci.data.split">
 <code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicate</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split an observable based on a predicate criteria.</p>
+<p>The source must be a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-110a2a9faadd457f4d0b6d3c9e13c9102fcbb568.png" alt="split"/>
 </p>
@@ -325,14 +326,9 @@ criteria.</p></li>
 <li><p><strong>pipeline</strong> – The Rx pipe to execute on each split.</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Source:</dt><dd><p>A MuxObservable</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A higher order observable returning on observable for each split criteria.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A higher order observable returning on observable for each split
+criteria.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -345,6 +341,7 @@ observable completes.</p>
 <p>This buffers and emits the items of the source observable as is. Items on
 the deque are pop as they are emitted. This is useful when working on
 batch data since it allows to dereference items as they are processed.</p>
+<p>The source must be an Observable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>extend</strong> – [Optional] When set to true, the deque is extended for each

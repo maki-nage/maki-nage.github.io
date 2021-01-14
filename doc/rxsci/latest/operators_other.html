@@ -196,6 +196,7 @@ any source pair evaluates to False.</p>
 <dd><p>Ensures that predicate evaluates to True for all pairs of item / previous item</p>
 <p>If any of the lag1 pair on the source observable evaluates to False, then
 error is emitted on the on_error handler.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -215,6 +216,7 @@ any source pair evaluates to False.</p>
 <dt id="rxsci.ops.count">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reduce</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts the number of items emitted in the source Observable.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-6af44c4bc3e051bc6048b273826cbfa5f8e97f6b.png" alt="count"/>
 </p>
@@ -240,6 +242,7 @@ emitted.</p>
 elements according to the key_mapper. Usage of
 this operator should be considered carefully due to the maintenance
 of an internal lookup structure which can grow large.</p>
+<p>The source must be a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-1a8e43d967e0923c86f18e853fa7e87e43a808f9.png" alt="distinct"/>
 </p>
@@ -247,10 +250,6 @@ of an internal lookup structure which can grow large.</p>
 better performance thanks to the usage of sets. Meanwhile this
 implementation does not allow to specify a comparer: The key must be
 hashable.</p>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>key_mapper</strong> – [Optional]  A function to compute the comparison
@@ -269,10 +268,7 @@ sequence.</p>
 <dt id="rxsci.ops.do_action">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">do_action</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">on_next</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_error</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_completed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_create</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.do_action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes an function on reception of selected events</p>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -292,6 +288,7 @@ sequence.</p>
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filters the items of an observable sequence based on a
 predicate.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-2ac5743543b7ddb0ba7b7dc3cedacda9de1a73eb.png" alt="filter"/>
 </p>
@@ -304,14 +301,8 @@ predicate.</p>
 <dd class="field-odd"><p><strong>predicate</strong> – A function to test each source item for a
 condition.</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>An observable that emits items from the
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable that emits items from the
 source observable that satisfy the condition. The type of the returned
 observable is the same than the source observable.</p>
 </dd>
@@ -322,13 +313,10 @@ observable is the same than the source observable.</p>
 <dt id="rxsci.ops.first">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">first</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.first" title="Permalink to this definition">¶</a></dt>
 <dd><p>Emits the first element of an observable</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-5c3ad6405326359ae4cc289b5b8be292335db80d.png" alt="first"/>
 </p>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An observable emitting the first item from the source
@@ -341,13 +329,10 @@ observable.</p>
 <dt id="rxsci.ops.flat_map">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">flat_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.flat_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects each element of iterable source items as a new item.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-0a78345f784f6902cda17e20cbf0f130cee9568b.png" alt="flat_map"/>
 </p>
-<dl class="simple">
-<dt>Sources:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An observable whose items are the result of
@@ -360,6 +345,7 @@ iterating on each items of the source observable.</p>
 <dt id="rxsci.ops.group_by">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">group_by</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key_mapper</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.group_by" title="Permalink to this definition">¶</a></dt>
 <dd><p>Groups items of according to a key mapper</p>
+<p>The source must be a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-e0cc64db1260f70482180126b622340bc48163ba.png" alt="group_by"/>
 </p>
@@ -374,14 +360,8 @@ iterating on each items of the source observable.</p>
 <li><p><strong>pipeline</strong> – The Rx pipe to execute on each group.</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Source:</dt><dd><p>A MuxObservable.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A MuxObservable with one observable per group.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MuxObservable with one observable per group.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -390,13 +370,10 @@ iterating on each items of the source observable.</p>
 <dt id="rxsci.ops.last">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">last</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.last" title="Permalink to this definition">¶</a></dt>
 <dd><p>Emits the last element of an observable</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-e7a9707084cce804437cabf238acd3f0f7f9d148.png" alt="last"/>
 </p>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An observable emitting the last item from the source
@@ -409,13 +386,10 @@ observable.</p>
 <dt id="rxsci.ops.map">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapper</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects each element of an observable into a new form.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-52e113b590f7fb5e7471c6d56c1829f94703f688.png" alt="map"/>
 </p>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>mapper</strong> – A transform function to apply to each source element.</p>
@@ -431,14 +405,15 @@ each source items.</p>
 <dt id="rxsci.ops.multiplex">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">multiplex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.multiplex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms an Observable to a MuxObservable</p>
-<p>All operations done in pipeline operate on MuxObservable.</p>
+<p>All operations done in pipeline then operate on a MuxObservable.
+The source must be an Observable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>pipeline</strong> – The pipeline that will process the multiplexed items.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>An Observable where the source items have been multiplexed to a
-MuxObservable, then processed by the pipeline transorfations, and
+MuxObservable, then processed by the pipeline transformations, and
 finally de-multiplexed to an Observable.</p>
 </dd>
 </dl>
@@ -449,11 +424,12 @@ finally de-multiplexed to an Observable.</p>
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">progress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">threshold</span></em>, <em class="sig-param"><span class="n">measure_throughput</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.progress" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the progress on item processing</p>
 <p>Prints the number of items that have been processed every threshold items.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – Name associated to this progress.</p></li>
-<li><p><strong>threshold</strong> – Period of display for the progress.</p></li>
+<li><p><strong>threshold</strong> – Period of display for the progress, in unit of item count.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -468,6 +444,7 @@ finally de-multiplexed to an Observable.</p>
 <dd><p>Computes an accumulate value on each item of the source observable.</p>
 <p>Applies an accumulator function over an observable sequence and
 returns each intermediate result.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-4b44ebe2947ab33ef3eaddfd9a044b09245db493.png" alt="scan"/>
 </p>
@@ -499,6 +476,7 @@ False, otherwise emits a single item on completion.</p></li>
 and return an observable of values by invoking
 the mapper function with star applied unpacked items as
 positional arguments.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-1d791e0ab4245961cd740c268a2a92fb24396ecf.png" alt="starmap"/>
 </p>
@@ -506,10 +484,6 @@ positional arguments.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>mapper</strong> – A transform function to invoke with unpacked elements
@@ -527,13 +501,10 @@ source observable.</p>
 <dt id="rxsci.ops.start_with">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">start_with</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">padding</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.start_with" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepends some items to an Observable</p>
+<p>The source must be a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-6c600fe0223854f3db3cb003a95af6c4039b117d.png" alt="start_with"/>
 </p>
-<dl class="simple">
-<dt>Source:</dt><dd><p>A MuxObservable</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>mapper</strong> – A transform function to invoke with unpacked elements
@@ -551,13 +522,10 @@ the values of padding.</p>
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">take</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.take" title="Permalink to this definition">¶</a></dt>
 <dd><p>Emits a specified number of items from the start of an
 observable.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-6e19e75a07bd399aae57e54367ef89cdf3f4abcb.png" alt="take"/>
 </p>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>count</strong> – the number of items to emit</p>
@@ -575,6 +543,7 @@ observable.</p>
 <dd><p>Processes several operators chains simultaneously on the same source
 observable. This operator allows to do multiple processing on the same
 source, and combine the results as a single tuple object.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
 <img src="_images/marble-5ff5ea037af2c3c2787f3e6986cb030915825805.png" alt="tee_map"/>
 </p>
@@ -597,14 +566,8 @@ emitted by each arg pipeline. If set to ‘combine_latest’, then
 the last value of each processing are combined.</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable or a MuxObservable</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>An observable containing tuples of the items emitted by each branch of
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable containing tuples of the items emitted by each branch of
 the tee.</p>
 </dd>
 </dl>
@@ -614,13 +577,16 @@ the tee.</p>
 <dt id="rxsci.ops.to_pandas">
 <code class="sig-prename descclassname">rxsci.ops.</code><code class="sig-name descname">to_pandas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">columns</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.to_pandas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts an observable to a pandas dataframe</p>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable of namedtuples</p>
-</dd>
-</dl>
+<p>If colums is not specified, then items must be namedtuples and the
+columns names are infered from the fields of the namedtuple objects.</p>
+<p>The source must be an Observable.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>An observable the emits a single item. This item is a pandas dataframe.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>columns</strong> – [Optional]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable the emits a single item. This item is a pandas
+DataFrame.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -631,7 +597,8 @@ the tee.</p>
 <dd><p>Merges the specified observables into one observable sequence by
 creating a tuple only when the source observable sequence produces an
 element. The source observable is subscribed once at least one item has
-been received on each additional source.</p>
+been received on each other sources.</p>
+<p>The source must be an Observable.</p>
 <p class="marble">
 <img src="_images/marble-5ababd8afc8e9f425aec1cad56053f0c12715cba.png" alt="with_latest_from"/>
 </p>
@@ -639,10 +606,6 @@ been received on each additional source.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">with_latest_from</span><span class="p">(</span><span class="n">obs1</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Source:</dt><dd><p>An Observable.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sources</strong> – Sequence of observables.</p>
