@@ -102,6 +102,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#extend-maki-nage">Extend Maki Nage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#create-an-operator-by-composition">Create an operator by composition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-stateful-operator-by-composition">Create a stateful operator by composition</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#run-a-local-kafka-server">Run a local Kafka server</a></li>
@@ -238,6 +239,106 @@ names of the CSV file:</p>
 <h2>Extend Maki Nage<a class="headerlink" href="#extend-maki-nage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="create-an-operator-by-composition">
 <h3>Create an operator by composition<a class="headerlink" href="#create-an-operator-by-composition" title="Permalink to this headline">¶</a></h3>
+<p>The simplest way to create a new operator is by composing other existing
+operators. Let’s consider these three operations done on some text input:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">))</span>
+<span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="s1">&#39;bill&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">)</span>
+<span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The natural way to use them is by chaining them in a pipe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">))</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="s1">&#39;bill&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>But as more and more transforms are added, you can end up with a very long pipe.
+You can easily improve the readability and reuse some operations by grouping
+operators. For example, the previous three operators can be grouped as a custom
+operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cleanup_text</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="s1">&#39;bill&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()),</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>The function <em>cleanup_text</em> is an operator that you can use in a pipe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;hello&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;the-quick-brown-fox&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;bill is fast&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lorem ipsum&#39;</span>
+<span class="p">]</span>
+
+<span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">cleanup_text</span><span class="p">()</span>
+<span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">on_next</span><span class="o">=</span><span class="nb">print</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Hello</span>
+<span class="go">The quick brown fox</span>
+<span class="go">Lorem ipsum</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-stateful-operator-by-composition">
+<h3>Create a stateful operator by composition<a class="headerlink" href="#create-a-stateful-operator-by-composition" title="Permalink to this headline">¶</a></h3>
+<p>Stateful operators are more complex to implement because they need to update a
+state. Hopefully, In many cases, you can create new operators by combining three
+base operators: scan, filter, and map:</p>
+<ul class="simple">
+<li><p>The scan operator updates the state.</p></li>
+<li><p>The filter operator controls when items must be emitted.</p></li>
+<li><p>The map operator emits the items from the state.</p></li>
+</ul>
+<p>Let’s consider the following need: Sum all items up to some threshold. An item
+must be emitted each time the sum would cross the threshold. Then the sum process
+starts again:</p>
+<p class="marble">
+<img src="_images/marble-6440a13008350fcba30e98bf81f7e3339c6f1794.png" alt="sum_split"/>
+</p>
+<p>The state logic can be implemented with the following function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_sum_split</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here <em>acc</em> contains the state. It is a tuple where:</p>
+<ul class="simple">
+<li><p>The first field is the current sum</p></li>
+<li><p>The second field is the item to emit or None if nothing must be emitted.</p></li>
+</ul>
+<p>The full implementation of the operator simply consists in combining scan,
+filter, and map in a wrapper function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sum_split</span><span class="p">(</span><span class="n">threshold</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_sum_split</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">_sum_split</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>You can now use <em>sum_split</em> just as any builtin operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">sum_and_split</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="nb">print</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">3 3 5 2 6</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="run-a-local-kafka-server">

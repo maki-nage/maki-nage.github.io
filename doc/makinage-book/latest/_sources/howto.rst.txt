@@ -86,6 +86,131 @@ Extend Maki Nage
 Create an operator by composition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The simplest way to create a new operator is by composing other existing
+operators. Let's consider these three operations done on some text input:
+
+.. code:: python
+
+    rs.ops.map(lambda i: i.replace("-", " "))
+    rs.ops.filter(lambda i: 'bill' not in i)
+    rs.ops.map(lambda i: i.capitalize())
+
+The natural way to use them is by chaining them in a pipe:
+
+.. code:: python
+
+    data.pipe(
+        rs.ops.map(lambda i: i.replace("-", " "))
+        rs.ops.filter(lambda i: 'bill' not in i)
+        rs.ops.map(lambda i: i.capitalize())
+    )
+
+
+But as more and more transforms are added, you can end up with a very long pipe.
+You can easily improve the readability and reuse some operations by grouping
+operators. For example, the previous three operators can be grouped as a custom
+operator:
+
+.. code:: python
+
+    def cleanup_text():
+        return rx.pipe(
+            rs.ops.map(lambda i: i.replace("-", " ")),
+            rs.ops.filter(lambda i: 'bill' not in i),
+            rs.ops.map(lambda i: i.capitalize()),        
+        )
+
+The function *cleanup_text* is an operator that you can use in a pipe:
+
+.. code:: python
+
+    data = [
+        'hello',
+        'the-quick-brown-fox',
+        'bill is fast',
+        'lorem ipsum'
+    ]
+
+    rx.from_(data).pipe(
+        cleanup_text()
+    ).subscribe(on_next=print)
+
+
+.. code:: console
+
+    Hello
+    The quick brown fox
+    Lorem ipsum
+
+
+Create a stateful operator by composition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Stateful operators are more complex to implement because they need to update a
+state. Hopefully, In many cases, you can create new operators by combining three
+base operators: scan, filter, and map:
+
+* The scan operator updates the state.
+* The filter operator controls when items must be emitted.
+* The map operator emits the items from the state.
+
+Let's consider the following need: Sum all items up to some threshold. An item
+must be emitted each time the sum would cross the threshold. Then the sum process
+starts again:
+
+.. marble::
+    :alt: sum_split
+
+    -1-2-3-4-1-2-6-1-|
+    [  sum_split(5)  ]
+    -----3-3---5-2-6-|
+
+
+The state logic can be implemented with the following function:
+
+.. code:: python
+
+    def _sum_split(acc, i):
+            if acc[0] + i > threshold:
+                return (i, acc[0])
+            return (acc[0]+i, None)
+
+Here *acc* contains the state. It is a tuple where:
+
+- The first field is the current sum
+- The second field is the item to emit or None if nothing must be emitted.
+
+The full implementation of the operator simply consists in combining scan,
+filter, and map in a wrapper function:
+
+.. code:: python
+
+    def sum_split(threshold):
+        def _sum_split(acc, i):
+            if acc[0] + i > threshold:
+                return (i, acc[0])
+            return (acc[0]+i, None)
+            
+        return rx.pipe(
+            rs.ops.scan(_sum_split, seed=(0, None)),
+            rs.ops.filter(lambda i: i[1] is not None),
+            rs.ops.map(lambda i: i[1]),
+        )
+
+
+You can now use *sum_split* just as any builtin operator:
+
+.. code:: python
+
+    data = [1, 2, 3, 4, 1, 2, 6, 1]
+
+    rx.from_(data).pipe(
+        sum_and_split(5)
+    ).subscribe(print)
+
+.. code:: console
+
+    3 3 5 2 6
 
 
 Run a local Kafka server
