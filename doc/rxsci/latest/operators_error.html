@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>State &mdash; rxsci 0.10.0 documentation</title>
+  <title>Error Operators &mdash; rxsci 0.10.0 documentation</title>
   
 
   
@@ -38,7 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Framing" href="operators_framing.html" /> 
+    <link rel="next" title="Math" href="operators_math.html" />
+    <link rel="prev" title="Base Operators" href="operators_other.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,13 +90,13 @@
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="operators.html">Operators</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="operators_other.html">Base</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operators_error.html">Error</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_math.html">Math</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_container.html">Container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_io.html">IO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_framing.html">Framing</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_state.html">State</a></li>
 </ul>
 </li>
 </ul>
@@ -148,13 +149,13 @@
         
           <li><a href="operators.html">Operators</a> &raquo;</li>
         
-      <li>State</li>
+      <li>Error Operators</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/operators_state.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/operators_error.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -167,43 +168,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-rxsci.state">
-<span id="state"></span><h1>State<a class="headerlink" href="#module-rxsci.state" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt id="rxsci.state.MemoryStore">
-<em class="property">class </em><code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">MemoryStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'obj'</span></em>, <em class="sig-param"><span class="n">default_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.MemoryStore" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Memory state store</p>
-<p>Statefull MuxObervable operators need to maintain one state per key. Keys
-have to be indexables, i.e. index into a table/array. This allows fast
-lookup (compared to hash tables). As statefull operators are chained in a
-graph, each one builds its own key scheme. In order to unroll these key
-schemes, the key of a MuxObservable item is a nested tuple of keys:</p>
-<p>(k4, (k3, (k2, (k1, (k0)))))</p>
-<p>This class helps in managing muxed items, and store a state for each topmost
-level of the key (i.e. key[0]).</p>
-</dd></dl>
-
+  <div class="section" id="module-rxsci.error">
+<span id="error-operators"></span><span id="operators-error"></span><h1>Error Operators<a class="headerlink" href="#module-rxsci.error" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="rxsci.state.with_memory_store">
-<code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">with_memory_store</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.with_memory_store" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use a memory state store to manage stateful operations</p>
+<dt id="rxsci.error.create_error_router">
+<code class="sig-prename descclassname">rxsci.error.</code><code class="sig-name descname">create_error_router</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.create_error_router" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a route for mux errors</p>
+<p>Errors on MuxObservables are not fatal. This error handler allows to route
+them to a dedicated Observable. This operator allows to implement a dead
+letter box observable or other kinds of error monitoring.</p>
+<p>The source must be a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-313a311bbab081e747ee8b64a7d8851185058847.png" alt="route_errors"/>
+</p>
+<p>Errors at the Observable layer are still propagated downstream and stop the
+pipeline:</p>
+<p class="marble">
+<img src="_images/marble-83ebecd2e308c7a2e8cb7bbc5e580c681259a452.png" alt="route_errors_2"/>
+</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dead_letter_obs</span><span class="p">,</span> <span class="n">route_errors</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">create_error_router</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">i</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">route_errors</span><span class="p">(),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pipeline</strong> – A computation graph where the state is stored in memory.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="rxsci.state.with_store">
-<code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">with_store</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">store</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.with_store" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use a state store to manage stateful operations</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>store</strong> – A Store object.</p></li>
-<li><p><strong>pipeline</strong> – A computation graph where state is stored on store.</p></li>
-</ul>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A tuple of (Observable, function). Observable is the dead letter
+observable where all mux errors will be routed to. The function is an
+operator to used in a pipeline where errors must be routed to the dead
+letter observable.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -216,7 +214,8 @@ level of the key (i.e. key[0]).</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="operators_framing.html" class="btn btn-neutral float-left" title="Framing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="operators_math.html" class="btn btn-neutral float-right" title="Math" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="operators_other.html" class="btn btn-neutral float-left" title="Base Operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
