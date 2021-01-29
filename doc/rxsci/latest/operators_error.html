@@ -187,7 +187,7 @@ pipeline:</p>
 <img src="_images/marble-83ebecd2e308c7a2e8cb7bbc5e580c681259a452.png" alt="route_errors_2"/>
 </p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dead_letter_obs</span><span class="p">,</span> <span class="n">route_errors</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">create_error_router</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">errors</span><span class="p">,</span> <span class="n">route_errors</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">create_error_router</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">i</span><span class="p">),</span>
@@ -198,10 +198,10 @@ pipeline:</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A tuple of (Observable, function). Observable is the dead letter
+<dd class="field-odd"><p>A tuple of (Observable, function). Observable is the errors
 observable where all mux errors will be routed to. The function is an
-operator to used in a pipeline where errors must be routed to the dead
-letter observable.</p>
+operator to used in a pipeline where errors are be routed to the errors
+observable.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -243,12 +243,12 @@ dropping any incoming Mux Error.</p>
 <dd><p>maps errors emitted on a Mux Observable and route the result on the item path.</p>
 <p>The source must be a MuxObservable.</p>
 <p class="marble">
-<img src="_images/marble-ef2ac2f8146643c07996aba9730ebd86195caf1e.png" alt="map"/>
+<img src="_images/marble-cf6375b4c57ffc0eac47e6494db5390215ee7d55.png" alt="map"/>
 </p>
 <p>Errors at the Observable layer are still propagated downstream and stop the
 pipeline:</p>
 <p class="marble">
-<img src="_images/marble-ffd66663c2b75cf28781161eb7b1736cb5944090.png" alt="map_2"/>
+<img src="_images/marble-c967be0c2ebb2d5dc5d804c931bd05cb4dbe12f2.png" alt="map_2"/>
 </p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
