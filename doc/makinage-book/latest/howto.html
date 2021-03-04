@@ -13,10 +13,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
 
   
   
@@ -103,6 +100,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#extend-maki-nage">Extend Maki Nage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#create-an-operator-by-composition">Create an operator by composition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#create-a-stateful-operator-by-composition">Create a stateful operator by composition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#use-the-configuration-parameters">Use the configuration parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#use-only-the-initial-configuration">Use only the initial configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#run-a-local-kafka-server">Run a local Kafka server</a></li>
@@ -339,6 +340,45 @@ filter, and map in a wrapper function:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">3 3 5 2 6</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="use-the-configuration-parameters">
+<h2>Use the configuration parameters<a class="headerlink" href="#use-the-configuration-parameters" title="Permalink to this headline">¶</a></h2>
+<p>The operators of a Maki Nage application have access to the configuration
+settings. The configuration is passed as the first argument of the operator. It
+is an Observable that emits configuration objects. These objects are dicts and
+they correspond to the content of the YAML configuration file. If the
+configuration file is read locally, then only one item is emitted. However if
+the configuration file is served from consul, then one item is emitted each time
+a change is made in consul.</p>
+<p>So the application can choose to use the initial configuration for its
+whole life, or to dynamically adapt to changes in the configuration.</p>
+<div class="section" id="use-only-the-initial-configuration">
+<h3>Use only the initial configuration<a class="headerlink" href="#use-only-the-initial-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Using only the initial configuration is the simplest way use the configuration
+settings. This way of working means that the application must be restarted to
+take into account changes in the configuration file.</p>
+<p>The following code shows such an implementation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_operator</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">initial_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ops</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">stage2_config</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ops</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+            <span class="c1"># my operations, whith c variable available in this scope</span>
+            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">][</span><span class="s1">&#39;increment_value&#39;</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>In this example, the <em>initial_config</em> observable is first created. This
+observable emits only the first configuration item. Then the computation graph
+is started from this configuration item, and wrapped in a <em>flat_map</em> scope.
+Within the scope of flat_map, all operators have access to the <em>c</em> variable.
+This variable is the dict corresponding to the configuration file.</p>
 </div>
 </div>
 <div class="section" id="run-a-local-kafka-server">

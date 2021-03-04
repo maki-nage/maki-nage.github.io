@@ -13,10 +13,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
 
   
   
@@ -36,8 +33,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
-        <script src="_static/sphinx_tabs/tabs.js"></script>
+        <script src="_static/tabs.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -645,20 +641,7 @@ rolling window:</p>
 computation is done for each of these generated windows.</p>
 <p>The complete code is:</p>
 <div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-UHl0aG9u docutils container">
-<div class="docutils container">
-<p>Python</p>
-</div>
-</div>
-<div class="item sphinx-data-tab-0-0 docutils container">
-<div class="docutils container">
-<p>Reactivity diagram</p>
-</div>
-</div>
-</div>
-<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-UHl0aG9u active docutils container">
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">Features</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">])</span>
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-UHl0aG9u" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="0">Python</button><button aria-controls="panel-0-0-0" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="-1">Reactivity diagram</button></div><div aria-labelledby="tab-0-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">Features</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">])</span>
 <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-5</span>
 <span class="n">features</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">Features</span><span class="p">(</span>
@@ -686,11 +669,8 @@ computation is done for each of these generated windows.</p>
 <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0-0 docutils container">
-<p>todo: reactivity diagram</p>
-</div>
-</div>
+</div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>todo: reactivity diagram</p>
+</div></div>
 <p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream
 There are several other additions to this code. First, the roll operator can be
 used only within the context of a <em>state store</em>. The reason is that

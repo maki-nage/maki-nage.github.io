@@ -13,10 +13,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
 
   
   
@@ -36,8 +33,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
-        <script src="_static/sphinx_tabs/tabs.js"></script>
+        <script src="_static/tabs.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -229,29 +225,13 @@ input and output data are encoded as JSON:</p>
 </div>
 <p>The service is started the same way as any Maki Nage application:</p>
 <div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-QmFzaA== docutils container">
-<div class="docutils container">
-<p>Bash</p>
-</div>
-</div>
-<div class="item sphinx-data-tab-RG9ja2Vy docutils container">
-<div class="docutils container">
-<p>Docker</p>
-</div>
-</div>
-</div>
-<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-QmFzaA== active docutils container">
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>makinage --config config.serve.yaml
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-QmFzaA==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-QmFzaA==" name="QmFzaA==" role="tab" tabindex="0">Bash</button><button aria-controls="panel-0-RG9ja2Vy" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-RG9ja2Vy" name="RG9ja2Vy" role="tab" tabindex="-1">Docker</button></div><div aria-labelledby="tab-0-QmFzaA==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-QmFzaA==" name="QmFzaA==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>makinage --config config.serve.yaml
 </pre></div>
 </div>
-</div>
-<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-RG9ja2Vy docutils container">
-<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>docker run makinage/makinage -v config.publish.yaml:/opt/makinage/config.yaml:ro
+</div><div aria-labelledby="tab-0-RG9ja2Vy" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-RG9ja2Vy" name="RG9ja2Vy" role="tabpanel" tabindex="0"><div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>docker run makinage/makinage -v config.publish.yaml:/opt/makinage/config.yaml:ro
 </pre></div>
 </div>
-</div>
-</div>
+</div></div>
 <p>Once started the service waits for a model to be pushed on the <em>model</em> Kafka
 topic. This model can be pushed with <em>makinage-model-publisher</em>. This CLI tool
 also needs a configuration file:</p>
@@ -265,29 +245,13 @@ also needs a configuration file:</p>
 </pre></div>
 </div>
 <div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-QmFzaA== docutils container">
-<div class="docutils container">
-<p>Bash</p>
-</div>
-</div>
-<div class="item sphinx-data-tab-RG9ja2Vy docutils container">
-<div class="docutils container">
-<p>Docker</p>
-</div>
-</div>
-</div>
-<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-QmFzaA== active docutils container">
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>makinage-model-publisher --config config.publish.yaml
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-1-QmFzaA==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-QmFzaA==" name="QmFzaA==" role="tab" tabindex="0">Bash</button><button aria-controls="panel-1-RG9ja2Vy" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-RG9ja2Vy" name="RG9ja2Vy" role="tab" tabindex="-1">Docker</button></div><div aria-labelledby="tab-1-QmFzaA==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-QmFzaA==" name="QmFzaA==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>makinage-model-publisher --config config.publish.yaml
 </pre></div>
 </div>
-</div>
-<div class="ui bottom attached sphinx-tab tab segment code-tab sphinx-data-tab-RG9ja2Vy docutils container">
-<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>docker run makinage/model-publisher -v config.publish.yaml:/opt/makinage/config.yaml:ro
+</div><div aria-labelledby="tab-1-RG9ja2Vy" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-RG9ja2Vy" name="RG9ja2Vy" role="tabpanel" tabindex="0"><div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>docker run makinage/model-publisher -v config.publish.yaml:/opt/makinage/config.yaml:ro
 </pre></div>
 </div>
-</div>
-</div>
+</div></div>
 </div>
 <div class="section" id="custom-logic">
 <h2>Custom Logic<a class="headerlink" href="#custom-logic" title="Permalink to this headline">¶</a></h2>

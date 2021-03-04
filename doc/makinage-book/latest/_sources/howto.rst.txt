@@ -213,6 +213,53 @@ You can now use *sum_split* just as any builtin operator:
     3 3 5 2 6
 
 
+Use the configuration parameters
+----------------------------------
+
+The operators of a Maki Nage application have access to the configuration
+settings. The configuration is passed as the first argument of the operator. It
+is an Observable that emits configuration objects. These objects are dicts and
+they correspond to the content of the YAML configuration file. If the
+configuration file is read locally, then only one item is emitted. However if
+the configuration file is served from consul, then one item is emitted each time
+a change is made in consul.
+
+So the application can choose to use the initial configuration for its
+whole life, or to dynamically adapt to changes in the configuration.
+
+Use only the initial configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Using only the initial configuration is the simplest way use the configuration
+settings. This way of working means that the application must be restarted to
+take into account changes in the configuration file.
+
+The following code shows such an implementation:
+
+.. code:: python
+
+    def my_operator(config, data):
+        initial_config = config.pipe(
+            ops.take(1),
+        )
+
+        result = stage2_config.pipe(
+            ops.flat_map(lambda c: data.pipe(
+                # my operations, whith c variable available in this scope
+                rs.ops.map(lambda i: i + c['config']['increment_value'])
+            )
+        )
+
+        return result,
+
+In this example, the *initial_config* observable is first created. This
+observable emits only the first configuration item. Then the computation graph
+is started from this configuration item, and wrapped in a *flat_map* scope.
+Within the scope of flat_map, all operators have access to the *c* variable.
+This variable is the dict corresponding to the configuration file.
+
+
+
 Run a local Kafka server
 -------------------------
 
