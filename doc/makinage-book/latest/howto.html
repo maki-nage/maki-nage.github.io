@@ -104,6 +104,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#use-the-configuration-parameters">Use the configuration parameters</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#use-only-the-initial-configuration">Use only the initial configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-the-configuration-dynamically">Use the configuration dynamically</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#run-a-local-kafka-server">Run a local Kafka server</a></li>
@@ -379,6 +380,32 @@ observable emits only the first configuration item. Then the computation graph
 is started from this configuration item, and wrapped in a <em>flat_map</em> scope.
 Within the scope of flat_map, all operators have access to the <em>c</em> variable.
 This variable is the dict corresponding to the configuration file.</p>
+<p>See this marble diagram for a visual explanation each step:</p>
+<p class="marble">
+<img src="_images/marble-750b489c468b64a6da9eb006f72283af1c609142.png" alt="static configuration"/>
+</p>
+</div>
+<div class="section" id="use-the-configuration-dynamically">
+<h3>Use the configuration dynamically<a class="headerlink" href="#use-the-configuration-dynamically" title="Permalink to this headline">¶</a></h3>
+<p>Since the configuration argument is an Observable, it is possible to dynamically
+adjust the application behavior without having to restart it.</p>
+<p>This mode of operation requires that the source items are combined with the
+configuration items. Then operations can be done on these tuples of
+item/configuration. Here is the same example that on the previous section, but
+with the lastest configuration being always used to do the computation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_operator</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">with_latest_from</span><span class="p">(</span><span class="n">config</span><span class="p">),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">][</span><span class="s1">&#39;increment_value&#39;</span><span class="p">]),</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>See this marble diagram for a visual explanation each step:</p>
+<p class="marble">
+<img src="_images/marble-26befdad629d864ba9f4ec5c2f563336019b67bd.png" alt="dynamic configuration"/>
+</p>
 </div>
 </div>
 <div class="section" id="run-a-local-kafka-server">

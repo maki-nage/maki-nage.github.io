@@ -258,6 +258,51 @@ is started from this configuration item, and wrapped in a *flat_map* scope.
 Within the scope of flat_map, all operators have access to the *c* variable.
 This variable is the dict corresponding to the configuration file.
 
+See this marble diagram for a visual explanation each step:
+
+.. marble::
+    :alt: static configuration
+
+    c-1-----5---2-------|
+    [       take(1)     ]
+    --1-|
+    ---1---2---3---4----|
+    [  flat_map(i + c)  ]
+    ---2---3---4---5----|
+
+
+Use the configuration dynamically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Since the configuration argument is an Observable, it is possible to dynamically
+adjust the application behavior without having to restart it.
+
+This mode of operation requires that the source items are combined with the
+configuration items. Then operations can be done on these tuples of
+item/configuration. Here is the same example that on the previous section, but
+with the lastest configuration being always used to do the computation:
+
+.. code:: python
+
+    def my_operator(config, data):
+        result = data.pipe(
+            rs.ops.with_latest_from(config),
+            rs.ops.starmap(lambda i, c: i + c['config']['increment_value']),
+        )
+
+        return result,
+
+See this marble diagram for a visual explanation each step:
+
+.. marble::
+    :alt: dynamic configuration
+
+    ---1---2---3---4----|
+    c-1-----5---2-------|
+    [with_latest_from(c)]
+    ---1,1-2,1-3,5-4,2--|
+    [  startmap(i + c)  ]
+    ---2---3---8---6----|
 
 
 Run a local Kafka server
