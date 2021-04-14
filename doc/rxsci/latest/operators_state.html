@@ -171,7 +171,7 @@
 <span id="state"></span><h1>State<a class="headerlink" href="#module-rxsci.state" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="rxsci.state.MemoryStore">
-<em class="property">class </em><code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">MemoryStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'obj'</span></em>, <em class="sig-param"><span class="n">default_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.MemoryStore" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">rxsci.state.</span></code><code class="sig-name descname"><span class="pre">MemoryStore</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'obj'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.MemoryStore" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Memory state store</p>
 <p>Statefull MuxObervable operators need to maintain one state per key. Keys
 have to be indexables, i.e. index into a table/array. This allows fast
@@ -185,7 +185,7 @@ level of the key (i.e. key[0]).</p>
 
 <dl class="py function">
 <dt id="rxsci.state.with_memory_store">
-<code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">with_memory_store</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.with_memory_store" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.state.</span></code><code class="sig-name descname"><span class="pre">with_memory_store</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.with_memory_store" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use a memory state store to manage stateful operations</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -196,7 +196,7 @@ level of the key (i.e. key[0]).</p>
 
 <dl class="py function">
 <dt id="rxsci.state.with_store">
-<code class="sig-prename descclassname">rxsci.state.</code><code class="sig-name descname">with_store</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">store</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.with_store" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.state.</span></code><code class="sig-name descname"><span class="pre">with_store</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.state.with_store" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use a state store to manage stateful operations</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

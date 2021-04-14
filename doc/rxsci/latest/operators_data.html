@@ -172,7 +172,7 @@
 <span id="data"></span><h1>Data<a class="headerlink" href="#module-rxsci.data" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="rxsci.data.cache">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">cache</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.cache" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">cache</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>cache items</p>
 <p>Each received items is cached, and the cached item is returned. This
 operator can save memory on graphs that buffer some items, with many
@@ -193,7 +193,7 @@ with cached values.</p>
 
 <dl class="py function">
 <dt id="rxsci.data.clip">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">clip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">higher_bound</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.clip" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">clip</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">higher_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.clip" title="Permalink to this definition">¶</a></dt>
 <dd><p>clip values between lower_bound (included) and higher_bound (included)</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
@@ -217,7 +217,7 @@ with cached values.</p>
 
 <dl class="py function">
 <dt id="rxsci.data.fill_none">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">fill_none</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.fill_none" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">fill_none</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.fill_none" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces None values with value</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
@@ -235,7 +235,7 @@ with cached values.</p>
 
 <dl class="py function">
 <dt id="rxsci.data.lag">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">lag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'obj'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">lag</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'obj'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Buffers a lag of size on source items</p>
 <p>The source must be a MuxObservable.</p>
 <blockquote>
@@ -262,7 +262,7 @@ the first iterations, the item (first, current) is emitted.</p>
 
 <dl class="py function">
 <dt id="rxsci.data.roll">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">roll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">stride</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.roll" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">roll</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.roll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects each element of an observable sequence into zero or more
 windows which are produced based on element window information.</p>
 <p>The source must be a MuxObservable.</p>
@@ -294,7 +294,7 @@ consecutive windows.</p></li>
 
 <dl class="py function">
 <dt id="rxsci.data.sort">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">sort</code><span class="sig-paren">(</span><em class="sig-param">key=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.sort" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">sort</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.sort" title="Permalink to this definition">¶</a></dt>
 <dd><p>sort items according to key</p>
 <p>Items are sorted in ascending order.</p>
 <p>Impementation note: This operator caches all the items of the source
@@ -313,7 +313,7 @@ consumes a lot of memory.</p>
 
 <dl class="py function">
 <dt id="rxsci.data.split">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicate</span></em>, <em class="sig-param"><span class="n">pipeline</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.split" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">split</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split an observable based on a predicate criteria.</p>
 <p>The source must be a MuxObservable.</p>
 <p class="marble">
@@ -336,7 +336,7 @@ criteria.</p>
 
 <dl class="py function">
 <dt id="rxsci.data.to_deque">
-<code class="sig-prename descclassname">rxsci.data.</code><code class="sig-name descname">to_deque</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">extend</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.to_deque" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">to_deque</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.to_deque" title="Permalink to this definition">¶</a></dt>
 <dd><p>flattens list items to a deque fifo and publish them when the source
 observable completes.</p>
 <p>This buffers and emits the items of the source observable as is. Items on
