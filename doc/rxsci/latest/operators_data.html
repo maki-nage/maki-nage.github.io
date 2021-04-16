@@ -335,6 +335,40 @@ criteria.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="rxsci.data.time_split">
+<code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">time_split</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_mapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inactive_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">closing_mapper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_closing_item</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.time_split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits an observable based on timing criterias.</p>
+<p>Timestamps used to create and expire windows are retrived from the
+time_mapper function.</p>
+<p>The first item of a window is used as a reference to close the window after
+a duration of active_timeout. Each timestamp of the source items is used to
+expire the window after a duration of inactive_timeout without receiving any
+event.</p>
+<p>Additional custom loggic can be implemented with the closing_mapper: In
+addition to the active and inactive timeouts, this mapper can force the
+closing of the current window, and create a new one.</p>
+<p>The source must be a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-5d4e26e4ed65791f2fc41e2d5fd23932980dd873.png" alt="time_split"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_mapper</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code>]) – A function that maps the source items to a datetime object.</p></li>
+<li><p><strong>active_timeout</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">timedelta</span></code>]) – The window expiration duration from the reception date of the first item.</p></li>
+<li><p><strong>inactive_timeout</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">timedelta</span></code>]) – The window expiration duration when no event is received.</p></li>
+<li><p><strong>closing_mapper</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]]) – A function call for each source item and returns whether the window must be closed.</p></li>
+<li><p><strong>include_closing_item</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to include closing items from closing_mapper in the current window (True) or the next window (False).</p></li>
+<li><p><strong>pipeline</strong> – The Rx pipe to execute on each split.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A higher order observable returning on observable for each split window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="rxsci.data.to_deque">
 <code class="sig-prename descclassname"><span class="pre">rxsci.data.</span></code><code class="sig-name descname"><span class="pre">to_deque</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.to_deque" title="Permalink to this definition">¶</a></dt>
 <dd><p>flattens list items to a deque fifo and publish them when the source
