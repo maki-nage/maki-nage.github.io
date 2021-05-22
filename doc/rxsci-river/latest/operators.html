@@ -251,7 +251,7 @@
 <p>The source items may or may not have associated labels. If a label is
 present, then the item is used for training. Otherwise only inference is done.</p>
 <dl class="simple">
-<dt>Source:</dt><dd><p>An observable emitting Utterance items.</p>
+<dt>Source:</dt><dd><p>An observable emitting tuples of (x, y) items.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
@@ -263,7 +263,7 @@ present, then the item is used for training. Otherwise only inference is done.</
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An Observable emitting Prediction items for each input item. The
+<dd class="field-even"><p>An Observable emitting prediction items for each input item. The
 firsts pretrain_size items do not emit predictions.</p>
 </dd>
 </dl>
