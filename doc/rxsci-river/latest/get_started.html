@@ -178,8 +178,10 @@
     <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
 <span class="p">)</span>
 
+
 <span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
     <span class="n">ops</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10000</span><span class="p">),</span>
+    <span class="c1">#ops.do_action(print),</span>
     <span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">rsr</span><span class="o">.</span><span class="n">Utterance</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
     <span class="n">rsr</span><span class="o">.</span><span class="n">evaluate</span><span class="o">.</span><span class="n">prequential</span><span class="p">(</span>
         <span class="n">tree</span><span class="o">.</span><span class="n">HoeffdingAdaptiveTreeClassifier</span><span class="p">(</span>

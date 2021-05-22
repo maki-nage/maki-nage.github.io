@@ -21,8 +21,10 @@ Evaluate and train a Hoeffding Tree Classifier from a stream of events:
         seed=1, position=500, width=50,
     )
 
+
     rx.from_(source).pipe(
         ops.take(10000),
+        #ops.do_action(print),
         ops.map(lambda i: rsr.Utterance(i[0], i[1])),
         rsr.evaluate.prequential(
             tree.HoeffdingAdaptiveTreeClassifier(
