@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -84,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
@@ -175,8 +178,8 @@
   <div class="section" id="module-rxsci.math">
 <span id="math"></span><h1>Math<a class="headerlink" href="#module-rxsci.math" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="rxsci.math.max">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.</span></code><code class="sig-name descname"><span class="pre">max</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.max" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.max">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.</span></span><span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum value emitted in the source observable.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
@@ -198,8 +201,8 @@ False, otherwise emits a single item on completion.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.mean">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.</span></code><code class="sig-name descname"><span class="pre">mean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.mean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.mean">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.</span></span><span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.mean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Averages the items emitted in the source observable</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
@@ -221,8 +224,8 @@ False, otherwise emits a single item on completion.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.min">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.</span></code><code class="sig-name descname"><span class="pre">min</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.min" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.min">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.</span></span><span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the minimum value emitted in the source observable.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <p class="marble">
@@ -244,8 +247,8 @@ False, otherwise emits a single item on completion.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.stddev">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.</span></code><code class="sig-name descname"><span class="pre">stddev</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.stddev" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.stddev">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.</span></span><span class="sig-name descname"><span class="pre">stddev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.stddev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the standard deviation.</p>
 <p>This is an approximation of the real standard deviation. See
 rxsci.math.variance for more information.</p>
@@ -270,8 +273,8 @@ is set, then emits None on completion.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.sum">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.</span></code><code class="sig-name descname"><span class="pre">sum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.sum" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.sum">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.</span></span><span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.sum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sums the items emitted in the source observable</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
@@ -290,8 +293,8 @@ False, otherwise emits a single item on completion.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.variance">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.</span></code><code class="sig-name descname"><span class="pre">variance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.variance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.variance">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.</span></span><span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.variance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the variance of the items emitted in the source observable.</p>
 <p>This is an approximation of the real variance. The implementation is based
 on the following article: <a class="reference external" href="https://www.johndcook.com/blog/standard_deviation/">standard_deviation</a></p>
@@ -319,8 +322,8 @@ False, otherwise emits a single item on completion.</p></li>
 are useful when distributing computations on several nodes, and reducing then
 after.</p>
 <span class="target" id="module-rxsci.math.dist"></span><dl class="py function">
-<dt id="rxsci.math.dist.describe">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">describe</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quantiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.25,</span> <span class="pre">0.5,</span> <span class="pre">0.75]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.describe" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.describe">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">describe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quantiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.25,</span> <span class="pre">0.5,</span> <span class="pre">0.75]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.describe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes statistical metrics of the distribution.</p>
 <p>For each Distogram ditribution received on the source observable, computes
 the following metrics:</p>
@@ -343,8 +346,8 @@ the following metrics:</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.histogram">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">histogram</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.histogram" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.histogram">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.histogram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the histogram of the distribution.</p>
 <p>The histogram in in the form of a list of tuples, where each tuple is in
 the form (bin value, element count).</p>
@@ -360,8 +363,8 @@ the form (bin value, element count).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.max">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">max</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.max" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.max">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum value of the distribution.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
@@ -372,8 +375,8 @@ the form (bin value, element count).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.mean">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">mean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.mean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.mean">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.mean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the average value of the distribution.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
@@ -384,8 +387,8 @@ the form (bin value, element count).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.merge">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">merge</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.merge" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.merge">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merges distogram distributions.</p>
 <p>The source observable must contain items that are a collection of
 Distogram object. These are typically the result of a zip operation.</p>
@@ -398,8 +401,8 @@ Distogram object. These are typically the result of a zip operation.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.min">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">min</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.min" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.min">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the minimum value of the distribution.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
@@ -410,8 +413,8 @@ Distogram object. These are typically the result of a zip operation.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.quantile">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">quantile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.quantile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.quantile">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">quantile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.quantile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a quantile value of the distribution.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
@@ -425,8 +428,8 @@ Distogram object. These are typically the result of a zip operation.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.stddev">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">stddev</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.stddev" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.stddev">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">stddev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.stddev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the standard deviation of the distribution.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
@@ -437,8 +440,8 @@ Distogram object. These are typically the result of a zip operation.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.update">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted_diff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.update">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted_diff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the distribution by adding source items to it</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
@@ -458,8 +461,8 @@ False, otherwise emits a single item on completion.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.dist.variance">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></code><code class="sig-name descname"><span class="pre">variance</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.variance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.dist.variance">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.dist.</span></span><span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.dist.variance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the variance value of the distribution.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
@@ -477,8 +480,8 @@ algorithms present in the rxsci.math module. Use them with caution because their
 precision usually come with either a significant impact on performances, either
 with usage restrictions.</p>
 <span class="target" id="module-rxsci.math.formal"></span><dl class="py function">
-<dt id="rxsci.math.formal.stddev">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.formal.</span></code><code class="sig-name descname"><span class="pre">stddev</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.formal.stddev" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.formal.stddev">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.formal.</span></span><span class="sig-name descname"><span class="pre">stddev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.formal.stddev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes standard deviation</p>
 <p>The implementation is based on the formal definition of the standard
 deviation. This implies that all items are cached in memory to do the
@@ -501,8 +504,8 @@ False, otherwise emits a single item on completion.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.math.formal.variance">
-<code class="sig-prename descclassname"><span class="pre">rxsci.math.formal.</span></code><code class="sig-name descname"><span class="pre">variance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.formal.variance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.math.formal.variance">
+<span class="sig-prename descclassname"><span class="pre">rxsci.math.formal.</span></span><span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_mapper=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">reduce=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.math.formal.variance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the variance of the items emitted in the source observable.</p>
 <p>The implementation is based on the formal definition of the variance.
 This implies that all items are cached in memory to do the computation.

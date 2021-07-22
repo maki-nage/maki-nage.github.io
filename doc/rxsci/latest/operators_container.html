@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -84,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
@@ -176,8 +179,8 @@
 <div class="section" id="module-rxsci.container.csv">
 <span id="csv"></span><h2>csv<a class="headerlink" href="#module-rxsci.container.csv" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="rxsci.container.csv.create_line_parser">
-<code class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></code><code class="sig-name descname"><span class="pre">create_line_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">none_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.create_line_parser" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.container.csv.create_line_parser">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">create_line_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">none_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.create_line_parser" title="Permalink to this definition">¶</a></dt>
 <dd><p>creates a parser for csv lines</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -198,8 +201,8 @@ parameters.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.container.csv.dump">
-<code class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></code><code class="sig-name descname"><span class="pre">dump</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.container.csv.dump">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>dumps an observable to csv.</p>
 <p>The source observable must emit one csv row per item
 The source must be an Observable.</p>
@@ -218,8 +221,8 @@ The source must be an Observable.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.container.csv.dump_to_file">
-<code class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></code><code class="sig-name descname"><span class="pre">dump_to_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump_to_file" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.container.csv.dump_to_file">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump_to_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>dumps each item to a csv file.</p>
 <p>The source must be an Observable.</p>
 <dl class="field-list simple">
@@ -229,7 +232,7 @@ The source must be an Observable.</p>
 <li><p><strong>header</strong> – [Optional] indicates whether a header line must be added.</p></li>
 <li><p><strong>separator</strong> – [Optional] Token used to separate each columns.</p></li>
 <li><p><strong>newline</strong> – [Optional] Character(s) used for end of line.</p></li>
-<li><p><strong>[</strong><strong>Optional</strong><strong>] </strong><strong>Encoding used to parse the text content</strong> (<em>encoding</em>) – </p></li>
+<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -241,8 +244,8 @@ while writing the csv file.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.container.csv.load">
-<code class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></code><code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parse_line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.container.csv.load">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parse_line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a csv observable.</p>
 <p>The source observable must emit one csv row per item
 The source must be an Observable.</p>
@@ -260,8 +263,8 @@ The source must be an Observable.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.container.csv.load_from_file">
-<code class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></code><code class="sig-name descname"><span class="pre">load_from_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load_from_file" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.container.csv.load_from_file">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a csv file.</p>
 <p>This factory loads the provided file and returns its content as an
 observable emitting one item per line.</p>
@@ -271,7 +274,7 @@ observable emitting one item per line.</p>
 <li><p><strong>filename</strong> – Path of the file to read or a file object</p></li>
 <li><p><strong>parse_line</strong> – A line parser, e.g. created with create_line_parser</p></li>
 <li><p><strong>skip</strong> – [Optional] Number of lines to skip before parsing</p></li>
-<li><p><strong>[</strong><strong>Optional</strong><strong>] </strong><strong>Encoding used to parse the text content</strong> (<em>encoding</em>) – </p></li>
+<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

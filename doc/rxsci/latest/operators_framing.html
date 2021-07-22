@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -84,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
@@ -177,15 +180,15 @@
 <div class="section" id="module-rxsci.framing.line">
 <span id="line"></span><h2>line<a class="headerlink" href="#module-rxsci.framing.line" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="rxsci.framing.line.frame">
-<code class="sig-prename descclassname"><span class="pre">rxsci.framing.line.</span></code><code class="sig-name descname"><span class="pre">frame</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.line.frame" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.framing.line.frame">
+<span class="sig-prename descclassname"><span class="pre">rxsci.framing.line.</span></span><span class="sig-name descname"><span class="pre">frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.line.frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frames a Observable of text item to lines</p>
 <p>The source must be an Observable.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.framing.line.unframe">
-<code class="sig-prename descclassname"><span class="pre">rxsci.framing.line.</span></code><code class="sig-name descname"><span class="pre">unframe</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.line.unframe" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.framing.line.unframe">
+<span class="sig-prename descclassname"><span class="pre">rxsci.framing.line.</span></span><span class="sig-name descname"><span class="pre">unframe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.line.unframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unframes a Observable of text delimited by new-line</p>
 <p>The source must be an Observable.</p>
 </dd></dl>
@@ -194,15 +197,15 @@
 <div class="section" id="module-rxsci.framing.length_prefix">
 <span id="length-prefix"></span><h2>length prefix<a class="headerlink" href="#module-rxsci.framing.length_prefix" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="rxsci.framing.length_prefix.frame">
-<code class="sig-prename descclassname"><span class="pre">rxsci.framing.length_prefix.</span></code><code class="sig-name descname"><span class="pre">frame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byteorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'little'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.length_prefix.frame" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.framing.length_prefix.frame">
+<span class="sig-prename descclassname"><span class="pre">rxsci.framing.length_prefix.</span></span><span class="sig-name descname"><span class="pre">frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byteorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'little'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.length_prefix.frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frames an Observable of byte items to a len prefixed streaming format</p>
 <p>The source must be an Observable.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.framing.length_prefix.unframe">
-<code class="sig-prename descclassname"><span class="pre">rxsci.framing.length_prefix.</span></code><code class="sig-name descname"><span class="pre">unframe</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byteorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'little'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.length_prefix.unframe" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.framing.length_prefix.unframe">
+<span class="sig-prename descclassname"><span class="pre">rxsci.framing.length_prefix.</span></span><span class="sig-name descname"><span class="pre">unframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byteorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'little'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.framing.length_prefix.unframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>unframe a Observable of bytes from a len prefixed streaming format</p>
 <p>The source must be an Observable.</p>
 </dd></dl>

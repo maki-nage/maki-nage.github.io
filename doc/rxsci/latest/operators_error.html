@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -84,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
@@ -171,8 +174,8 @@
   <div class="section" id="module-rxsci.error">
 <span id="error-operators"></span><span id="operators-error"></span><h1>Error Operators<a class="headerlink" href="#module-rxsci.error" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="rxsci.error.create_error_router">
-<code class="sig-prename descclassname"><span class="pre">rxsci.error.</span></code><code class="sig-name descname"><span class="pre">create_error_router</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.create_error_router" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.error.create_error_router">
+<span class="sig-prename descclassname"><span class="pre">rxsci.error.</span></span><span class="sig-name descname"><span class="pre">create_error_router</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.create_error_router" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a route for mux errors</p>
 <p>Errors on MuxObservables are not fatal. This error handler allows to route
 them to a dedicated Observable. This operator allows to implement a dead
@@ -207,8 +210,8 @@ observable.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.error.ignore">
-<code class="sig-prename descclassname"><span class="pre">rxsci.error.</span></code><code class="sig-name descname"><span class="pre">ignore</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.ignore" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.error.ignore">
+<span class="sig-prename descclassname"><span class="pre">rxsci.error.</span></span><span class="sig-name descname"><span class="pre">ignore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.ignore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ignores errors emitted on a Mux Observable</p>
 <p>Mux errors emitted on the source observable are silently ignored.</p>
 <p>The source must be a MuxObservable.</p>
@@ -238,8 +241,8 @@ dropping any incoming Mux Error.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="rxsci.error.map">
-<code class="sig-prename descclassname"><span class="pre">rxsci.error.</span></code><code class="sig-name descname"><span class="pre">map</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.map" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="rxsci.error.map">
+<span class="sig-prename descclassname"><span class="pre">rxsci.error.</span></span><span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.map" title="Permalink to this definition">¶</a></dt>
 <dd><p>maps errors emitted on a Mux Observable and route the result on the item path.</p>
 <p>The source must be a MuxObservable.</p>
 <p class="marble">
