@@ -351,6 +351,7 @@ the following metrics:</p>
 <dd><p>Returns the histogram of the distribution.</p>
 <p>The histogram in in the form of a list of tuples, where each tuple is in
 the form (bin value, element count).</p>
+<p>This operator does not emit items until enough items have been received.</p>
 <p>The source can be an Observable or a MuxObservable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
