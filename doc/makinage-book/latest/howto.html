@@ -505,6 +505,19 @@ in the operators the same way as all sinks.</p>
 </div>
 <div class="section" id="run-a-local-kafka-server">
 <h2>Run a local Kafka server<a class="headerlink" href="#run-a-local-kafka-server" title="Permalink to this headline"></a></h2>
+<p>For local tests, you can use a Kafka broker running on your local machine. For
+this, We provide an <a class="reference external" href="https://github.com/maki-nage/docker/tree/master/compose/mn-dev">example</a> docker-compose file in the docker repository.</p>
+<p>You can use it this way:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/maki-nage/docker.git</span>
+<span class="go">cd docker/compose/mn-dev</span>
+<span class="go">docker-compose up -d kafka</span>
+</pre></div>
+</div>
+<p>You can then start your Maki Nage applications and use <em>localhost:9092</em> as a Kafka broker.</p>
+<p>Once your done, terminate the broker:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker-compose down -v</span>
+</pre></div>
+</div>
 </div>
 </div>
 
