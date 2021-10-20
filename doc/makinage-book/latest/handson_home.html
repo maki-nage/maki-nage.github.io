@@ -521,13 +521,8 @@ and the computation graph.</p>
 on one side, and the standard deviation of the temperature on the other side. So
 we also need the <em>tee_map</em> operator to compute them in parallel:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
-    <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
-    <span class="p">),</span>
-    <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
-        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="p">),</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -537,13 +532,8 @@ rolling window:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
     <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
     <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
-        <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
-        <span class="p">),</span>
-        <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-            <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
-            <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-        <span class="p">),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
     <span class="p">)</span>
 <span class="p">),</span>
 </pre></div>
@@ -554,7 +544,7 @@ computation is done for each of these generated windows.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-UHl0aG9u" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="0">Python</button><button aria-controls="panel-0-0-0" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="-1">Reactivity diagram</button></div><div aria-labelledby="tab-0-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">Features</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">])</span>
 <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-5</span>
-<span class="n">features</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">Features</span><span class="p">(</span>
         <span class="n">label</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">house_overall</span><span class="p">,</span>
         <span class="n">pspeed_ratio</span><span class="o">=</span><span class="n">i</span><span class="o">.</span><span class="n">pressure</span> <span class="o">/</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">wind_speed</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">),</span>
@@ -565,18 +555,13 @@ computation is done for each of these generated windows.</p>
         <span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
             <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
             <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-                    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
-                <span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-                    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
-                    <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                <span class="p">),</span>
+                <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+                <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
             <span class="p">)</span>
         <span class="p">),</span>
     <span class="p">)),</span>
     <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">Features</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pspeed_ratio</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
-    <span class="n">ops</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
 <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -592,21 +577,14 @@ fields. The first one is the last <em>Features</em> item received on each window
 second one is the temperature standard deviation. So the map operator creates
 new feature items from the label, pspeed_ratio, and temperature from the first
 element; and the standard deviation from the second element.</p>
-<p>Finally, the <em>to_list</em> operator transforms the final Observable into a python
-list. This list is a way to get out of RxSci and continue the processing with
-other tools. So after running this graph, the <em>features</em> variable contains a
-list of <em>Feature</em> elements.</p>
+<p>Finally, the <em>to_pandas</em> operator transforms the final Observable into a pandas
+dataframe. This is a way to get out of RxSci and continue the processing with
+other tools.</p>
 </div>
 <div class="section" id="training">
 <h2>Training<a class="headerlink" href="#training" title="Permalink to this headline"></a></h2>
-<p>This step does not involve Maki Nage. We will use a linear regression from
-scikit-learn for this example. From the last step, we now have our dataset
-available as a list of namedtuples. We can convert it to a pandas dataframe
-easily:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>And then we can train it the usual way:</p>
+<p>This step does not involve Maki Nage but we present it as an end-to-end example.
+We will use a linear regression from scikit-learn:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;pspeed_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_stddev&#39;</span><span class="p">]]</span>
@@ -659,13 +637,8 @@ retrieve and install a package containing the code of all examples this way:</p>
             <span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
                 <span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
                 <span class="n">pipeline</span><span class="o">=</span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-                        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
-                    <span class="p">),</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-                        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">),</span>
-                        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                    <span class="p">),</span>
+                    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+                    <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                 <span class="p">)</span>
             <span class="p">),</span>
         <span class="p">)),</span>
@@ -741,6 +714,7 @@ available in the example repository:</p>
 </div>
 <div class="section" id="model-serving">
 <h3>Model Serving<a class="headerlink" href="#model-serving" title="Permalink to this headline"></a></h3>
+<p>TODO</p>
 </div>
 </div>
 </div>

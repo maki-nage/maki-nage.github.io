@@ -424,13 +424,8 @@ we also need the *tee_map* operator to compute them in parallel:
 .. code:: python
 
     rs.ops.tee_map(
-        rx.pipe(
-            rs.ops.last(),
-        ),
-        rx.pipe(
-            rs.ops.map(lambda i: i.temperature),
-            rs.math.stddev(reduce=True),
-        ),
+        rs.ops.last(),
+        rs.math.stddev(lambda i: i.temperature, reduce=True),
     )
 
 This computation graph returns the last item emitted by the source observable
@@ -442,13 +437,8 @@ rolling window:
     rs.data.roll(
         window=60*6, stride=60,
         pipeline=rs.ops.tee_map(
-            rx.pipe(
-                rs.ops.last(),
-            ),
-            rx.pipe(
-                rs.ops.map(lambda i: i.temperature),
-                rs.math.stddev(reduce=True),
-            ),
+            rs.ops.last(),
+            rs.math.stddev(lambda i: i.temperature, reduce=True),
         )
     ),
 
@@ -463,7 +453,7 @@ The complete code is:
 
         Features = namedtuple('Features', ['label', 'pspeed_ratio', 'temperature', 'temperature_stddev'])
         epsilon = 1e-5
-        features = csv.load_from_file(dataset_path, parser).pipe(
+        df = csv.load_from_file(dataset_path, parser).pipe(
             rs.ops.map(lambda i: Features(
                 label=i.house_overall,
                 pspeed_ratio=i.pressure / (i.wind_speed + epsilon),
@@ -474,18 +464,13 @@ The complete code is:
                 rs.data.roll(
                     window=60*6, stride=60,
                     pipeline=rs.ops.tee_map(
-                        rx.pipe(
-                            rs.ops.last(),
-                        ),
-                        rx.pipe(
-                            rs.ops.map(lambda i: i.temperature),
-                            rs.math.stddev(reduce=True),
-                        ),
+                        rs.ops.last(),
+                        rs.math.stddev(lambda i: i.temperature, reduce=True),
                     )
                 ),        
             )),
             rs.ops.map(lambda i: Features(i[0].label, i[0].pspeed_ratio, i[0].temperature, i[1])),
-            ops.to_list()
+            rs.ops.to_pandas()
         ).run()
 
    .. tab:: Reactivity diagram
@@ -505,25 +490,16 @@ second one is the temperature standard deviation. So the map operator creates
 new feature items from the label, pspeed_ratio, and temperature from the first
 element; and the standard deviation from the second element.
 
-Finally, the *to_list* operator transforms the final Observable into a python
-list. This list is a way to get out of RxSci and continue the processing with
-other tools. So after running this graph, the *features* variable contains a
-list of *Feature* elements.
+Finally, the *to_pandas* operator transforms the final Observable into a pandas
+dataframe. This is a way to get out of RxSci and continue the processing with
+other tools.
 
 
 Training
 ---------
 
-This step does not involve Maki Nage. We will use a linear regression from
-scikit-learn for this example. From the last step, we now have our dataset
-available as a list of namedtuples. We can convert it to a pandas dataframe
-easily:
-
-.. code:: python
-
-    df = pd.DataFrame(features)
-
-And then we can train it the usual way:
+This step does not involve Maki Nage but we present it as an end-to-end example.
+We will use a linear regression from scikit-learn:
 
 .. code:: python
 
@@ -591,13 +567,8 @@ The feature engineering code for the deployment is the following:
                 rs.data.roll(
                     window=60*6, stride=60,
                     pipeline=rs.ops.tee_map(
-                        rx.pipe(
-                            rs.ops.last(),
-                        ),
-                        rx.pipe(
-                            rs.ops.map(lambda i: i.temperature),
-                            rs.math.stddev(reduce=True),
-                        ),
+                        rs.ops.last(),
+                        rs.math.stddev(lambda i: i.temperature, reduce=True),
                     )
                 ),        
             )),        
@@ -687,3 +658,5 @@ available in the example repository:
 
 Model Serving
 ..............
+
+TODO
