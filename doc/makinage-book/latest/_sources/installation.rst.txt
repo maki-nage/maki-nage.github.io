@@ -23,22 +23,38 @@ You can also install RxSci only if you want to use only it:
 Docker Images
 --------------
 
-Development Kafka server
-.........................
-
-for development purposes, you can use a development Kafka server running on a
-single machine. A docker compose configuration is available to use it easily:
+For development purposes, you can use a development Kafka server running on a
+single machine. A docker-compose configuration is available for a fast setup:
 
 .. code:: console
 
     git clone https://github.com/maki-nage/docker.git
     cd docker/compose/mn-dev/
+
+
+Development Kafka server
+.........................
+
+You can start a single-node Kafka broker with docker-compose:
+
+.. code:: console
+
     docker-compose up -d kafka
 
-The Kafka service is binded on **all** network interfaces of the machine, allowing for direct usage.
+The Kafka service is bound on **all** network interfaces of the machine, allowing for direct usage.
 
 .. warning::
 
     Do not use this image on a non trusted network since anybody can access this
     kafka cluster. If you need to work on localhost only, you can change the
     docker-compose configuration file.
+
+
+Development Consul server
+.........................
+
+You can start a single-node Consul instance with docker-compose:
+
+.. code:: console
+
+    docker-compose up -d consul

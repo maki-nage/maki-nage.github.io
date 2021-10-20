@@ -44,6 +44,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#using-python-package-index">Using Python Package Index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#docker-images">Docker Images</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#development-kafka-server">Development Kafka server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#development-consul-server">Development Consul server</a></li>
 </ul>
 </li>
 </ul>
@@ -93,21 +94,31 @@ install them with pip:</p>
 </div>
 <div class="section" id="docker-images">
 <h2>Docker Images<a class="headerlink" href="#docker-images" title="Permalink to this headline"></a></h2>
-<div class="section" id="development-kafka-server">
-<h3>Development Kafka server<a class="headerlink" href="#development-kafka-server" title="Permalink to this headline"></a></h3>
-<p>for development purposes, you can use a development Kafka server running on a
-single machine. A docker compose configuration is available to use it easily:</p>
+<p>For development purposes, you can use a development Kafka server running on a
+single machine. A docker-compose configuration is available for a fast setup:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/maki-nage/docker.git</span>
 <span class="go">cd docker/compose/mn-dev/</span>
-<span class="go">docker-compose up -d kafka</span>
 </pre></div>
 </div>
-<p>The Kafka service is binded on <strong>all</strong> network interfaces of the machine, allowing for direct usage.</p>
+<div class="section" id="development-kafka-server">
+<h3>Development Kafka server<a class="headerlink" href="#development-kafka-server" title="Permalink to this headline"></a></h3>
+<p>You can start a single-node Kafka broker with docker-compose:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker-compose up -d kafka</span>
+</pre></div>
+</div>
+<p>The Kafka service is bound on <strong>all</strong> network interfaces of the machine, allowing for direct usage.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Do not use this image on a non trusted network since anybody can access this
 kafka cluster. If you need to work on localhost only, you can change the
 docker-compose configuration file.</p>
+</div>
+</div>
+<div class="section" id="development-consul-server">
+<h3>Development Consul server<a class="headerlink" href="#development-consul-server" title="Permalink to this headline"></a></h3>
+<p>You can start a single-node Consul instance with docker-compose:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker-compose up -d consul</span>
+</pre></div>
 </div>
 </div>
 </div>

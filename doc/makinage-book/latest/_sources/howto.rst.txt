@@ -513,26 +513,3 @@ The *console* sink is declared in the *sinks* section. It uses the
 *print_to_console* connector. There is no argument in this connector. Should
 there be some, they would be set in the *kwargs* field. This sink is then used
 in the operators the same way as all sinks.
-
-
-Run a local Kafka server
--------------------------
-
-For local tests, you can use a Kafka broker running on your local machine. For
-this, We provide an `example <https://github.com/maki-nage/docker/tree/master/compose/mn-dev>`_ docker-compose file in the docker repository.
-
-You can use it this way:
-
-.. code:: console
-
-    git clone https://github.com/maki-nage/docker.git
-    cd docker/compose/mn-dev
-    docker-compose up -d kafka
-
-You can then start your Maki Nage applications and use *localhost:9092* as a Kafka broker.
-
-Once your done, terminate the broker:
-
-.. code:: console
-
-    docker-compose down -v
