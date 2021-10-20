@@ -1,4 +1,4 @@
-.. serving:
+.. serving
 
 Model serving
 ==============

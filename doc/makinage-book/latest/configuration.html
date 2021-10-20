@@ -47,6 +47,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#application-object">application (object)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kafka-object">kafka (object)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#topics-list">topics (list)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sources-object">sources (object)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sinks-object">sinks (object)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#regulators-list">regulators (list)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#operators-object">operators (object)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#config-object">config (object)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#serve-object">serve (object)</a></li>
@@ -82,19 +85,46 @@
              
   <div class="section" id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h1>
-<p>The configuration of a maki nage application is done via a <a class="reference external" href="https://yaml.org/">yaml</a> configuration file. This configuration is organized into
+<p>The configuration of a Maki Mage application is done via a <a class="reference external" href="https://yaml.org/">YAML</a> configuration file. This configuration is composed of
 dedicated sections for each element of the application.</p>
-<p>This configuration file is the only parameter used by the Maki Nage CLIs
-(makinage and makinage-serve), as the <em>config</em> parameter.</p>
-<p>In the following documentation, each field is documented with a type. The
-meaning of each type is:</p>
+<p>This configuration file is the only parameter used by the <em>makinage</em> CLI, as the
+<em>config</em> parameter.</p>
+<p>In this chapter, we associate each field with a type. The meaning of each type is:</p>
 <ul class="simple">
-<li><p>object: A yaml mapping</p></li>
-<li><p>list: A yaml collection</p></li>
+<li><p>object: A YAML mapping</p></li>
+<li><p>list: A YAML collection</p></li>
 <li><p>string: A string</p></li>
 <li><p>module: A string describing a python module. The syntax follows the python “import” notation, i.e. modules separated by dots.</p></li>
 <li><p>function: A string describing a python function. The syntax is a module name followed by a function name. Both are separated by “:”.</p></li>
 </ul>
+<p>Here is an example configuration file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">push_house_data</span>
+<span class="nt">kafka</span><span class="p">:</span>
+  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
+<span class="nt">topics</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.string</span>
+<span class="nt">sources</span><span class="p">:</span>
+  <span class="nt">house_data</span><span class="p">:</span>
+    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:read_house_data</span>
+    <span class="nt">kwargs</span><span class="p">:</span>
+      <span class="nt">filename</span><span class="p">:</span> <span class="s">&quot;/opt/dataset/HomeC.csv&quot;</span>
+<span class="nt">sinks</span><span class="p">:</span>
+  <span class="nt">console</span><span class="p">:</span>
+    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:print_to_console</span>
+<span class="nt">regulators</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">feedback</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+    <span class="nt">control</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_data</span>
+<span class="nt">operators</span><span class="p">:</span>
+  <span class="nt">forward_house_data</span><span class="p">:</span>
+    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:forward_house_data</span>
+    <span class="nt">sources</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_data</span>
+    <span class="nt">sinks</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+</pre></div>
+</div>
 <div class="section" id="application-object">
 <h2>application (object)<a class="headerlink" href="#application-object" title="Permalink to this headline"></a></h2>
 <p>This section contains information on the application.</p>
@@ -123,6 +153,51 @@ Each entry contains the following fields:</p>
 <li><p>merge_lookup_depth: [integer] The depth used to order the reads on the topics partitions (in number of items). Default: 1.</p></li>
 </ul>
 </div>
+<div class="section" id="sources-object">
+<h2>sources (object)<a class="headerlink" href="#sources-object" title="Permalink to this headline"></a></h2>
+<p>This sections declares the different sources implemented in some connectors.
+These sources available for the operators. The name of each entry is the name of
+the source. Each entry contains the following fields:</p>
+<ul class="simple">
+<li><p>factory: [function] The function implementing the source connector.</p></li>
+<li><p>kwargs: [object, optional] The list of named arguments to provide to the factory.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sources</span><span class="p">:</span>
+  <span class="nt">house_data</span><span class="p">:</span>
+    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:read_house_data</span>
+    <span class="nt">kwargs</span><span class="p">:</span>
+      <span class="nt">filename</span><span class="p">:</span> <span class="s">&quot;/opt/dataset/HomeC.csv&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sinks-object">
+<h2>sinks (object)<a class="headerlink" href="#sinks-object" title="Permalink to this headline"></a></h2>
+<p>This sections declares the different sinks implemented in some connectors. These
+sinks available for the operators. The name of each entry is the name of the
+sink. Each entry contains the following fields:</p>
+<ul class="simple">
+<li><p>factory: [function] The function implementing the sink connector.</p></li>
+<li><p>kwargs: [object, optional] The list of named arguments to provide to the factory.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sinks</span><span class="p">:</span>
+  <span class="nt">console</span><span class="p">:</span>
+    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:print_to_console</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="regulators-list">
+<h2>regulators (list)<a class="headerlink" href="#regulators-list" title="Permalink to this headline"></a></h2>
+<p>This section configures the regulation injection. Regulation injection limits
+the rate of a source when a sink cannot process items fast enough.</p>
+<p>Each entry contains the following fields:</p>
+<ul class="simple">
+<li><p>feedback: The name of the sink to monitor.</p></li>
+<li><p>control: The name of the source to regulate.</p></li>
+</ul>
+<p>Any source and sink of the application can be used only once in regulators.</p>
+</div>
 <div class="section" id="operators-object">
 <h2>operators (object)<a class="headerlink" href="#operators-object" title="Permalink to this headline"></a></h2>
 <p>This section contains the list of operators in the application. Each operator
@@ -133,13 +208,23 @@ following fields:</p>
 <li><p>sources: [list, optional] The list of source observables for this operator.</p></li>
 <li><p>sinks: [list, optional] The list of sink observables for this operator.</p></li>
 </ul>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">operators</span><span class="p">:</span>
+  <span class="nt">forward_house_data</span><span class="p">:</span>
+    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:forward_house_data</span>
+    <span class="nt">sources</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_data</span>
+    <span class="nt">sinks</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="config-object">
 <h2>config (object)<a class="headerlink" href="#config-object" title="Permalink to this headline"></a></h2>
-<p>This section is a placeholder for application specific configuration. This is
-typically where one can put the feature engineering parameters, or anything that
+<p>This section is a placeholder for application-specific configuration. This is
+typically where one can put the feature engineering parameters or anything that
 can be configured without code change.</p>
-<p>It contains some reserved sub-section keywords:</p>
+<p>This section contains some reserved sub-section keywords:</p>
 <div class="section" id="serve-object">
 <h3>serve (object)<a class="headerlink" href="#serve-object" title="Permalink to this headline"></a></h3>
 <p>This sub-section contains the configuration for model serving. The following
@@ -149,22 +234,38 @@ fields can be used to configure the inference behavior:</p>
 <li><p>post_transform: [function] A factory function called with the configuration as a parameter. It must return a function that takes utterances and predicions as parameters and returns data in a format suitable for emission on the sink topic.</p></li>
 <li><p>predict: [function] A factory function called with the model and configuration as a parameters. It must return a function that takes pre-transformed utterances as parameter and return the model prediction.</p></li>
 </ul>
-<p>See the <span class="xref std std-ref">Serving</span> chapter for more information on these fields.</p>
+<p>See the <a class="reference external" href="serving.html">Serving</a> chapter for more information on these fields.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span>
+  <span class="nt">serve</span><span class="p">:</span>
+    <span class="nt">pre_transform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_app:pre_transform</span>
+    <span class="nt">post_transform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_app:post_transform</span>
+    <span class="nt">my_param1</span><span class="p">:</span> <span class="s">&#39;foo&#39;</span>
+    <span class="nt">my_threshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.82</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="redirect-object">
 <h2>redirect (object)<a class="headerlink" href="#redirect-object" title="Permalink to this headline"></a></h2>
-<p>If the configuration file contains a <em>redirect</em> section the the actual content
-of the configuration is retrived from the location described in this section.</p>
+<p>If the configuration file contains a <em>redirect</em> section, then the actual content
+of the configuration is retrieved from the location described in this section.</p>
 <p>It contains the following fields:</p>
 <ul class="simple">
 <li><p>connector: [string] The type of redirection to do. Only <a class="reference external" href="https://www.consul.io">consul</a> is supported for now.</p></li>
 <li><p>endpoint: [string] The consul endpoint url. e.g. “<a class="reference external" href="http://localhost:8500">http://localhost:8500</a>”</p></li>
 <li><p>key: [string] The name of the KV Store key to read. e.g. “myservice”</p></li>
 </ul>
-<p>When consul is used for the configuration, then changes are monitored and
-exposed in real-time on the config argument of the operators. This allows to
-dynamically change the configuration of a running service.</p>
+<p>With Consul, the configuration changes are monitored and exposed in real-time on
+the config argument of the operators. This allows to dynamically change the
+configuration of a running service.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">redirect</span><span class="p">:</span>
+  <span class="nt">connector</span><span class="p">:</span> <span class="s">&quot;consul&quot;</span>
+  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;http://consul:8500&quot;</span>
+  <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;path.to.param&quot;</span>
+</pre></div>
+</div>
 </div>
 </div>
 
