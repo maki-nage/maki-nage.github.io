@@ -1,7 +1,7 @@
 How To
 ======
 
-This section contains examples of common operations in RxSci and Maki Nage. You
+This section contains examples of usual operations in RxSci and Maki Nage. You
 can find the associated code for most of them `here
 <https://github.com/maki-nage/makinage-examples/tree/master/notebook>`_.
 
@@ -9,13 +9,13 @@ can find the associated code for most of them `here
 Import and Export Data
 ------------------------
 
-Read a csv file
+Read a CSV file
 ~~~~~~~~~~~~~~~~
 
-You can work directly on CSV files (vs using Kafka as a source and sink), via
-the *load_from_csv* factory operator.
+You can work directly on CSV files (versus using Kafka as a source and sink),
+via the *load_from_csv* factory operator.
 
-First import the *csv* module that contains all csv operators:
+First, import the *csv* module that contains all CSV related operators:
 
 .. code:: python
 
@@ -23,8 +23,7 @@ First import the *csv* module that contains all csv operators:
 
 
 Then you must declare the schema of the CSV file. Below is the schema of the
-iris dataset that you can retrieve from `kaggle
-<https://www.kaggle.com/uciml/iris>`_.
+iris dataset that you can retrieve from `kaggle <https://www.kaggle.com/uciml/iris>`_.
 
 .. code:: python
 
@@ -41,8 +40,7 @@ iris dataset that you can retrieve from `kaggle
 
 The *create_line_parser* operator supports options to customize the parser, such
 as the text encoding, column separator, and default values. See the
-`documentation
-<https://www.makinage.org/doc/rxsci/latest/operators_container.html#rxsci.container.csv.create_line_parser>`_
+`documentation <https://www.makinage.org/doc/rxsci/latest/operators_container.html#rxsci.container.csv.create_line_parser>`_
 for more information.
 
 .. code:: python
@@ -50,12 +48,39 @@ for more information.
     iris_data = csv.load_from_file('./Iris.csv', iris_parser)
 
 
+Expose a connector
+...........................
+
+The previous section explained how to read a CSV file directly. This is
+typically done in a notebook. It is trivial to expose this source of data as a
+Maki Nage connector, and use it from the *makinage* CLI.
+
+A source connector is implemented as a function that returns an observable. So the
+reading of a CSV file can be implemented this way:
+
+.. code:: python
+
+    def read_iris_from_csv(filename):
+        return csv.load_from_file(filename, iris_parser)
+
+
+This function is then declared as a source in the Maki Nage configuration
+file:
+
+.. code:: yaml
+
+    sources:
+      iris_csv_source:
+        factory: my_app.connector:read_iris_from_csv
+        kwargs:
+          filename: "./Iris.csv"
+
 
 Write a csv file
 ~~~~~~~~~~~~~~~~~~
 
 The *dump_to_file* operator writes each input item to a row of a CSV file. The
-input items must be namedtuples. So first ensure that your data is structured as
+input items must be namedtuples. First, ensure that the data is structured as
 a namedtuple:
 
 .. code:: python
@@ -80,7 +105,35 @@ names of the CSV file:
     ).subscribe()
 
 
-Extend Maki Nage
+Expose a connector
+...................
+
+To use this code in a Maki Nage application, you would expose it as a sink
+connector. This is done in a similar way than source connectors, except that the
+connector function returns an operator instead of an observable. Here is the
+implementation to write a CSV file:
+
+.. code:: python
+
+    def write_to_csv_file(filename):
+        return rx.pipe(
+            csv.dump_to_file(filename, encoding='utf-8'),
+        )
+
+
+This function is then declared as a sink in the Maki Nage configuration
+file:
+
+.. code:: yaml
+
+    sinks:
+      csv_file_sink:
+        factory: my_app.connector:write_to_csv_file
+        kwargs:
+          filename: "./iris_features.csv"
+
+
+Create Operators
 -----------------
 
 Create an operator by composition
@@ -106,9 +159,9 @@ The natural way to use them is by chaining them in a pipe:
     )
 
 
-But as more and more transforms are added, you can end up with a very long pipe.
-You can easily improve the readability and reuse some operations by grouping
-operators. For example, the previous three operators can be grouped as a custom
+But you add as more and more data transforms you can end up with a very long pipe.
+You can quickly improve the readability and reuse some operations by grouping
+operators. For example, by grouping the previous three operators into a custom
 operator:
 
 .. code:: python
@@ -151,7 +204,7 @@ state. Hopefully, In many cases, you can create new operators by combining three
 base operators: scan, filter, and map:
 
 * The scan operator updates the state.
-* The filter operator controls when items must be emitted.
+* The filter operator controls when to emit items.
 * The map operator emits the items from the state.
 
 Let's consider the following need: Sum all items up to some threshold. An item
@@ -230,7 +283,7 @@ whole life, or to dynamically adapt to changes in the configuration.
 Use only the initial configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Using only the initial configuration is the simplest way use the configuration
+Using only the initial configuration is the easiest way to use the configuration
 settings. This way of working means that the application must be restarted to
 take into account changes in the configuration file.
 
@@ -243,7 +296,7 @@ The following code shows such an implementation:
             ops.take(1),
         )
 
-        result = stage2_config.pipe(
+        result = initial_config.pipe(
             ops.flat_map(lambda c: data.pipe(
                 # my operations, whith c variable available in this scope
                 rs.ops.map(lambda i: i + c['config']['increment_value'])
@@ -303,6 +356,163 @@ See this marble diagram for a visual explanation each step:
     ---1,1-2,1-3,5-4,2--|
     [  startmap(i + c)  ]
     ---2---3---8---6----|
+
+
+Create Connectors
+-----------------
+
+Maki Nage exposes a simple way to write IO connectors. Such connectors allow to
+read streams of data from any source and to write them to any sink. This is the
+easiest way to use Maki Nage on data that is not on Kafka. It is also a way to
+use Maki Nage completely outside of Kafka.
+
+There are two kinds of connectors:
+
+- sources
+- sinks
+
+Source connectors read data from an external source and make it available to
+the Maki Nage operators. 
+
+Sink connectors write data to an external source. They allow exporting the
+results of your operators.
+
+Here is how connectors are integrated in Maki Nage:
+
+.. image:: images/connectors.png
+    :align: center
+    :scale: 60%
+
+
+The integration of connectors in Maki Nage guarantees a good integration in Maki
+Nage. This especially important for the AsyncIO event loop and the backpressure
+handling.
+
+Moreover connectors can be implemented in dedicated python packages. This
+encourages the community to share are reuse existing connectors.
+
+Source Connectors
+~~~~~~~~~~~~~~~~~~
+
+A source connector is implemented as a function that returns an *observable*. Here
+is the source used in the `house consumption <https://github.com/maki-nage/makinage-examples/blob/master/makinage_examples/house/push.py>`_
+example:
+
+.. code:: python
+
+    def read_house_data(filename):
+        data = file.read(filename, size=64*1024).pipe(
+            line.unframe(),
+            ops.skip(1),
+        )
+
+        return data
+
+
+The function *read_house_data* is the implementation of a source connector. It
+accepts a parameter: *filename*. This parameter is provided in the configuration
+file. This example reads a text file and emits one item per line, excluding the
+first one.
+
+Sources are subscribed on a dedicated worker thread. As a consequence, they can
+rely on blocking IO without impacting the rest of the application. Moreover,
+regulation injection is automatically done on sources when it is enabled.
+
+One declares a connector in the configuration file. The *sources* section
+contains the declarations of source connectors. Here is the configuration file
+used to inject the CSV dataset in Kafka on the house consumption example:
+
+.. code:: yaml
+
+    application:
+      name: push_house_data
+    kafka:
+      endpoint: "localhost"
+    topics:
+      - name: house_values
+        encoder: makinage.encoding.string
+    sources:
+      house_data:
+        factory: makinage_examples.house.push:read_house_data
+        kwargs:
+          filename: "/opt/dataset/HomeC.csv"
+    regulators:
+      - feedback: house_values
+        control: house_data
+    operators:
+      forward_house_data:
+        factory: makinage_examples.house.push:forward_house_data
+        sources:
+          - house_data
+        sinks:
+          - house_values
+
+The *house_data* source is declared in the *sources* section. Its data
+come from the *read_house_data* connector. The arguments of the connectors are
+set in the *kwargs* field. This source is then used in the operators the same
+way as all sources.
+
+
+Sink Connectors
+~~~~~~~~~~~~~~~~
+
+A sink connector is implemented as a function that returns a ReactiveX *operator*. Here
+is the sink used in the `house consumption <https://github.com/maki-nage/makinage-examples/blob/master/makinage_examples/house/pull.py>`__
+example:
+
+.. code:: python
+
+    def print_to_console():
+        return rx.pipe(
+            ops.do_action(
+                on_next=print,
+                on_error=lambda e: print(e),
+                on_completed=lambda: print("completed")
+            ),
+        )
+
+
+In this example, the sink takes no parameters. However, you can add some if
+needed, the same way as for the source connector. The result of the function is
+a ReactiveX operator. In this case, it is the result of the *rx.pipe* function.
+
+Items forwarded to sinks are scheduled on a dedicated worker thread. As a
+consequence, the sinks can rely on blocking IO without impacting the rest of the
+application. Moreover, the monitoring of sinks is done automatically when
+the regulation injection is enabled.
+
+One declares a connector in the configuration file. The *sinks* section contains
+the declaration of sink connectors. Here is the configuration file used to print
+the features computed on the house consumption example:
+
+.. code:: yaml
+
+    application:
+        name: pull_house_data
+    kafka:
+      endpoint: "localhost"
+    topics:
+      - name: house_features
+        encoder: makinage.encoding.json
+        start_from: beginning
+    sinks:
+      console:
+        factory: makinage_examples.house.pull:print_to_console
+    regulators:
+      - feedback: console
+        control: house_features
+    operators:
+      forward_house_features:
+        factory: makinage_examples.house.pull:forward_house_features
+        sources:
+          - house_features
+        sinks:
+          - console    
+
+The *console* sink is declared in the *sinks* section. It uses the
+*print_to_console* connector. There is no argument in this connector. Should
+there be some, they would be set in the *kwargs* field. This sink is then used
+in the operators the same way as all sinks.
 
 
 Run a local Kafka server

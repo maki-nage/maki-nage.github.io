@@ -493,14 +493,9 @@ The complete code is:
         todo: reactivity diagram
 
 
-<<<<<<< Updated upstream
-There are several other additions to this code. First, the roll operator can be
-used only within the context of a *state store*. The reason is that
-=======
-There are several other additions in this code. First, the roll operator can be
-used only within the context of a *state store* operator. The reason is that
->>>>>>> Stashed changes
-roll is one of the operators that work only on MuxObservables, a specialized
+There are several other additions to this code. First, the *roll* operator can
+be used only within the context of a *state store*. The reason is that roll is
+one of the operators that work only on MuxObservables, a specialized
 implementation of Observables optimized for aggregate and stateful transforms.
 
 Then the final map transformation may require some clarifications. Its source
