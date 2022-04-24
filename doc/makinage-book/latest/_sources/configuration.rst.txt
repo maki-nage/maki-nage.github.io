@@ -13,6 +13,7 @@ This configuration file is the only parameter used by the *makinage* CLI, as the
 In this chapter, we associate each field with a type. The meaning of each type is:
 
 * object: A YAML mapping
+* int: An integer
 * list: A YAML collection
 * string: A string
 * module: A string describing a python module. The syntax follows the python "import" notation, i.e. modules separated by dots.
@@ -63,6 +64,8 @@ kafka (object)
 This section contains the kafka configuration. It contains the following fields:
 
 * endpoint: [string] The kafka server endpoint. e.g. "localhost"
+* max_partition_fetch_bytes: [int] The maximum amount of data per-partition the server will return. default: 1048576
+* max_request_size: [int] The maximum size of a write request. default: 1048576
 
 topics (list)
 ------------------

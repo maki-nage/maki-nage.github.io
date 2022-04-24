@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Configuration &mdash; The Maki Nage Book  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -83,7 +84,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="configuration">
+  <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h1>
 <p>The configuration of a Maki Mage application is done via a <a class="reference external" href="https://yaml.org/">YAML</a> configuration file. This configuration is composed of
 dedicated sections for each element of the application.</p>
@@ -92,55 +93,58 @@ dedicated sections for each element of the application.</p>
 <p>In this chapter, we associate each field with a type. The meaning of each type is:</p>
 <ul class="simple">
 <li><p>object: A YAML mapping</p></li>
+<li><p>int: An integer</p></li>
 <li><p>list: A YAML collection</p></li>
 <li><p>string: A string</p></li>
 <li><p>module: A string describing a python module. The syntax follows the python “import” notation, i.e. modules separated by dots.</p></li>
 <li><p>function: A string describing a python function. The syntax is a module name followed by a function name. Both are separated by “:”.</p></li>
 </ul>
 <p>Here is an example configuration file:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">push_house_data</span>
-<span class="nt">kafka</span><span class="p">:</span>
-  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
-<span class="nt">topics</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
-    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.string</span>
-<span class="nt">sources</span><span class="p">:</span>
-  <span class="nt">house_data</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:read_house_data</span>
-    <span class="nt">kwargs</span><span class="p">:</span>
-      <span class="nt">filename</span><span class="p">:</span> <span class="s">&quot;/opt/dataset/HomeC.csv&quot;</span>
-<span class="nt">sinks</span><span class="p">:</span>
-  <span class="nt">console</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:print_to_console</span>
-<span class="nt">regulators</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">feedback</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
-    <span class="nt">control</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_data</span>
-<span class="nt">operators</span><span class="p">:</span>
-  <span class="nt">forward_house_data</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:forward_house_data</span>
-    <span class="nt">sources</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_data</span>
-    <span class="nt">sinks</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">push_house_data</span><span class="w"></span>
+<span class="nt">kafka</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="nt">topics</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage.encoding.string</span><span class="w"></span>
+<span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">house_data</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:read_house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">kwargs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/dataset/HomeC.csv&quot;</span><span class="w"></span>
+<span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">console</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:print_to_console</span><span class="w"></span>
+<span class="nt">regulators</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">feedback</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
+<span class="w">    </span><span class="nt">control</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_data</span><span class="w"></span>
+<span class="nt">operators</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">forward_house_data</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:forward_house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="section" id="application-object">
+<section id="application-object">
 <h2>application (object)<a class="headerlink" href="#application-object" title="Permalink to this headline"></a></h2>
 <p>This section contains information on the application.</p>
 <ul class="simple">
 <li><p>name: The name of the application. This name is used as the kafka consumer group.</p></li>
 <li><p>source_type: [string] How to work with incoming data. Default: stream. Possible values are [stream|batch]</p></li>
 </ul>
-</div>
-<div class="section" id="kafka-object">
+</section>
+<section id="kafka-object">
 <h2>kafka (object)<a class="headerlink" href="#kafka-object" title="Permalink to this headline"></a></h2>
 <p>This section contains the kafka configuration. It contains the following fields:</p>
 <ul class="simple">
 <li><p>endpoint: [string] The kafka server endpoint. e.g. “localhost”</p></li>
+<li><p>max_partition_fetch_bytes: [int] The maximum amount of data per-partition the server will return. default: 1048576</p></li>
+<li><p>max_request_size: [int] The maximum size of a write request. default: 1048576</p></li>
 </ul>
-</div>
-<div class="section" id="topics-list">
+</section>
+<section id="topics-list">
 <h2>topics (list)<a class="headerlink" href="#topics-list" title="Permalink to this headline"></a></h2>
 <p>This sections describes the different topics that can be used by the operators.
 Each entry contains the following fields:</p>
@@ -152,8 +156,8 @@ Each entry contains the following fields:</p>
 <li><p>timestamp_mapper: [function] The mapper used to extract the timestamp value from incoming records.</p></li>
 <li><p>merge_lookup_depth: [integer] The depth used to order the reads on the topics partitions (in number of items). Default: 1.</p></li>
 </ul>
-</div>
-<div class="section" id="sources-object">
+</section>
+<section id="sources-object">
 <h2>sources (object)<a class="headerlink" href="#sources-object" title="Permalink to this headline"></a></h2>
 <p>This sections declares the different sources implemented in some connectors.
 These sources available for the operators. The name of each entry is the name of
@@ -163,15 +167,15 @@ the source. Each entry contains the following fields:</p>
 <li><p>kwargs: [object, optional] The list of named arguments to provide to the factory.</p></li>
 </ul>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sources</span><span class="p">:</span>
-  <span class="nt">house_data</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:read_house_data</span>
-    <span class="nt">kwargs</span><span class="p">:</span>
-      <span class="nt">filename</span><span class="p">:</span> <span class="s">&quot;/opt/dataset/HomeC.csv&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">house_data</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:read_house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">kwargs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/dataset/HomeC.csv&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sinks-object">
+</section>
+<section id="sinks-object">
 <h2>sinks (object)<a class="headerlink" href="#sinks-object" title="Permalink to this headline"></a></h2>
 <p>This sections declares the different sinks implemented in some connectors. These
 sinks available for the operators. The name of each entry is the name of the
@@ -181,13 +185,13 @@ sink. Each entry contains the following fields:</p>
 <li><p>kwargs: [object, optional] The list of named arguments to provide to the factory.</p></li>
 </ul>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sinks</span><span class="p">:</span>
-  <span class="nt">console</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:print_to_console</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">console</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:print_to_console</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="regulators-list">
+</section>
+<section id="regulators-list">
 <h2>regulators (list)<a class="headerlink" href="#regulators-list" title="Permalink to this headline"></a></h2>
 <p>This section configures the regulation injection. Regulation injection limits
 the rate of a source when a sink cannot process items fast enough.</p>
@@ -197,8 +201,8 @@ the rate of a source when a sink cannot process items fast enough.</p>
 <li><p>control: The name of the source to regulate.</p></li>
 </ul>
 <p>Any source and sink of the application can be used only once in regulators.</p>
-</div>
-<div class="section" id="operators-object">
+</section>
+<section id="operators-object">
 <h2>operators (object)<a class="headerlink" href="#operators-object" title="Permalink to this headline"></a></h2>
 <p>This section contains the list of operators in the application. Each operator
 field is a named object of this section. Each operator object contains the
@@ -209,23 +213,23 @@ following fields:</p>
 <li><p>sinks: [list, optional] The list of sink observables for this operator.</p></li>
 </ul>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">operators</span><span class="p">:</span>
-  <span class="nt">forward_house_data</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:forward_house_data</span>
-    <span class="nt">sources</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_data</span>
-    <span class="nt">sinks</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">operators</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">forward_house_data</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:forward_house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="config-object">
+</section>
+<section id="config-object">
 <h2>config (object)<a class="headerlink" href="#config-object" title="Permalink to this headline"></a></h2>
 <p>This section is a placeholder for application-specific configuration. This is
 typically where one can put the feature engineering parameters or anything that
 can be configured without code change.</p>
 <p>This section contains some reserved sub-section keywords:</p>
-<div class="section" id="serve-object">
+<section id="serve-object">
 <h3>serve (object)<a class="headerlink" href="#serve-object" title="Permalink to this headline"></a></h3>
 <p>This sub-section contains the configuration for model serving. The following
 fields can be used to configure the inference behavior:</p>
@@ -236,17 +240,17 @@ fields can be used to configure the inference behavior:</p>
 </ul>
 <p>See the <a class="reference external" href="serving.html">Serving</a> chapter for more information on these fields.</p>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span>
-  <span class="nt">serve</span><span class="p">:</span>
-    <span class="nt">pre_transform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_app:pre_transform</span>
-    <span class="nt">post_transform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_app:post_transform</span>
-    <span class="nt">my_param1</span><span class="p">:</span> <span class="s">&#39;foo&#39;</span>
-    <span class="nt">my_threshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.82</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">serve</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">pre_transform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_app:pre_transform</span><span class="w"></span>
+<span class="w">    </span><span class="nt">post_transform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_app:post_transform</span><span class="w"></span>
+<span class="w">    </span><span class="nt">my_param1</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;foo&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">my_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.82</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="redirect-object">
+</section>
+</section>
+<section id="redirect-object">
 <h2>redirect (object)<a class="headerlink" href="#redirect-object" title="Permalink to this headline"></a></h2>
 <p>If the configuration file contains a <em>redirect</em> section, then the actual content
 of the configuration is retrieved from the location described in this section.</p>
@@ -260,14 +264,14 @@ of the configuration is retrieved from the location described in this section.</
 the config argument of the operators. This allows to dynamically change the
 configuration of a running service.</p>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">redirect</span><span class="p">:</span>
-  <span class="nt">connector</span><span class="p">:</span> <span class="s">&quot;consul&quot;</span>
-  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;http://consul:8500&quot;</span>
-  <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;path.to.param&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">redirect</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">connector</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;consul&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://consul:8500&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path.to.param&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

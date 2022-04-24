@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How To &mdash; The Maki Nage Book  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -98,13 +99,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="how-to">
+  <section id="how-to">
 <h1>How To<a class="headerlink" href="#how-to" title="Permalink to this headline"></a></h1>
 <p>This section contains examples of usual operations in RxSci and Maki Nage. You
 can find the associated code for most of them <a class="reference external" href="https://github.com/maki-nage/makinage-examples/tree/master/notebook">here</a>.</p>
-<div class="section" id="import-and-export-data">
+<section id="import-and-export-data">
 <h2>Import and Export Data<a class="headerlink" href="#import-and-export-data" title="Permalink to this headline"></a></h2>
-<div class="section" id="read-a-csv-file">
+<section id="read-a-csv-file">
 <h3>Read a CSV file<a class="headerlink" href="#read-a-csv-file" title="Permalink to this headline"></a></h3>
 <p>You can work directly on CSV files (versus using Kafka as a source and sink),
 via the <em>load_from_csv</em> factory operator.</p>
@@ -133,7 +134,7 @@ for more information.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iris_data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;./Iris.csv&#39;</span><span class="p">,</span> <span class="n">iris_parser</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="expose-a-connector">
+<section id="expose-a-connector">
 <h4>Expose a connector<a class="headerlink" href="#expose-a-connector" title="Permalink to this headline"></a></h4>
 <p>The previous section explained how to read a CSV file directly. This is
 typically done in a notebook. It is trivial to expose this source of data as a
@@ -146,16 +147,16 @@ reading of a CSV file can be implemented this way:</p>
 </div>
 <p>This function is then declared as a source in the Maki Nage configuration
 file:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sources</span><span class="p">:</span>
-  <span class="nt">iris_csv_source</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_app.connector:read_iris_from_csv</span>
-    <span class="nt">kwargs</span><span class="p">:</span>
-      <span class="nt">filename</span><span class="p">:</span> <span class="s">&quot;./Iris.csv&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">iris_csv_source</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_app.connector:read_iris_from_csv</span><span class="w"></span>
+<span class="w">    </span><span class="nt">kwargs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./Iris.csv&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="write-a-csv-file">
+</section>
+</section>
+<section id="write-a-csv-file">
 <h3>Write a csv file<a class="headerlink" href="#write-a-csv-file" title="Permalink to this headline"></a></h3>
 <p>The <em>dump_to_file</em> operator writes each input item to a row of a CSV file. The
 input items must be namedtuples. First, ensure that the data is structured as
@@ -178,7 +179,7 @@ names of the CSV file:</p>
 <span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="section" id="id1">
+<section id="id1">
 <h4>Expose a connector<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
 <p>To use this code in a Maki Nage application, you would expose it as a sink
 connector. This is done in a similar way than source connectors, except that the
@@ -192,19 +193,19 @@ implementation to write a CSV file:</p>
 </div>
 <p>This function is then declared as a sink in the Maki Nage configuration
 file:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sinks</span><span class="p">:</span>
-  <span class="nt">csv_file_sink</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_app.connector:write_to_csv_file</span>
-    <span class="nt">kwargs</span><span class="p">:</span>
-      <span class="nt">filename</span><span class="p">:</span> <span class="s">&quot;./iris_features.csv&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">csv_file_sink</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_app.connector:write_to_csv_file</span><span class="w"></span>
+<span class="w">    </span><span class="nt">kwargs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./iris_features.csv&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="create-operators">
+</section>
+</section>
+</section>
+<section id="create-operators">
 <h2>Create Operators<a class="headerlink" href="#create-operators" title="Permalink to this headline"></a></h2>
-<div class="section" id="create-an-operator-by-composition">
+<section id="create-an-operator-by-composition">
 <h3>Create an operator by composition<a class="headerlink" href="#create-an-operator-by-composition" title="Permalink to this headline"></a></h3>
 <p>The simplest way to create a new operator is by composing other existing
 operators. Let’s consider these three operations done on some text input:</p>
@@ -251,8 +252,8 @@ operator:</p>
 <span class="go">Lorem ipsum</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-a-stateful-operator-by-composition">
+</section>
+<section id="create-a-stateful-operator-by-composition">
 <h3>Create a stateful operator by composition<a class="headerlink" href="#create-a-stateful-operator-by-composition" title="Permalink to this headline"></a></h3>
 <p>Stateful operators are more complex to implement because they need to update a
 state. Hopefully, In many cases, you can create new operators by combining three
@@ -306,9 +307,9 @@ filter, and map in a wrapper function:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">3 3 5 2 6</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="use-the-configuration-parameters">
+</section>
+</section>
+<section id="use-the-configuration-parameters">
 <h2>Use the configuration parameters<a class="headerlink" href="#use-the-configuration-parameters" title="Permalink to this headline"></a></h2>
 <p>The operators of a Maki Nage application have access to the configuration
 settings. The configuration is passed as the first argument of the operator. It
@@ -319,7 +320,7 @@ the configuration file is served from consul, then one item is emitted each time
 a change is made in consul.</p>
 <p>So the application can choose to use the initial configuration for its
 whole life, or to dynamically adapt to changes in the configuration.</p>
-<div class="section" id="use-only-the-initial-configuration">
+<section id="use-only-the-initial-configuration">
 <h3>Use only the initial configuration<a class="headerlink" href="#use-only-the-initial-configuration" title="Permalink to this headline"></a></h3>
 <p>Using only the initial configuration is the easiest way to use the configuration
 settings. This way of working means that the application must be restarted to
@@ -349,8 +350,8 @@ This variable is the dict corresponding to the configuration file.</p>
 <p class="marble">
 <img src="_images/marble-750b489c468b64a6da9eb006f72283af1c609142.png" alt="static configuration"/>
 </p>
-</div>
-<div class="section" id="use-the-configuration-dynamically">
+</section>
+<section id="use-the-configuration-dynamically">
 <h3>Use the configuration dynamically<a class="headerlink" href="#use-the-configuration-dynamically" title="Permalink to this headline"></a></h3>
 <p>Since the configuration argument is an Observable, it is possible to dynamically
 adjust the application behavior without having to restart it.</p>
@@ -371,9 +372,9 @@ with the lastest configuration being always used to do the computation:</p>
 <p class="marble">
 <img src="_images/marble-26befdad629d864ba9f4ec5c2f563336019b67bd.png" alt="dynamic configuration"/>
 </p>
-</div>
-</div>
-<div class="section" id="create-connectors">
+</section>
+</section>
+<section id="create-connectors">
 <h2>Create Connectors<a class="headerlink" href="#create-connectors" title="Permalink to this headline"></a></h2>
 <p>Maki Nage exposes a simple way to write IO connectors. Such connectors allow to
 read streams of data from any source and to write them to any sink. This is the
@@ -395,7 +396,7 @@ Nage. This especially important for the AsyncIO event loop and the backpressure
 handling.</p>
 <p>Moreover connectors can be implemented in dedicated python packages. This
 encourages the community to share are reuse existing connectors.</p>
-<div class="section" id="source-connectors">
+<section id="source-connectors">
 <h3>Source Connectors<a class="headerlink" href="#source-connectors" title="Permalink to this headline"></a></h3>
 <p>A source connector is implemented as a function that returns an <em>observable</em>. Here
 is the source used in the <a class="reference external" href="https://github.com/maki-nage/makinage-examples/blob/master/makinage_examples/house/push.py">house consumption</a>
@@ -419,36 +420,36 @@ regulation injection is automatically done on sources when it is enabled.</p>
 <p>One declares a connector in the configuration file. The <em>sources</em> section
 contains the declarations of source connectors. Here is the configuration file
 used to inject the CSV dataset in Kafka on the house consumption example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">push_house_data</span>
-<span class="nt">kafka</span><span class="p">:</span>
-  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
-<span class="nt">topics</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
-    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.string</span>
-<span class="nt">sources</span><span class="p">:</span>
-  <span class="nt">house_data</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:read_house_data</span>
-    <span class="nt">kwargs</span><span class="p">:</span>
-      <span class="nt">filename</span><span class="p">:</span> <span class="s">&quot;/opt/dataset/HomeC.csv&quot;</span>
-<span class="nt">regulators</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">feedback</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
-    <span class="nt">control</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_data</span>
-<span class="nt">operators</span><span class="p">:</span>
-  <span class="nt">forward_house_data</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:forward_house_data</span>
-    <span class="nt">sources</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_data</span>
-    <span class="nt">sinks</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">push_house_data</span><span class="w"></span>
+<span class="nt">kafka</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="nt">topics</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage.encoding.string</span><span class="w"></span>
+<span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">house_data</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:read_house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">kwargs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/dataset/HomeC.csv&quot;</span><span class="w"></span>
+<span class="nt">regulators</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">feedback</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
+<span class="w">    </span><span class="nt">control</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_data</span><span class="w"></span>
+<span class="nt">operators</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">forward_house_data</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.push:forward_house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_data</span><span class="w"></span>
+<span class="w">    </span><span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <em>house_data</em> source is declared in the <em>sources</em> section. Its data
 come from the <em>read_house_data</em> connector. The arguments of the connectors are
 set in the <em>kwargs</em> field. This source is then used in the operators the same
 way as all sources.</p>
-</div>
-<div class="section" id="sink-connectors">
+</section>
+<section id="sink-connectors">
 <h3>Sink Connectors<a class="headerlink" href="#sink-connectors" title="Permalink to this headline"></a></h3>
 <p>A sink connector is implemented as a function that returns a ReactiveX <em>operator</em>. Here
 is the sink used in the <a class="reference external" href="https://github.com/maki-nage/makinage-examples/blob/master/makinage_examples/house/pull.py">house consumption</a>
@@ -473,36 +474,36 @@ the regulation injection is enabled.</p>
 <p>One declares a connector in the configuration file. The <em>sinks</em> section contains
 the declaration of sink connectors. Here is the configuration file used to print
 the features computed on the house consumption example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pull_house_data</span>
-<span class="nt">kafka</span><span class="p">:</span>
-  <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
-<span class="nt">topics</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
-    <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span>
-    <span class="nt">start_from</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">beginning</span>
-<span class="nt">sinks</span><span class="p">:</span>
-  <span class="nt">console</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:print_to_console</span>
-<span class="nt">regulators</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">feedback</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">console</span>
-    <span class="nt">control</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
-<span class="nt">operators</span><span class="p">:</span>
-  <span class="nt">forward_house_features</span><span class="p">:</span>
-    <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:forward_house_features</span>
-    <span class="nt">sources</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
-    <span class="nt">sinks</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">console</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pull_house_data</span><span class="w"></span>
+<span class="nt">kafka</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="nt">topics</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_features</span><span class="w"></span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span><span class="w"></span>
+<span class="w">    </span><span class="nt">start_from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">beginning</span><span class="w"></span>
+<span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">console</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:print_to_console</span><span class="w"></span>
+<span class="nt">regulators</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">feedback</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">console</span><span class="w"></span>
+<span class="w">    </span><span class="nt">control</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_features</span><span class="w"></span>
+<span class="nt">operators</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">forward_house_features</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.pull:forward_house_features</span><span class="w"></span>
+<span class="w">    </span><span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_features</span><span class="w"></span>
+<span class="w">    </span><span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">console</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <em>console</em> sink is declared in the <em>sinks</em> section. It uses the
 <em>print_to_console</em> connector. There is no argument in this connector. Should
 there be some, they would be set in the <em>kwargs</em> field. This sink is then used
 in the operators the same way as all sinks.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

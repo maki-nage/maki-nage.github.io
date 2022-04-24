@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home Energy Consumption &mdash; The Maki Nage Book  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -92,7 +93,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="home-energy-consumption">
+  <section id="home-energy-consumption">
 <h1>Home Energy Consumption<a class="headerlink" href="#home-energy-consumption" title="Permalink to this headline"></a></h1>
 <p>This first tutorial explains how to use Maki Nage for basic feature engineering
 on time-series data, and how to deploy a model operating in streaming mode. The
@@ -103,7 +104,7 @@ a house, based on weather information.</p>
 <p>Maki Nage is designed to work efficiently with <a class="reference external" href="https://www.pypy.org/">pypy</a>. Please ensure that you use it as your interpreter
 for better performance.</p>
 </div>
-<div class="section" id="the-dataset">
+<section id="the-dataset">
 <h2>The dataset<a class="headerlink" href="#the-dataset" title="Permalink to this headline"></a></h2>
 <p>In this example, we will work on the <em>Smart Home Dataset</em>. It can be downloaded from
 kaggle <a class="reference external" href="https://www.kaggle.com/taranvee/smart-home-dataset-with-weather-information">here</a>.</p>
@@ -195,10 +196,10 @@ done.</p>
 <p>Finally, the run operator subscribes to the Observable. Calling it triggers the
 actual execution of the whole computation graph.</p>
 <p>Now that we have our CSV dataset available as an Observable, let’s work on it!</p>
-</div>
-<div class="section" id="data-exploration">
+</section>
+<section id="data-exploration">
 <h2>Data Exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline"></a></h2>
-<div class="section" id="overall-consumption">
+<section id="overall-consumption">
 <h3>Overall Consumption<a class="headerlink" href="#overall-consumption" title="Permalink to this headline"></a></h3>
 <p>As a first step, let’s compute some statistics on the <em>house overall</em> column,
 and plot its histogram. For these two steps, we need to compute a compressed
@@ -284,8 +285,8 @@ histogram of the distribution. For this, we use once again the same pattern:</p>
 Then this histogram object is mapped to a pandas dataframe so that it can be
 used by plotly. The resulting plot is:</p>
 <a class="reference internal image-reference" href="_images/home_house_consumption.png"><img alt="_images/home_house_consumption.png" class="align-center" src="_images/home_house_consumption.png" style="width: 560.0px; height: 360.0px;" /></a>
-</div>
-<div class="section" id="multiple-variables-exploration">
+</section>
+<section id="multiple-variables-exploration">
 <h3>Multiple Variables Exploration<a class="headerlink" href="#multiple-variables-exploration" title="Permalink to this headline"></a></h3>
 <p>In the previous section, we studied one feature. The first step consisted of
 computing a compressed representation of the data distribution by using two
@@ -473,9 +474,9 @@ computation graph:</p>
 </tbody>
 </table>
 <a class="reference internal image-reference" href="_images/home_wind_speed.png"><img alt="_images/home_wind_speed.png" class="align-center" src="_images/home_wind_speed.png" style="width: 560.0px; height: 240.0px;" /></a>
-</div>
-</div>
-<div class="section" id="feature-engineering">
+</section>
+</section>
+<section id="feature-engineering">
 <h2>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this headline"></a></h2>
 <p>Now let’s work on the features. We will use three feature for the model:</p>
 <ul class="simple">
@@ -580,8 +581,8 @@ element; and the standard deviation from the second element.</p>
 <p>Finally, the <em>to_pandas</em> operator transforms the final Observable into a pandas
 dataframe. This is a way to get out of RxSci and continue the processing with
 other tools.</p>
-</div>
-<div class="section" id="training">
+</section>
+<section id="training">
 <h2>Training<a class="headerlink" href="#training" title="Permalink to this headline"></a></h2>
 <p>This step does not involve Maki Nage but we present it as an end-to-end example.
 We will use a linear regression from scikit-learn:</p>
@@ -600,8 +601,8 @@ We will use a linear regression from scikit-learn:</p>
 <span class="mf">0.9800074715106518</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="deployment">
+</section>
+<section id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline"></a></h2>
 <p>Maki Nage comes with tools to ease the deployment of data transformation and
 models. This part is based on <a class="reference external" href="https://kafka.apache.org/">Kafka</a>, a
@@ -620,7 +621,7 @@ retrieve and install a package containing the code of all examples this way:</p>
 <span class="go">python setup.py develop</span>
 </pre></div>
 </div>
-<div class="section" id="id1">
+<section id="id1">
 <h3>Feature Engineering<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>The feature engineering code for the deployment is the following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_house_features</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
@@ -667,23 +668,23 @@ Kafka topic is equivalent to an Observable.</p>
 Observables of the application. In this case, there is a single Observable.</p>
 <p>To execute this application, a configuration file is needed. This YAML
 file contains information on how to execute the application:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
-<span class="nt">kafka</span><span class="p">:</span>
-    <span class="nt">endpoint</span><span class="p">:</span> <span class="s">&quot;localhost&quot;</span>
-<span class="nt">topics</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
-        <span class="l l-Scalar l-Scalar-Plain">encoder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.string</span>
-        <span class="l l-Scalar l-Scalar-Plain">start_from</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">beginning</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
-        <span class="l l-Scalar l-Scalar-Plain">encoder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span>
-<span class="nt">operators</span><span class="p">:</span>
-    <span class="nt">compute_house_features</span><span class="p">:</span>
-        <span class="nt">factory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.features:compute_house_features</span>
-        <span class="nt">sources</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_values</span>
-        <span class="nt">sinks</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">house_features</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_features</span><span class="w"></span>
+<span class="nt">kafka</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="w"></span>
+<span class="nt">topics</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">encoder</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage.encoding.string</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">start_from</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">beginning</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_features</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">encoder</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage.encoding.json</span><span class="w"></span>
+<span class="nt">operators</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">compute_house_features</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">makinage_examples.house.features:compute_house_features</span><span class="w"></span>
+<span class="w">        </span><span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_values</span><span class="w"></span>
+<span class="w">        </span><span class="nt">sinks</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">house_features</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <em>application</em> section defines the name of the application. The <em>kafka</em>
@@ -711,13 +712,13 @@ available in the example repository:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">makinage --config config.house.push.yml</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="model-serving">
+</section>
+<section id="model-serving">
 <h3>Model Serving<a class="headerlink" href="#model-serving" title="Permalink to this headline"></a></h3>
 <p>TODO</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

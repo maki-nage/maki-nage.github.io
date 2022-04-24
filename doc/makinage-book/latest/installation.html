@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; The Maki Nage Book  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -78,9 +79,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="installation">
+  <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
-<div class="section" id="using-python-package-index">
+<section id="using-python-package-index">
 <h2>Using Python Package Index<a class="headerlink" href="#using-python-package-index" title="Permalink to this headline"></a></h2>
 <p>The releases of RxSci and Maki Nage are published on <a class="reference external" href="https://pypi.org">pypi</a>. You can
 install them with pip:</p>
@@ -91,8 +92,8 @@ install them with pip:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3 -m pip install rxsci</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="docker-images">
+</section>
+<section id="docker-images">
 <h2>Docker Images<a class="headerlink" href="#docker-images" title="Permalink to this headline"></a></h2>
 <p>For development purposes, you can use a development Kafka server running on a
 single machine. A docker-compose configuration is available for a fast setup:</p>
@@ -100,7 +101,7 @@ single machine. A docker-compose configuration is available for a fast setup:</p
 <span class="go">cd docker/compose/mn-dev/</span>
 </pre></div>
 </div>
-<div class="section" id="development-kafka-server">
+<section id="development-kafka-server">
 <h3>Development Kafka server<a class="headerlink" href="#development-kafka-server" title="Permalink to this headline"></a></h3>
 <p>You can start a single-node Kafka broker with docker-compose:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker-compose up -d kafka</span>
@@ -113,16 +114,16 @@ single machine. A docker-compose configuration is available for a fast setup:</p
 kafka cluster. If you need to work on localhost only, you can change the
 docker-compose configuration file.</p>
 </div>
-</div>
-<div class="section" id="development-consul-server">
+</section>
+<section id="development-consul-server">
 <h3>Development Consul server<a class="headerlink" href="#development-consul-server" title="Permalink to this headline"></a></h3>
 <p>You can start a single-node Consul instance with docker-compose:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker-compose up -d consul</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
