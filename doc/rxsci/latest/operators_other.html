@@ -16,6 +16,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -43,7 +44,32 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="operators.html">Operators</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Base</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.assert_"><code class="docutils literal notranslate"><span class="pre">assert_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.assert_1"><code class="docutils literal notranslate"><span class="pre">assert_1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.count"><code class="docutils literal notranslate"><span class="pre">count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.distinct"><code class="docutils literal notranslate"><span class="pre">distinct()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.do_action"><code class="docutils literal notranslate"><span class="pre">do_action()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.filter"><code class="docutils literal notranslate"><span class="pre">filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.first"><code class="docutils literal notranslate"><span class="pre">first()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.flat_map"><code class="docutils literal notranslate"><span class="pre">flat_map()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.from_iterable"><code class="docutils literal notranslate"><span class="pre">from_iterable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.from_pandas"><code class="docutils literal notranslate"><span class="pre">from_pandas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.group_by"><code class="docutils literal notranslate"><span class="pre">group_by()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.identity"><code class="docutils literal notranslate"><span class="pre">identity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.last"><code class="docutils literal notranslate"><span class="pre">last()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.map"><code class="docutils literal notranslate"><span class="pre">map()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.multiplex"><code class="docutils literal notranslate"><span class="pre">multiplex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.progress"><code class="docutils literal notranslate"><span class="pre">progress()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.scan"><code class="docutils literal notranslate"><span class="pre">scan()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.starmap"><code class="docutils literal notranslate"><span class="pre">starmap()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.start_with"><code class="docutils literal notranslate"><span class="pre">start_with()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.take"><code class="docutils literal notranslate"><span class="pre">take()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.tee_map"><code class="docutils literal notranslate"><span class="pre">tee_map()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.to_pandas"><code class="docutils literal notranslate"><span class="pre">to_pandas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.with_latest_from"><code class="docutils literal notranslate"><span class="pre">with_latest_from()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="operators_error.html">Error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_math.html">Math</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_container.html">Container</a></li>
@@ -255,12 +281,33 @@ iterating on each items of the source observable.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="rxsci.ops.from_iterable">
+<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">from_iterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.from_iterable" title="Permalink to this definition"></a></dt>
+<dd><p>Converts an iterable to an observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iterable</strong> – A Python iterable</p></li>
+<li><p><strong>scheduler</strong> – An optional scheduler to schedule the values on.</p></li>
+<li><p><strong>progress</strong> – a boolean or dict to display a progressbar</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable that emits one item per element in the source iterable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="rxsci.ops.from_pandas">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">from_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.from_pandas" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">from_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.from_pandas" title="Permalink to this definition"></a></dt>
 <dd><p>Creates an observable from a pandas dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dataframe</strong> – A pandas dataframe</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> – A pandas dataframe</p></li>
+<li><p><strong>progess</strong> – Displays a progressbar while iterating the dataframe</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>An observable that emits one nametuple per row in the dataframe.</p>

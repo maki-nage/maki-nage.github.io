@@ -16,6 +16,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -79,9 +80,45 @@ introduction to RxSci, see the <a class="reference external" href="https://www.m
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operators.html">Operators</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="operators_other.html">Base</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operators_error.html">Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_other.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.assert_"><code class="docutils literal notranslate"><span class="pre">assert_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.assert_1"><code class="docutils literal notranslate"><span class="pre">assert_1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.count"><code class="docutils literal notranslate"><span class="pre">count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.distinct"><code class="docutils literal notranslate"><span class="pre">distinct()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.do_action"><code class="docutils literal notranslate"><span class="pre">do_action()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.filter"><code class="docutils literal notranslate"><span class="pre">filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.first"><code class="docutils literal notranslate"><span class="pre">first()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.flat_map"><code class="docutils literal notranslate"><span class="pre">flat_map()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.from_iterable"><code class="docutils literal notranslate"><span class="pre">from_iterable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.from_pandas"><code class="docutils literal notranslate"><span class="pre">from_pandas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.group_by"><code class="docutils literal notranslate"><span class="pre">group_by()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.identity"><code class="docutils literal notranslate"><span class="pre">identity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.last"><code class="docutils literal notranslate"><span class="pre">last()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.map"><code class="docutils literal notranslate"><span class="pre">map()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.multiplex"><code class="docutils literal notranslate"><span class="pre">multiplex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.progress"><code class="docutils literal notranslate"><span class="pre">progress()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.scan"><code class="docutils literal notranslate"><span class="pre">scan()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.starmap"><code class="docutils literal notranslate"><span class="pre">starmap()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.start_with"><code class="docutils literal notranslate"><span class="pre">start_with()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.take"><code class="docutils literal notranslate"><span class="pre">take()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.tee_map"><code class="docutils literal notranslate"><span class="pre">tee_map()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.to_pandas"><code class="docutils literal notranslate"><span class="pre">to_pandas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_other.html#rxsci.ops.with_latest_from"><code class="docutils literal notranslate"><span class="pre">with_latest_from()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="operators_error.html">Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operators_error.html#rxsci.error.create_error_router"><code class="docutils literal notranslate"><span class="pre">create_error_router()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_error.html#rxsci.error.ignore"><code class="docutils literal notranslate"><span class="pre">ignore()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_error.html#rxsci.error.map"><code class="docutils literal notranslate"><span class="pre">map()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="operators_math.html">Math</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operators_math.html#rxsci.math.max"><code class="docutils literal notranslate"><span class="pre">max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_math.html#rxsci.math.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_math.html#rxsci.math.min"><code class="docutils literal notranslate"><span class="pre">min()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_math.html#rxsci.math.stddev"><code class="docutils literal notranslate"><span class="pre">stddev()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_math.html#rxsci.math.sum"><code class="docutils literal notranslate"><span class="pre">sum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_math.html#rxsci.math.variance"><code class="docutils literal notranslate"><span class="pre">variance()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="operators_math.html#distributed">Distributed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="operators_math.html#formal">Formal</a></li>
 </ul>
@@ -90,14 +127,35 @@ introduction to RxSci, see the <a class="reference external" href="https://www.m
 <li class="toctree-l3"><a class="reference internal" href="operators_container.html#module-rxsci.container.csv">csv</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operators_io.html">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.cache"><code class="docutils literal notranslate"><span class="pre">cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.clip"><code class="docutils literal notranslate"><span class="pre">clip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.fill_none"><code class="docutils literal notranslate"><span class="pre">fill_none()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.lag"><code class="docutils literal notranslate"><span class="pre">lag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.roll"><code class="docutils literal notranslate"><span class="pre">roll()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.sort"><code class="docutils literal notranslate"><span class="pre">sort()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.split"><code class="docutils literal notranslate"><span class="pre">split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.time_split"><code class="docutils literal notranslate"><span class="pre">time_split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_data.html#rxsci.data.to_deque"><code class="docutils literal notranslate"><span class="pre">to_deque()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="operators_io.html">IO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operators_io.html#rxsci.io.read"><code class="docutils literal notranslate"><span class="pre">read()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_io.html#rxsci.io.walk"><code class="docutils literal notranslate"><span class="pre">walk()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_io.html#rxsci.io.write"><code class="docutils literal notranslate"><span class="pre">write()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="operators_framing.html">Framing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="operators_framing.html#module-rxsci.framing.line">line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="operators_framing.html#module-rxsci.framing.length_prefix">length prefix</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="operators_state.html">State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operators_state.html">State</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operators_state.html#rxsci.state.MemoryStore"><code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_state.html#rxsci.state.with_memory_store"><code class="docutils literal notranslate"><span class="pre">with_memory_store()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="operators_state.html#rxsci.state.with_store"><code class="docutils literal notranslate"><span class="pre">with_store()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
