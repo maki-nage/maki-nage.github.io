@@ -56,6 +56,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#rxsci.container.csv.load_from_file"><code class="docutils literal notranslate"><span class="pre">load_from_file()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rxsci.container.json">json</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rxsci.container.json.dump"><code class="docutils literal notranslate"><span class="pre">dump()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rxsci.container.json.dump_to_file"><code class="docutils literal notranslate"><span class="pre">dump_to_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rxsci.container.json.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rxsci.container.json.load_from_file"><code class="docutils literal notranslate"><span class="pre">load_from_file()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a></li>
@@ -121,8 +128,7 @@ parameters.</p>
 <dt class="sig sig-object py" id="rxsci.container.csv.dump">
 <span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump" title="Permalink to this definition"></a></dt>
 <dd><p>dumps an observable to csv.</p>
-<p>The source observable must emit one csv row per item
-The source must be an Observable.</p>
+<p>The source must be an Observable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -190,6 +196,87 @@ observable emitting one item per line.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – Path of the file to read or a file object</p></li>
 <li><p><strong>parse_line</strong> – A line parser, e.g. created with create_line_parser</p></li>
+<li><p><strong>skip</strong> – [Optional] Number of lines to skip before parsing</p></li>
+<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable of namedtuple items, where each key is a csv column</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-rxsci.container.json">
+<span id="json"></span><h2>json<a class="headerlink" href="#module-rxsci.container.json" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.container.json.dump">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.dump" title="Permalink to this definition"></a></dt>
+<dd><p>dumps an observable to JSON.</p>
+<p>If several the source observable emits several items, then they are framed
+as JSON line.
+The source must be an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newline</strong> – [Optional] Character(s) used for end of line.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable string items, where each item is a csv line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.container.json.dump_to_file">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.dump_to_file" title="Permalink to this definition"></a></dt>
+<dd><p>dumps each item to a JSON file.</p>
+<p>The source must be an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – Path of the file to read or a file object</p></li>
+<li><p><strong>newline</strong> – [Optional] Character(s) used for end of line.</p></li>
+<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An empty observable that completes on success when the source
+observable completes or completes on error if there is an error
+while writing the csv file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.container.json.load">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.load" title="Permalink to this definition"></a></dt>
+<dd><p>Loads a json observable.</p>
+<p>The source observable must emit one JSON string per item
+The source must be an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>skip</strong> – number of items to skip before parsing</p></li>
+<li><p><strong>ignore_error</strong> – Ignore errors while parsing JSON</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An observable of dicts corresponding to the source json content.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.container.json.load_from_file">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.load_from_file" title="Permalink to this definition"></a></dt>
+<dd><p>Loads a json file.</p>
+<p>This factory loads the provided file. The format of the returned observable
+depends on the <em>lines</em> parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – Path of the file to read or a file object</p></li>
+<li><p><strong>lines</strong> – Parse file as a JSON Line when set to True, as a single JSON object otherwise.</p></li>
 <li><p><strong>skip</strong> – [Optional] Number of lines to skip before parsing</p></li>
 <li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
 </ul>
