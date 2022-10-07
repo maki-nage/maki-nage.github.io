@@ -284,21 +284,25 @@ iterating on each items of the source observable.</p>
 <dt class="sig sig-object py" id="rxsci.ops.from_iterable">
 <span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">from_iterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.from_iterable" title="Permalink to this definition"></a></dt>
 <dd><p>Converts an iterable to an observable.</p>
-<p>When a dict is provided as the progress argument, it accepts these keys:
-interval: The interval in seconds used to update the progressbar
-prefix: A prefix displayed at before the progressbar.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>iterable</strong> – A Python iterable</p></li>
-<li><p><strong>scheduler</strong> – An optional scheduler to schedule the values on.</p></li>
-<li><p><strong>progress</strong> – a boolean or dict to display a progressbar</p></li>
+<blockquote>
+<div><p>When a dict is provided as the progress argument, it accepts these keys:</p>
+<ul class="simple">
+<li><p>interval: The interval in seconds used to update the progressbar</p></li>
+<li><p>prefix: A prefix displayed at before the progressbar.</p></li>
+<li><p>eol: The end of line character to use at the end of the progressbar. Use ‘</p></li>
 </ul>
+</div></blockquote>
+<p>‘ to force one line per display step.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Args:</dt><dd><p>iterable: A Python iterable
+scheduler: An optional scheduler to schedule the values on.
+progress: a boolean or dict to display a progressbar</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An observable that emits one item per element in the source iterable.</p>
+<dt>Returns:</dt><dd><p>An observable that emits one item per element in the source iterable.</p>
 </dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
