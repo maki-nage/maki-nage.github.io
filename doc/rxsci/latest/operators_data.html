@@ -13,9 +13,9 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3de8224"></script>
+        <script src="_static/documentation_options.js?v=cbfb3150"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -51,7 +51,18 @@
 <li class="toctree-l2"><a class="reference internal" href="operators_error.html">Error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_math.html">Math</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_container.html">Container</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.cache"><code class="docutils literal notranslate"><span class="pre">cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.clip"><code class="docutils literal notranslate"><span class="pre">clip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.fill_none"><code class="docutils literal notranslate"><span class="pre">fill_none()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.lag"><code class="docutils literal notranslate"><span class="pre">lag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.roll"><code class="docutils literal notranslate"><span class="pre">roll()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.sort"><code class="docutils literal notranslate"><span class="pre">sort()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.split"><code class="docutils literal notranslate"><span class="pre">split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.time_split"><code class="docutils literal notranslate"><span class="pre">time_split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.to_deque"><code class="docutils literal notranslate"><span class="pre">to_deque()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="operators_io.html">IO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_framing.html">Framing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_state.html">State</a></li>
@@ -84,8 +95,223 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="data">
-<h1>Data<a class="headerlink" href="#data" title="Permalink to this heading"></a></h1>
+  <section id="module-rxsci.data">
+<span id="data"></span><h1>Data<a class="headerlink" href="#module-rxsci.data" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.cache">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.cache" title="Link to this definition"></a></dt>
+<dd><p>cache items</p>
+<p>Each received items is cached, and the cached item is returned. This
+operator can save memory on graphs that buffer some items, with many
+identical values.</p>
+<p>The source must be an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>field</strong> – [Optional] cache the provided field is set. Otherwise the
+whole item is cached. When field is set, this field value
+must be accessible via the getattr function.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An Observable returning the same items than the source observable, but
+with cached values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.clip">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">clip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">higher_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.clip" title="Link to this definition"></a></dt>
+<dd><p>clip values between lower_bound (included) and higher_bound (included)</p>
+<p>The source can be an Observable or a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-4bfb410a9f0b3a4717f8fc60eaa3a45e092e36ee.png" alt="clip"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lower_bound</strong> – [Optional] The minimal value to emit.</p></li>
+<li><p><strong>higher_bound</strong> – [Optional] The maximal value to emit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>AN observable emiting the source items, clipped to the provided bounds.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError if no bound is provided</strong><strong> or </strong><strong>lower_bound is bigger than</strong> – higher_bound</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.fill_none">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">fill_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.fill_none" title="Link to this definition"></a></dt>
+<dd><p>Replaces None values with value</p>
+<p>The source can be an Observable or a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-8b63d113d2ea23e6d9e1da05680168a787620315.png" alt="fill_none"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – The value used to replace None values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An observable where None items are replaced with value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.lag">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">lag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'obj'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.lag" title="Link to this definition"></a></dt>
+<dd><p>Buffers a lag of size on source items</p>
+<p>The source must be a MuxObservable.</p>
+<blockquote>
+<div><p class="marble">
+<img src="_images/marble-f2b53e151b1772a2a4df0b3155c5a71654972286.png" alt="lag1"/>
+</p>
+<p class="marble">
+<img src="_images/marble-a82d337e19e4d83ed8ec12cb7c53f18fd91b62a5.png" alt="lag"/>
+</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> – [Optional] size of the lag.</p></li>
+<li><p><strong>data_type</strong> – [Optional] the type of the lag data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An observable where each item is a tuple of (lag, current) items. On
+the first iterations, the item (first, current) is emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.roll">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">roll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.roll" title="Link to this definition"></a></dt>
+<dd><p>Projects each element of an observable sequence into zero or more
+windows which are produced based on element window information.</p>
+<p>The source must be a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-0edae4fb38946e7093ee732c1283b34ca9568b28.png" alt="roll"/>
+</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window</strong> – Length of each window.</p></li>
+<li><p><strong>stride</strong> – Number of elements to step between creation of
+consecutive windows.</p></li>
+<li><p><strong>pipeline</strong> – The Rx pipe to execute on each window.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An observable sequence of windows.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError if window</strong><strong> or </strong><strong>stride is negative</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.sort">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.sort" title="Link to this definition"></a></dt>
+<dd><p>sort items according to key</p>
+<p>Items are sorted in ascending order.</p>
+<p>Impementation note: This operator caches all the items of the source
+observable before sorting them. It can be used ONLY on BATCH source, and
+consumes a lot of memory.</p>
+<p>The source must be an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> – [Optional] function used to extract the sorting key on each item.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An observable emitting the sorted items of the source observable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.split">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.split" title="Link to this definition"></a></dt>
+<dd><p>Split an observable based on a predicate criteria.</p>
+<p>The source must be a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-110a2a9faadd457f4d0b6d3c9e13c9102fcbb568.png" alt="split"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predicate</strong> – A function called for each item, that returns the split
+criteria.</p></li>
+<li><p><strong>pipeline</strong> – The Rx pipe to execute on each split.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A higher order observable returning on observable for each split
+criteria.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.time_split">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">time_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_mapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inactive_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">closing_mapper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_closing_item</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.time_split" title="Link to this definition"></a></dt>
+<dd><p>Splits an observable based on timing criterias.</p>
+<p>Timestamps used to create and expire windows are retrived from the
+time_mapper function.</p>
+<p>The first item of a window is used as a reference to close the window after
+a duration of active_timeout. Each timestamp of the source items is used to
+expire the window after a duration of inactive_timeout without receiving any
+event.</p>
+<p>Additional custom loggic can be implemented with the closing_mapper: In
+addition to the active and inactive timeouts, this mapper can force the
+closing of the current window, and create a new one.</p>
+<p>The source must be a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-5d4e26e4ed65791f2fc41e2d5fd23932980dd873.png" alt="time_split"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_mapper</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code>]) – A function that maps the source items to a datetime object.</p></li>
+<li><p><strong>active_timeout</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">timedelta</span></code>]) – The window expiration duration from the reception date of the first item.</p></li>
+<li><p><strong>inactive_timeout</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">timedelta</span></code>]) – The window expiration duration when no event is received.</p></li>
+<li><p><strong>closing_mapper</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]]) – A function call for each source item and returns whether the window must be closed.</p></li>
+<li><p><strong>include_closing_item</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to include closing items from closing_mapper in the current window (True) or the next window (False).</p></li>
+<li><p><strong>pipeline</strong> – The Rx pipe to execute on each split.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A higher order observable returning on observable for each split window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.to_deque">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">to_deque</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.to_deque" title="Link to this definition"></a></dt>
+<dd><p>flattens list items to a deque fifo and publish them when the source
+observable completes.</p>
+<p>This buffers and emits the items of the source observable as is. Items on
+the deque are pop as they are emitted. This is useful when working on
+batch data since it allows to dereference items as they are processed.</p>
+<p>The source must be an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>extend</strong> – [Optional] When set to true, the deque is extended for each
+item received. The default behavior is to append items to the deque.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

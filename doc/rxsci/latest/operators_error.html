@@ -13,9 +13,9 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3de8224"></script>
+        <script src="_static/documentation_options.js?v=cbfb3150"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -48,7 +48,12 @@
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="operators.html">Operators</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="operators_other.html">Base</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Error</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.error.create_error_router"><code class="docutils literal notranslate"><span class="pre">create_error_router()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.error.ignore"><code class="docutils literal notranslate"><span class="pre">ignore()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.error.map"><code class="docutils literal notranslate"><span class="pre">map()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="operators_math.html">Math</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_container.html">Container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a></li>
@@ -84,8 +89,105 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="error-operators">
-<span id="operators-error"></span><h1>Error Operators<a class="headerlink" href="#error-operators" title="Permalink to this heading"></a></h1>
+  <section id="module-rxsci.error">
+<span id="error-operators"></span><span id="operators-error"></span><h1>Error Operators<a class="headerlink" href="#module-rxsci.error" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.error.create_error_router">
+<span class="sig-prename descclassname"><span class="pre">rxsci.error.</span></span><span class="sig-name descname"><span class="pre">create_error_router</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.create_error_router" title="Link to this definition"></a></dt>
+<dd><p>Creates a route for mux errors</p>
+<p>Errors on MuxObservables are not fatal. This error handler allows to route
+them to a dedicated Observable. This operator allows to implement a dead
+letter box observable or other kinds of error monitoring.</p>
+<p>The source must be a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-313a311bbab081e747ee8b64a7d8851185058847.png" alt="route_errors"/>
+</p>
+<p>Errors at the Observable layer are still propagated downstream and stop the
+pipeline:</p>
+<p class="marble">
+<img src="_images/marble-83ebecd2e308c7a2e8cb7bbc5e580c681259a452.png" alt="route_errors_2"/>
+</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">errors</span><span class="p">,</span> <span class="n">route_errors</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">create_error_router</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">i</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">route_errors</span><span class="p">(),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple of (Observable, function). Observable is the errors
+observable where all mux errors will be routed to. The function is an
+operator to used in a pipeline where errors are be routed to the errors
+observable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.error.ignore">
+<span class="sig-prename descclassname"><span class="pre">rxsci.error.</span></span><span class="sig-name descname"><span class="pre">ignore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.ignore" title="Link to this definition"></a></dt>
+<dd><p>Ignores errors emitted on a Mux Observable</p>
+<p>Mux errors emitted on the source observable are silently ignored.</p>
+<p>The source must be a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-58ba14c573bf569ec1b23a00706035938ff8f3ad.png" alt="ignore"/>
+</p>
+<p>Errors at the Observable layer are still propagated downstream and stop the
+pipeline:</p>
+<p class="marble">
+<img src="_images/marble-d83848c7b530f0458fce6bc0260a3fb0c42b8880.png" alt="ignore_2"/>
+</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">i</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">ignore</span><span class="p">(),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A MuxObservable emitting all items of the source observable and
+dropping any incoming Mux Error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.error.map">
+<span class="sig-prename descclassname"><span class="pre">rxsci.error.</span></span><span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.error.map" title="Link to this definition"></a></dt>
+<dd><p>maps errors emitted on a Mux Observable and route the result on the item path.</p>
+<p>The source must be a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-cf6375b4c57ffc0eac47e6494db5390215ee7d55.png" alt="map"/>
+</p>
+<p>Errors at the Observable layer are still propagated downstream and stop the
+pipeline:</p>
+<p class="marble">
+<img src="_images/marble-c967be0c2ebb2d5dc5d804c931bd05cb4dbe12f2.png" alt="map_2"/>
+</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">multiplex</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">i</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="mi">0</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A MuxObservable emitting all items of the source observable and
+mapping incoming Mux Errors to items.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
