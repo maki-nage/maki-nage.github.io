@@ -1,123 +1,53 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Base Operators &mdash; rxsci 0.19.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3de8224"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Error Operators" href="operators_error.html" />
     <link rel="prev" title="Operators" href="operators.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="index.html" class="icon icon-home"> rxsci
           
-
-          
+          <a href="index.html" class="icon icon-home">
+            rxsci
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="operators.html">Operators</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Base</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.assert_"><code class="docutils literal notranslate"><span class="pre">assert_()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.assert_1"><code class="docutils literal notranslate"><span class="pre">assert_1()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.count"><code class="docutils literal notranslate"><span class="pre">count()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.distinct"><code class="docutils literal notranslate"><span class="pre">distinct()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.do_action"><code class="docutils literal notranslate"><span class="pre">do_action()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.filter"><code class="docutils literal notranslate"><span class="pre">filter()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.first"><code class="docutils literal notranslate"><span class="pre">first()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.flat_map"><code class="docutils literal notranslate"><span class="pre">flat_map()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.from_iterable"><code class="docutils literal notranslate"><span class="pre">from_iterable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.from_pandas"><code class="docutils literal notranslate"><span class="pre">from_pandas()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.group_by"><code class="docutils literal notranslate"><span class="pre">group_by()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.identity"><code class="docutils literal notranslate"><span class="pre">identity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.last"><code class="docutils literal notranslate"><span class="pre">last()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.map"><code class="docutils literal notranslate"><span class="pre">map()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.multiplex"><code class="docutils literal notranslate"><span class="pre">multiplex()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.progress"><code class="docutils literal notranslate"><span class="pre">progress()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.scan"><code class="docutils literal notranslate"><span class="pre">scan()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.starmap"><code class="docutils literal notranslate"><span class="pre">starmap()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.start_with"><code class="docutils literal notranslate"><span class="pre">start_with()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.take"><code class="docutils literal notranslate"><span class="pre">take()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.tee_map"><code class="docutils literal notranslate"><span class="pre">tee_map()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.to_pandas"><code class="docutils literal notranslate"><span class="pre">to_pandas()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.with_latest_from"><code class="docutils literal notranslate"><span class="pre">with_latest_from()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Base</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_error.html">Error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_math.html">Math</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operators_container.html">Container</a></li>
@@ -129,631 +59,64 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">rxsci</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="operators.html">Operators</a> &raquo;</li>
-        
-      <li>Base Operators</li>
-    
-    
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="operators.html">Operators</a></li>
+      <li class="breadcrumb-item active">Base Operators</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/operators_other.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <section id="module-rxsci.ops">
-<span id="base-operators"></span><span id="operators-other"></span><h1>Base Operators<a class="headerlink" href="#module-rxsci.ops" title="Permalink to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.assert_">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">assert_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error=&lt;class</span> <span class="pre">'ValueError'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.assert_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensure that predicate evaluates to True for all items</p>
-<p>If any of item on the source observable evaluates to False, then
-error is emitted on the on_error handler.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>predicate</strong> – A function to evaluate each item.</p></li>
-<li><p><strong>name</strong> – [Optional] A firendly name to display with the error.</p></li>
-<li><p><strong>error</strong> – [Optional] The error to emit when predicate evaluates to False.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable returning the source items, and completing on error if
-any source pair evaluates to False.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.assert_1">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">assert_1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error=&lt;class</span> <span class="pre">'ValueError'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.assert_1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensures that predicate evaluates to True for all pairs of item / previous item</p>
-<p>If any of the lag1 pair on the source observable evaluates to False, then
-error is emitted on the on_error handler.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>predicate</strong> – A function to evaluate each item.</p></li>
-<li><p><strong>name</strong> – [Optional] A firendly name to display with the error.</p></li>
-<li><p><strong>error</strong> – [Optional] The error to emit when predicate evaluates to False.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable returning the source items, and completing on error if
-any source pair evaluates to False.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.count">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Counts the number of items emitted in the source Observable.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-6af44c4bc3e051bc6048b273826cbfa5f8e97f6b.png" alt="count"/>
-</p>
-<p class="marble">
-<img src="_images/marble-029b8391802aee79bceee0e553b13a9e15c894c3.png" alt="count"/>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
-False, otherwise emits a single item on completion.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable emitting the number of source items that have been
-emitted.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.distinct">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">distinct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_mapper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.distinct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an observable sequence that contains only distinct
-elements according to the key_mapper. Usage of
-this operator should be considered carefully due to the maintenance
-of an internal lookup structure which can grow large.</p>
-<p>The source must be a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-1a8e43d967e0923c86f18e853fa7e87e43a808f9.png" alt="distinct"/>
-</p>
-<p>This operator is similar to the RxPY distinct operator but with much
-better performance thanks to the usage of sets. Meanwhile this
-implementation does not allow to specify a comparer: The key must be
-hashable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key_mapper</strong> – [Optional]  A function to compute the comparison
-key for each element.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An operator function that takes an observable source and
-returns an observable sequence only containing the distinct
-elements, based on a computed key value, from the source
-sequence.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.do_action">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">do_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_next</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_completed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.do_action" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes an function on reception of selected events</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>on_next</strong> – [Optional] function to execute on item reception</p></li>
-<li><p><strong>on_completed</strong> – [Optional] function to execute on completion</p></li>
-<li><p><strong>on_error</strong> – [Optional] function to execute on error</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable identical to the source observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.filter">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Filters the items of an observable sequence based on a
-predicate.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-2ac5743543b7ddb0ba7b7dc3cedacda9de1a73eb.png" alt="filter"/>
-</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">operators</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>predicate</strong> – A function to test each source item for a
-condition.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable that emits items from the
-source observable that satisfy the condition. The type of the returned
-observable is the same than the source observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.first">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">first</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.first" title="Permalink to this definition">¶</a></dt>
-<dd><p>Emits the first element of an observable</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-15b466c2c4a879df02af8c9d9e04a48d18e9d831.png" alt="first"/>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>An observable emitting the first item from the source
-observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.flat_map">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">flat_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.flat_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Projects each element of iterable source items as a new item.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-0a78345f784f6902cda17e20cbf0f130cee9568b.png" alt="flat_map"/>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>An observable whose items are the result of
-iterating on each items of the source observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.from_iterable">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">from_iterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.from_iterable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts an iterable to an observable.</p>
-<p>When a dict is provided as the progress argument, it accepts these keys:</p>
-<ul class="simple">
-<li><p>interval: The interval in seconds used to update the progressbar</p></li>
-<li><p>prefix: A prefix displayed at before the progressbar.</p></li>
-<li><p>eol: The end of line character to use at the end of the progressbar. Use ‘n’ to force one line per display step.</p></li>
-</ul>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>iterable</strong> – A Python iterable</p></li>
-<li><p><strong>scheduler</strong> – An optional scheduler to schedule the values on.</p></li>
-<li><p><strong>progress</strong> – a boolean or dict to display a progressbar</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable that emits one item per element in the source iterable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.from_pandas">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">from_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.from_pandas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates an observable from a pandas dataframe</p>
-<p>When a dict is provided as the progress argument, it accepts these keys:
-interval: The interval in seconds used to update the progressbar
-prefix: A prefix displayed at before the progressbar.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dataframe</strong> – A pandas dataframe</p></li>
-<li><p><strong>scheduler</strong> – An optional scheduler to schedule the values on.</p></li>
-<li><p><strong>progess</strong> – Displays a progressbar while iterating the dataframe</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable that emits one nametuple per row in the dataframe.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.group_by">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">group_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_mapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.group_by" title="Permalink to this definition">¶</a></dt>
-<dd><p>Groups items of according to a key mapper</p>
-<p>The source must be a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-e0cc64db1260f70482180126b622340bc48163ba.png" alt="group_by"/>
-</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">category</span><span class="p">,</span> <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>key_mapper</strong> – A function to extract the key from each item</p></li>
-<li><p><strong>pipeline</strong> – The Rx pipe to execute on each group.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A MuxObservable with one observable per group.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.identity">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">identity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.identity" title="Permalink to this definition">¶</a></dt>
-<dd><p>emits an Observable identical to the source Observable.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-0bde18df717c0350fe29c0a246864d41c6a2d942.png" alt="identity"/>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>An observable emitting the items of the source observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.last">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">last</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.last" title="Permalink to this definition">¶</a></dt>
-<dd><p>Emits the last element of an observable</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-b317539d4a1a7f8c3e36b29e7308f8608877417d.png" alt="last"/>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>An observable emitting the last item from the source
-observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.map">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Projects each element of an observable into a new form.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-52e113b590f7fb5e7471c6d56c1829f94703f688.png" alt="map"/>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mapper</strong> – A transform function to apply to each source element.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable emitting the result of invoking the transform function on
-each source items.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.multiplex">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">multiplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.multiplex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transforms an Observable to a MuxObservable</p>
-<p>All operations done in pipeline then operate on a MuxObservable.
-The source must be an Observable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pipeline</strong> – The pipeline that will process the multiplexed items.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An Observable where the source items have been multiplexed to a
-MuxObservable, then processed by the pipeline transformations, and
-finally de-multiplexed to an Observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.progress">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure_throughput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.progress" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prints the progress on item processing</p>
-<p>Prints the number of items that have been processed every threshold items.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – Name associated to this progress.</p></li>
-<li><p><strong>threshold</strong> – Period of display for the progress, in unit of item count.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The source observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.scan">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accumulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.scan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes an accumulate value on each item of the source observable.</p>
-<p>Applies an accumulator function over an observable sequence and
-returns each intermediate result.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-4b44ebe2947ab33ef3eaddfd9a044b09245db493.png" alt="scan"/>
-</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="k">lambda</span> <span class="n">acc</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">acc</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>accumulator</strong> – A function called on each item, that accumulates
-tranformation results.</p></li>
-<li><p><strong>seed</strong> – The initial value of the accumulator. On MuxObservables, seed is
-deep copied for each observable, or called if seed is callable.</p></li>
-<li><p><strong>reduce</strong> – [Optional] Emit an item for each source item when reduce is
-False, otherwise emits a single item on completion.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable sequence containing the accumulated values.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.starmap">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">starmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.starmap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unpacks arguments grouped as tuple items of an observable
-and return an observable of values by invoking
-the mapper function with star applied unpacked items as
-positional arguments.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-1d791e0ab4245961cd740c268a2a92fb24396ecf.png" alt="starmap"/>
-</p>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mapper</strong> – A transform function to invoke with unpacked elements
-as arguments.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable containing the results of
-invoking the mapper function with unpacked items of the
-source observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.start_with">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">start_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">padding</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.start_with" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepends some items to an Observable</p>
-<p>The source must be a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-6c600fe0223854f3db3cb003a95af6c4039b117d.png" alt="start_with"/>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mapper</strong> – A transform function to invoke with unpacked elements
-as arguments.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An Observable emitting the items of the source Observable, preceded by
-the values of padding.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.take">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">take</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.take" title="Permalink to this definition">¶</a></dt>
-<dd><p>Emits a specified number of items from the start of an
-observable.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-6e19e75a07bd399aae57e54367ef89cdf3f4abcb.png" alt="take"/>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>count</strong> – the number of items to emit</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable emitting the first count items from the source
-observable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.tee_map">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">tee_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zip'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.tee_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Processes several operators chains simultaneously on the same source
-observable. This operator allows to do multiple processing on the same
-source, and combine the results as a single tuple object.</p>
-<p>The source can be an Observable or a MuxObservable.</p>
-<p class="marble">
-<img src="_images/marble-5ff5ea037af2c3c2787f3e6986cb030915825805.png" alt="tee_map"/>
-</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rx</span><span class="o">.</span><span class="n">from_</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">tee_map</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">rs</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
-<span class="go">&gt;&gt;&gt;))</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> – list of operators that will process the source observable
-concurrently</p></li>
-<li><p><strong>join</strong> – [Optional] If set to ‘zip’, then all processings are zipped
-together. If set to ‘merge’ items are emitted by tee map as they are
-emitted by each arg pipeline. If set to ‘combine_latest’, then
-the last value of each processing are combined.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable containing tuples of the items emitted by each branch of
-the tee.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.to_pandas">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">to_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.to_pandas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts an observable to a pandas dataframe</p>
-<p>If colums is not specified, then items must be namedtuples and the
-columns names are infered from the fields of the namedtuple objects.</p>
-<p>The source must be an Observable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>columns</strong> – [Optional]</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable the emits a single item. This item is a pandas
-DataFrame.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.with_latest_from">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">with_latest_from</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sources</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.with_latest_from" title="Permalink to this definition">¶</a></dt>
-<dd><p>Merges the specified observables into one observable sequence by
-creating a tuple only when the source observable sequence produces an
-element. The source observable is subscribed once at least one item has
-been received on each other sources.</p>
-<p>The source must be an Observable.</p>
-<p class="marble">
-<img src="_images/marble-5ababd8afc8e9f425aec1cad56053f0c12715cba.png" alt="with_latest_from"/>
-</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">with_latest_from</span><span class="p">(</span><span class="n">obs1</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>sources</strong> – Sequence of observables.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable sequence containing the result of combining
-elements of the sources into a tuple.</p>
-</dd>
-</dl>
-</dd></dl>
-
+             
+  <section id="base-operators">
+<span id="operators-other"></span><h1>Base Operators<a class="headerlink" href="#base-operators" title="Permalink to this heading"></a></h1>
 </section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="operators_error.html" class="btn btn-neutral float-right" title="Error Operators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="operators.html" class="btn btn-neutral float-left" title="Operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="operators_error.html" class="btn btn-neutral float-right" title="Error Operators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, R. Picard.
-
-    </p>
+    <p>&#169; Copyright 2020, R. Picard.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
