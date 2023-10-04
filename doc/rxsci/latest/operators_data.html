@@ -54,13 +54,17 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.cache"><code class="docutils literal notranslate"><span class="pre">cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.clip"><code class="docutils literal notranslate"><span class="pre">clip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.decode"><code class="docutils literal notranslate"><span class="pre">decode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.encode"><code class="docutils literal notranslate"><span class="pre">encode()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.fill_none"><code class="docutils literal notranslate"><span class="pre">fill_none()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.lag"><code class="docutils literal notranslate"><span class="pre">lag()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.roll"><code class="docutils literal notranslate"><span class="pre">roll()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.sort"><code class="docutils literal notranslate"><span class="pre">sort()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.split"><code class="docutils literal notranslate"><span class="pre">split()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.time_split"><code class="docutils literal notranslate"><span class="pre">time_split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.to_array"><code class="docutils literal notranslate"><span class="pre">to_array()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.data.to_deque"><code class="docutils literal notranslate"><span class="pre">to_deque()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rxsci.data.to_list"><code class="docutils literal notranslate"><span class="pre">to_list()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="operators_io.html">IO</a></li>
@@ -139,6 +143,42 @@ with cached values.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ValueError if no bound is provided</strong><strong> or </strong><strong>lower_bound is bigger than</strong> – higher_bound</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.decode">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incremental</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.decode" title="Link to this definition"></a></dt>
+<dd><p>Decode bytes to strings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoding</strong> – [Optional] The encoding to use.</p></li>
+<li><p><strong>incremental</strong> – [Optional] When True, decode all items incrementaly,
+otherwise decode them as independent data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An Observable of strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.encode">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incremental</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.encode" title="Link to this definition"></a></dt>
+<dd><p>Encode strings to bytes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoding</strong> – [Optional] The encoding to use.</p></li>
+<li><p><strong>incremental</strong> – [Optional] When True, encode all items incrementaly,
+otherwise encode them as independent data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An Observable of bytes.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -297,6 +337,19 @@ closing of the current window, and create a new one.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.to_array">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">to_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typecode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.to_array" title="Link to this definition"></a></dt>
+<dd><p>flattens list items to an array and publishes them when the source
+observable completes.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>typecode</strong> – The type of data to use in the array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="rxsci.data.to_deque">
 <span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">to_deque</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.to_deque" title="Link to this definition"></a></dt>
 <dd><p>flattens list items to a deque fifo and publish them when the source
@@ -309,6 +362,23 @@ batch data since it allows to dereference items as they are processed.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>extend</strong> – [Optional] When set to true, the deque is extended for each
 item received. The default behavior is to append items to the deque.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.data.to_list">
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.to_list" title="Link to this definition"></a></dt>
+<dd><p>flattens list items to a list and publish them when the source
+observable completes.</p>
+<p>The source can be an Observable or a MuxObservable.</p>
+<p class="marble">
+<img src="_images/marble-658eae9798165b6e2e198cffc8b98f2f03139605.png" alt="to_list"/>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An observable emitting a single list item then the source observable
+completes.</p>
 </dd>
 </dl>
 </dd></dl>

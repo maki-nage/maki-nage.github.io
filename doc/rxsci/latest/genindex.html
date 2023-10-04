@@ -76,6 +76,7 @@
  <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
@@ -131,16 +132,24 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="operators_compression.html#rxsci.compression.z.decompress">decompress() (in module rxsci.compression.z)</a>
+      <li><a href="operators_data.html#rxsci.data.decode">decode() (in module rxsci.data)</a>
 </li>
+      <li><a href="operators_compression.html#rxsci.compression.z.decompress">decompress() (in module rxsci.compression.z)</a>
+
+      <ul>
+        <li><a href="operators_compression.html#rxsci.compression.zstd.decompress">(in module rxsci.compression.zstd)</a>
+</li>
+      </ul></li>
       <li><a href="operators_math.html#rxsci.math.dist.describe">describe() (in module rxsci.math.dist)</a>
 </li>
       <li><a href="operators_other.html#rxsci.ops.distinct">distinct() (in module rxsci.ops)</a>
 </li>
-      <li><a href="operators_other.html#rxsci.ops.do_action">do_action() (in module rxsci.ops)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="operators_other.html#rxsci.ops.distinct_until_changed">distinct_until_changed() (in module rxsci.ops)</a>
+</li>
+      <li><a href="operators_other.html#rxsci.ops.do_action">do_action() (in module rxsci.ops)</a>
+</li>
       <li><a href="operators_container.html#rxsci.container.csv.dump">dump() (in module rxsci.container.csv)</a>
 
       <ul>
@@ -153,6 +162,14 @@
         <li><a href="operators_container.html#rxsci.container.json.dump_to_file">(in module rxsci.container.json)</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="operators_data.html#rxsci.data.encode">encode() (in module rxsci.data)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -466,11 +483,15 @@
 </li>
       <li><a href="operators_other.html#rxsci.ops.tee_map">tee_map() (in module rxsci.ops)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="operators_data.html#rxsci.data.time_split">time_split() (in module rxsci.data)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="operators_data.html#rxsci.data.to_array">to_array() (in module rxsci.data)</a>
+</li>
       <li><a href="operators_data.html#rxsci.data.to_deque">to_deque() (in module rxsci.data)</a>
+</li>
+      <li><a href="operators_data.html#rxsci.data.to_list">to_list() (in module rxsci.data)</a>
 </li>
       <li><a href="operators_other.html#rxsci.ops.to_pandas">to_pandas() (in module rxsci.ops)</a>
 </li>

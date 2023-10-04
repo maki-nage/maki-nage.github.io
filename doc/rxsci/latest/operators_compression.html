@@ -62,6 +62,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-rxsci.compression.zstd">zstd</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#rxsci.compression.zstd.compress"><code class="docutils literal notranslate"><span class="pre">compress()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rxsci.compression.zstd.decompress"><code class="docutils literal notranslate"><span class="pre">decompress()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -126,6 +127,15 @@ observable completed.</p>
 <span class="sig-prename descclassname"><span class="pre">rxsci.compression.zstd.</span></span><span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.compression.zstd.compress" title="Link to this definition"></a></dt>
 <dd><p>Compresses an Observable of bytes with zstd-compression</p>
 <p>The incoming elements are compressed in streaming mode until the
+observable completed.</p>
+<p>The source must be an Observable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.compression.zstd.decompress">
+<span class="sig-prename descclassname"><span class="pre">rxsci.compression.zstd.</span></span><span class="sig-name descname"><span class="pre">decompress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.compression.zstd.decompress" title="Link to this definition"></a></dt>
+<dd><p>Decompresses an Observable of bytes with zstd-compression</p>
+<p>The incoming elements are decompressed in streaming mode until the
 observable completed.</p>
 <p>The source must be an Observable.</p>
 </dd></dl>
