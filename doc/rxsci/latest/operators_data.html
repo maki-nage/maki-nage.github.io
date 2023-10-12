@@ -262,16 +262,20 @@ consecutive windows.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.data.sort">
-<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.sort" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.data.</span></span><span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.data.sort" title="Link to this definition"></a></dt>
 <dd><p>sort items according to key</p>
-<p>Items are sorted in ascending order.</p>
+<p>Items are sorted in ascending order by default. When reverse is set to
+True, they are sorted by descending order.</p>
 <p>Impementation note: This operator caches all the items of the source
-observable before sorting them. It can be used ONLY on BATCH source, and
-consumes a lot of memory.</p>
+observable before sorting them. Si, it can be used only on a batch source,
+and can lead to high memory usage.</p>
 <p>The source must be an Observable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> – [Optional] function used to extract the sorting key on each item.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – [Optional] function used to extract the sorting key on each item.</p></li>
+<li><p><strong>reverse</strong> – [Optional] Set to True for descendig sorting.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>An observable emitting the sorted items of the source observable.</p>
