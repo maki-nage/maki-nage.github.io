@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Container &mdash; rxsci 0.25.0 documentation</title>
@@ -110,12 +110,14 @@
 <span id="csv"></span><h2>csv<a class="headerlink" href="#module-rxsci.container.csv" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.container.csv.create_line_parser">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">create_line_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">none_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">escapechar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\\'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.create_line_parser" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">create_line_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">none_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">escapechar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\\'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.create_line_parser" title="Link to this definition"></a></dt>
 <dd><p>creates a parser for csv lines</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dtype</strong> – A list of (name, type) tuples, or a typing.NamedTuple class.</p></li>
+<li><p><strong>dtype</strong> – [Optional] A list of (name, type) tuples, or a typing.NamedTuple
+class. When set to None, then the csv header is used to create a
+schema where all columns are parsed as strings.</p></li>
 <li><p><strong>none_values</strong> – [Optional] Values to consider as None values</p></li>
 <li><p><strong>separator</strong> – [Optional] Token used to separate each columns</p></li>
 <li><p><strong>ignore_error</strong> – [Optional] when set to True, any line that does not
@@ -174,7 +176,7 @@ while writing the csv file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.container.csv.load">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parse_line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parse_line=&lt;function</span> <span class="pre">create_line_parser.&lt;locals&gt;._parse&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load" title="Link to this definition"></a></dt>
 <dd><p>Loads a csv observable.</p>
 <p>The source observable must emit one csv row per item
 The source must be an Observable.</p>
@@ -182,7 +184,7 @@ The source must be an Observable.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parse_line</strong> – A line parser, e.g. created with create_line_parser</p></li>
-<li><p><strong>skip</strong> – number of items to skip before parsing</p></li>
+<li><p><strong>skip</strong> – number of items to skip before parsing (excluding the header)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -193,7 +195,7 @@ The source must be an Observable.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.container.csv.load_from_file">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load_from_file" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_line=&lt;function</span> <span class="pre">create_line_parser.&lt;locals&gt;._parse&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load_from_file" title="Link to this definition"></a></dt>
 <dd><p>Loads a csv file.</p>
 <p>This factory loads the provided file and returns its content as an
 observable emitting one item per line.</p>
@@ -202,7 +204,7 @@ observable emitting one item per line.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – Path of the file to read or a file object</p></li>
 <li><p><strong>parse_line</strong> – A line parser, e.g. created with create_line_parser</p></li>
-<li><p><strong>skip</strong> – [Optional] Number of lines to skip before parsing</p></li>
+<li><p><strong>skip</strong> – [Optional] Number of lines to skip before parsing (excluding the header)</p></li>
 <li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
 </ul>
 </dd>
