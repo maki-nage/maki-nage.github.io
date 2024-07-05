@@ -16,7 +16,7 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=4aa2dafa"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -96,16 +96,21 @@
 <span id="io"></span><h1>IO<a class="headerlink" href="#module-rxsci.io" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.io.read">
-<span class="sig-prename descclassname"><span class="pre">rxsci.io.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.io.read" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.io.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode='r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.io.read" title="Link to this definition"></a></dt>
 <dd><p>Reads the content of a file</p>
+<blockquote>
+<div><p>When provided, the open_obj function must have the following prototype:
+open(filename, mode, encoding)</p>
+</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> – the path of the file to read, or a file object</p></li>
-<li><p><strong>mode</strong> – how the file must be opened. either ‘r’ to read text or ‘rb’ to
+<li><p><strong>file</strong> – The path of the file to read, or a file object</p></li>
+<li><p><strong>mode</strong> – [Optional] how the file must be opened. either ‘r’ to read text or ‘rb’ to
 read binary</p></li>
 <li><p><strong>size</strong> – [Optional] If set file if read by chunks of this size</p></li>
-<li><p><strong>encoding</strong> – [Optional] text encoding to use when reading in text mode</p></li>
+<li><p><strong>encoding</strong> – [Optional] The text encoding to use when reading in text mode</p></li>
+<li><p><strong>open_obj</strong> – [Optional] A custom function used to open the provided file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -134,8 +139,12 @@ sub-directories.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.io.write">
-<span class="sig-prename descclassname"><span class="pre">rxsci.io.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.io.write" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.io.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.io.write" title="Link to this definition"></a></dt>
 <dd><p>Writes the content of a file</p>
+<dl class="simple">
+<dt>When provided, the open_ibj function must have the following prototype:</dt><dd><p>open(filename, mode, encoding)</p>
+</dd>
+</dl>
 <p>The source must be an Observable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -145,6 +154,7 @@ sub-directories.</p>
 read binary</p></li>
 <li><p><strong>size</strong> – [Optional] If set file if read by chunks of this size</p></li>
 <li><p><strong>encoding</strong> – [Optional] text encoding to use when reading in text mode</p></li>
+<li><p><strong>open_obj</strong> – [Optional] A custom function used to open the provided file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

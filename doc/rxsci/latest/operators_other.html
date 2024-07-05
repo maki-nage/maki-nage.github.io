@@ -16,7 +16,7 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=4aa2dafa"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -60,7 +60,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.first"><code class="docutils literal notranslate"><span class="pre">first()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.flat_map"><code class="docutils literal notranslate"><span class="pre">flat_map()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.from_iterable"><code class="docutils literal notranslate"><span class="pre">from_iterable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.from_pandas"><code class="docutils literal notranslate"><span class="pre">from_pandas()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.group_by"><code class="docutils literal notranslate"><span class="pre">group_by()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.identity"><code class="docutils literal notranslate"><span class="pre">identity()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.last"><code class="docutils literal notranslate"><span class="pre">last()</span></code></a></li>
@@ -72,7 +71,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.start_with"><code class="docutils literal notranslate"><span class="pre">start_with()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.take"><code class="docutils literal notranslate"><span class="pre">take()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.tee_map"><code class="docutils literal notranslate"><span class="pre">tee_map()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.to_pandas"><code class="docutils literal notranslate"><span class="pre">to_pandas()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rxsci.ops.with_latest_from"><code class="docutils literal notranslate"><span class="pre">with_latest_from()</span></code></a></li>
 </ul>
 </li>
@@ -332,27 +330,6 @@ iterating on each items of the source observable.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.from_pandas">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">from_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.from_pandas" title="Link to this definition"></a></dt>
-<dd><p>Creates an observable from a pandas dataframe</p>
-<p>When a dict is provided as the progress argument, it accepts these keys:
-interval: The interval in seconds used to update the progressbar
-prefix: A prefix displayed at before the progressbar.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dataframe</strong> – A pandas dataframe</p></li>
-<li><p><strong>scheduler</strong> – An optional scheduler to schedule the values on.</p></li>
-<li><p><strong>progess</strong> – Displays a progressbar while iterating the dataframe</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable that emits one nametuple per row in the dataframe.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="rxsci.ops.group_by">
 <span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">group_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_mapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.group_by" title="Link to this definition"></a></dt>
 <dd><p>Groups items of according to a key mapper</p>
@@ -595,24 +572,6 @@ the last value of each processing are combined.</p></li>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>An observable containing tuples of the items emitted by each branch of
 the tee.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rxsci.ops.to_pandas">
-<span class="sig-prename descclassname"><span class="pre">rxsci.ops.</span></span><span class="sig-name descname"><span class="pre">to_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.ops.to_pandas" title="Link to this definition"></a></dt>
-<dd><p>Converts an observable to a pandas dataframe</p>
-<p>If colums is not specified, then items must be namedtuples and the
-columns names are infered from the fields of the namedtuple objects.</p>
-<p>The source must be an Observable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>columns</strong> – [Optional] The name of the columns of the dataframe</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An observable the emits a single item. This item is a pandas
-DataFrame.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -16,7 +16,7 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=4aa2dafa"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -153,7 +153,7 @@ parameters.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.container.csv.dump_to_file">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">escapechar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\\'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump_to_file" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator='</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">escapechar='\\'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline='\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.dump_to_file" title="Link to this definition"></a></dt>
 <dd><p>dumps each item to a csv file.</p>
 <p>The source must be an Observable.</p>
 <dl class="field-list simple">
@@ -163,7 +163,8 @@ parameters.</p>
 <li><p><strong>header</strong> – [Optional] indicates whether a header line must be added.</p></li>
 <li><p><strong>separator</strong> – [Optional] Token used to separate each columns.</p></li>
 <li><p><strong>newline</strong> – [Optional] Character(s) used for end of line.</p></li>
-<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
+<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>)</p></li>
+<li><p><strong>open_obj</strong> – [Optional] A custom function used to open the provided file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -195,7 +196,7 @@ The source must be an Observable.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.container.csv.load_from_file">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_line=&lt;function</span> <span class="pre">create_line_parser.&lt;locals&gt;._parse&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load_from_file" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.csv.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_line=&lt;function</span> <span class="pre">create_line_parser.&lt;locals&gt;._parse&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.csv.load_from_file" title="Link to this definition"></a></dt>
 <dd><p>Loads a csv file.</p>
 <p>This factory loads the provided file and returns its content as an
 observable emitting one item per line.</p>
@@ -205,7 +206,8 @@ observable emitting one item per line.</p>
 <li><p><strong>filename</strong> – Path of the file to read or a file object</p></li>
 <li><p><strong>parse_line</strong> – A line parser, e.g. created with create_line_parser</p></li>
 <li><p><strong>skip</strong> – [Optional] Number of lines to skip before parsing (excluding the header)</p></li>
-<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
+<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>)</p></li>
+<li><p><strong>open_obj</strong> – [Optional] A custom function used to open the provided file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -236,7 +238,7 @@ The source must be an Observable.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.container.json.dump_to_file">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.dump_to_file" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline='\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding='utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.dump_to_file" title="Link to this definition"></a></dt>
 <dd><p>dumps each item to a JSON file.</p>
 <p>The source must be an Observable.</p>
 <dl class="field-list simple">
@@ -244,7 +246,7 @@ The source must be an Observable.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – Path of the file to read or a file object</p></li>
 <li><p><strong>newline</strong> – [Optional] Character(s) used for end of line.</p></li>
-<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
+<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -276,7 +278,7 @@ The source must be an Observable.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.container.json.load_from_file">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.load_from_file" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_error=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding='utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.load_from_file" title="Link to this definition"></a></dt>
 <dd><p>Loads a json file.</p>
 <p>This factory loads the provided file. The format of the returned observable
 depends on the <em>lines</em> parameter.</p>
@@ -287,7 +289,7 @@ depends on the <em>lines</em> parameter.</p>
 <li><p><strong>lines</strong> – Parse file as a JSON Line when set to True, as a single JSON object otherwise.</p></li>
 <li><p><strong>skip</strong> – [Optional] Number of lines to skip before parsing</p></li>
 <li><p><strong>ignore_error</strong> – Ignore errors while parsing MessagePack</p></li>
-<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>) – </p></li>
+<li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>)</p></li>
 <li><p><strong>[</strong><strong>Optional</strong><strong>]</strong> (<em>compression</em>) – ‘gzip’ or ‘zstd’</p></li>
 </ul>
 </dd>
