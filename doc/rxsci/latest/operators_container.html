@@ -66,7 +66,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#rxsci.container.json.load_from_file"><code class="docutils literal notranslate"><span class="pre">load_from_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#parquet">parquet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parquet">parquet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rxsci.container.parquet.dump_to_file"><code class="docutils literal notranslate"><span class="pre">dump_to_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rxsci.container.parquet.load_from_file"><code class="docutils literal notranslate"><span class="pre">load_from_file()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="operators_data.html">Data</a></li>
@@ -301,7 +305,50 @@ depends on the <em>lines</em> parameter.</p>
 </section>
 <section id="parquet">
 <h2>parquet<a class="headerlink" href="#parquet" title="Link to this heading"></a></h2>
-<span class="target" id="module-rxsci.container.parquet"></span></section>
+<dl class="py function" id="module-rxsci.container.parquet">
+<dt class="sig sig-object py" id="rxsci.container.parquet.dump_to_file">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.parquet.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_group_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'snappy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption_properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.parquet.dump_to_file" title="Link to this definition"></a></dt>
+<dd><p>dumps each item to a parquet file.</p>
+<p>The source must be an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Path of the file to write or a file object</p></li>
+<li><p><strong>schema</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></span>) – The schema of the data to write.</p></li>
+<li><p><strong>batch_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Size of internal batches when writing in the parquet file</p></li>
+<li><p><strong>row_group_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – [Optional] Size of a row group. See pyarrow.parquet.ParquetWriter for more informaton.</p></li>
+<li><p><strong>compression</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – [Optional] compression codec: none, snappy, gzip, brotli, lz4, zstd.</p></li>
+<li><p><strong>encryption_properties</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FileEncryptionProperties</span></code>]</span>) – [Optional] encryption configuration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An empty observable that completes on success when the source
+observable completes or completes on error if there is an error
+while writing the parquet.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rxsci.container.parquet.load_from_file">
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.parquet.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decryption_properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.parquet.load_from_file" title="Link to this definition"></a></dt>
+<dd><p>loads a parquet file.</p>
+<p>This factory loads the provided parquet file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Path of the file to write or a file object</p></li>
+<li><p><strong>batch_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Size of internal batches when writing in the parquet file</p></li>
+<li><p><strong>decryption_properties</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FileDecryptionProperties</span></code>]</span>) – [Optional] decryption configuration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An observable of objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
