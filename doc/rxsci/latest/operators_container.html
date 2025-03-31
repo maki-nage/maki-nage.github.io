@@ -244,12 +244,17 @@ The source must be an Observable.</p>
 <span class="sig-prename descclassname"><span class="pre">rxsci.container.json.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newline='\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding='utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.json.dump_to_file" title="Link to this definition"></a></dt>
 <dd><p>dumps each item to a JSON file.</p>
 <p>The source must be an Observable.</p>
+<dl class="simple">
+<dt>The open_obj function must return a file-like object. Its prototype is:</dt><dd><p>open_obj(filename: str, mode: str, encoding: str) -&gt; file-like object</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – Path of the file to read or a file object</p></li>
 <li><p><strong>newline</strong> – [Optional] Character(s) used for end of line.</p></li>
 <li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>)</p></li>
+<li><p><strong>open_obj</strong> – A function to open the source file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -285,6 +290,10 @@ The source must be an Observable.</p>
 <dd><p>Loads a json file.</p>
 <p>This factory loads the provided file. The format of the returned observable
 depends on the <em>lines</em> parameter.</p>
+<dl class="simple">
+<dt>The open_obj function must return a file-like object. Its prototype is:</dt><dd><p>open_obj(filename: str, mode: str, encoding: str) -&gt; file-like object</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -294,6 +303,7 @@ depends on the <em>lines</em> parameter.</p>
 <li><p><strong>ignore_error</strong> – Ignore errors while parsing MessagePack</p></li>
 <li><p><strong>content</strong> (<em>encoding</em><em> [</em><em>Optional</em><em>] </em><em>Encoding used to parse the text</em>)</p></li>
 <li><p><strong>[</strong><strong>Optional</strong><strong>]</strong> (<em>compression</em>) – ‘gzip’ or ‘zstd’</p></li>
+<li><p><strong>open_obj</strong> – A function to open the source file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -307,7 +317,7 @@ depends on the <em>lines</em> parameter.</p>
 <h2>parquet<a class="headerlink" href="#parquet" title="Link to this heading"></a></h2>
 <dl class="py function" id="module-rxsci.container.parquet">
 <dt class="sig sig-object py" id="rxsci.container.parquet.dump_to_file">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.parquet.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_group_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'snappy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption_properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.parquet.dump_to_file" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.parquet.</span></span><span class="sig-name descname"><span class="pre">dump_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size=1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_group_size=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression='snappy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption_properties=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.parquet.dump_to_file" title="Link to this definition"></a></dt>
 <dd><p>dumps each item to a parquet file.</p>
 <p>The source must be an Observable.</p>
 <dl class="field-list simple">
@@ -331,15 +341,18 @@ while writing the parquet.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="rxsci.container.parquet.load_from_file">
-<span class="sig-prename descclassname"><span class="pre">rxsci.container.parquet.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decryption_properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.parquet.load_from_file" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">rxsci.container.parquet.</span></span><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size=1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decryption_properties=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_obj=&lt;built-in</span> <span class="pre">function</span> <span class="pre">open&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rxsci.container.parquet.load_from_file" title="Link to this definition"></a></dt>
 <dd><p>loads a parquet file.</p>
 <p>This factory loads the provided parquet file.</p>
+<p>The open_obj function must return a file-like object. Its prototype is:
+open_obj(filename: str, mode: str, encoding: str) -&gt; file-like object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Path of the file to write or a file object</p></li>
 <li><p><strong>batch_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Size of internal batches when writing in the parquet file</p></li>
 <li><p><strong>decryption_properties</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FileDecryptionProperties</span></code>]</span>) – [Optional] decryption configuration.</p></li>
+<li><p><strong>open_obj</strong> – A function to open the source file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
